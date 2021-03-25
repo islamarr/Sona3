@@ -8,13 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.ihsan.sona3.R
 import com.ihsan.sona3.databinding.FragmentVerificationBinding
-import com.ihsan.sona3.utils.toast
 
 
 class VerificationFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentVerificationBinding
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,12 +31,13 @@ class VerificationFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        navController = Navigation.findNavController(view)
         binding.btnContinue.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.btnContinue -> requireContext().toast("Test")
+            R.id.btnContinue -> navController.navigate(R.id.action_verificationFragment_to_incorrectNumberFragment)
         }
 
     }
@@ -170,7 +173,7 @@ class VerificationFragment : Fragment(), View.OnClickListener {
             }
 
             override fun afterTextChanged(s: Editable) {
-                if (binding.etDigit5.text.toString().length == 0) {
+                if (binding.etDigit5.text.toString().isEmpty()) {
                     binding.etDigit5.requestFocus()
                 }
             }
@@ -187,14 +190,11 @@ class VerificationFragment : Fragment(), View.OnClickListener {
             }
             false
         }
-////////////////////////////////////////////////////////////////////////////////////////////
-
-
         binding.etDigit6.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable?) {
 
-                if (binding.etDigit6.text.toString().length == 0) {
+                if (binding.etDigit6.text.toString().isEmpty()) {
                     binding.etDigit6.requestFocus()
                 }
 
@@ -205,7 +205,8 @@ class VerificationFragment : Fragment(), View.OnClickListener {
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (binding.etDigit6.text.toString().length == 1) {
-                    binding.etDigit6.requestFocus()
+                    binding.etDigit6.clearFocus()
+                    binding.btnContinue.requestFocus()
                     binding.etDigit6.isCursorVisible = true
 
                 }

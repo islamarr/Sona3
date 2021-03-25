@@ -21,5 +21,8 @@
     <string name="enter_verification_code">ادخل رقم الكود الذي تم ارساله الى</string>
     <string name="go_on">متابعة</string>
     <string name="unsend_code">لم اتلق رمزًا</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="incorrect_number">يبدو ان الرقم الذي ادخلته غير صحيح</string>
+    <string name="change_number">تغيير الرقم</string>
     <!-- End   Login Screen Strings  -->
 </resources>

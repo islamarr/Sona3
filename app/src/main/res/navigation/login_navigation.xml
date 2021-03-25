@@ -35,5 +35,22 @@
         android:id="@+id/verificationFragment"
         android:name="com.ihsan.sona3.ui.login.VerificationFragment"
         android:label="fragment_verification"
-        tools:layout="@layout/fragment_verification" />
+        tools:layout="@layout/fragment_verification">
+        <action
+            android:id="@+id/action_verificationFragment_to_incorrectNumberFragment"
+            app:destination="@id/incorrectNumberFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/incorrectNumberFragment"
+        android:name="com.ihsan.sona3.ui.login.IncorrectNumberFragment"
+        android:label="fragment_incorrect_number"
+        tools:layout="@layout/fragment_incorrect_number">
+        <action
+            android:id="@+id/action_incorrectNumberFragment_to_enterPhoneNumberFragment"
+            app:destination="@id/enterPhoneNumberFragment" />
+    </fragment>
 </navigation>

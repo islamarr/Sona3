@@ -18,7 +18,8 @@
     <string name="enter_your_phone_number">أدخل رقم هاتفك المحمول</string>
     <string name="phone_number">رقم المحمول</string>
     <string name="send_verification_code">ارسل كود التفعيل</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_verification_code">ادخل رقم الكود الذي تم ارساله الى</string>
+    <string name="go_on">متابعة</string>
+    <string name="unsend_code">لم اتلق رمزًا</string>
     <!-- End   Login Screen Strings  -->
 </resources>

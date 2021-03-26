@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.databinding.FragmentIncorrectNumberBinding
 
@@ -32,6 +33,8 @@ class IncorrectNumberFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navController = Navigation.findNavController(view)
         binding.btnChangeNumber.setOnClickListener(this)
+
+        (activity as MainActivity).setHomeItemsVisibility(View.INVISIBLE)
     }
 
     private fun setWarningImageAnimation() {

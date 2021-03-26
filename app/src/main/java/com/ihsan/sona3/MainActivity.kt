@@ -14,6 +14,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.ihsan.sona3.ui.login.SplashFragment
+import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,11 +25,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
-        val fragment = SplashFragment()
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.nav_host_fragment, fragment)
-        transaction.commit()
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
@@ -58,4 +54,10 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    fun setHomeItemsVisibility(visibility: Int) {
+        mainAppbar.visibility = visibility
+        fab.visibility = visibility
+    }
+
 }

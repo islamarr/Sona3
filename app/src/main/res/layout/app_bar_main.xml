@@ -7,8 +7,10 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/mainAppbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:theme="@style/Theme.Sona3.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar

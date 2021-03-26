@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.databinding.FragmentVerificationBinding
 
@@ -33,11 +34,15 @@ class VerificationFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navController = Navigation.findNavController(view)
         binding.btnContinue.setOnClickListener(this)
+        binding.tvUnsentCode.setOnClickListener(this)
+
+        (activity as MainActivity).setHomeItemsVisibility(View.INVISIBLE)
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.btnContinue -> navController.navigate(R.id.action_verificationFragment_to_incorrectNumberFragment)
+            R.id.btnContinue -> navController.navigate(R.id.action_verificationFragment_to_nav_home)
+            R.id.tvUnsentCode -> navController.navigate(R.id.action_verificationFragment_to_incorrectNumberFragment)
         }
 
     }

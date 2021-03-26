@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.databinding.SplashFragmentBinding
 
@@ -37,17 +38,20 @@ class SplashFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navController = Navigation.findNavController(view)
         binding.btnLogin.setOnClickListener(this)
+        binding.tvSkip.setOnClickListener(this)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        (activity as MainActivity).setHomeItemsVisibility(View.INVISIBLE)
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.btnLogin -> navController.navigate(R.id.action_splashFragment_to_enterPhoneNumberFragment)
+            R.id.tvSkip -> navController.navigate(R.id.action_splashFragment_to_nav_home)
         }
     }
 

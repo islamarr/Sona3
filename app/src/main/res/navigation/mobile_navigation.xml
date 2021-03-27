@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.ihsan.sona3.ui.login.SplashFragment"
+        android:name="com.ihsan.sona3.ui.login.LoginFragment"
         android:label="login_fragment"
         tools:layout="@layout/splash_fragment">
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/enterPhoneNumberFragment"
-        android:name="com.ihsan.sona3.ui.login.EnterPhoneNumberFragment"
+        android:name="com.ihsan.sona3.ui.login.PhoneNumberFragment"
         android:label="fragment_enter_phone_number"
         tools:layout="@layout/fragment_enter_phone_number">
         <action

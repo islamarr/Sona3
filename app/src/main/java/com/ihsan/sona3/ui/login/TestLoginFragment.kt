@@ -1,11 +1,12 @@
 package com.ihsan.sona3.ui.login
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 
@@ -28,7 +29,10 @@ class TestLoginFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
-        (activity as MainActivity).setHomeItemsVisibility(View.INVISIBLE)
+        (activity as MainActivity).setHomeItemsVisibility(
+            View.INVISIBLE,
+            DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+        )
     }
 
 }

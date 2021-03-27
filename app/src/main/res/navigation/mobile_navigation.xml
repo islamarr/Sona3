@@ -61,7 +61,9 @@
         tools:layout="@layout/fragment_incorrect_number">
         <action
             android:id="@+id/action_incorrectNumberFragment_to_enterPhoneNumberFragment"
-            app:destination="@id/enterPhoneNumberFragment" />
+            app:destination="@id/enterPhoneNumberFragment"
+
+            />
     </fragment>
 
     <fragment

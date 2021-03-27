@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/incorrect_number"
-        android:textColor="#272727"
+        android:textColor="@color/app_text_color"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/ivWarning"
         app:layout_constraintHorizontal_bias="0.491"

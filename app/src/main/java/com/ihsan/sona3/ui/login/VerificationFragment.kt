@@ -7,6 +7,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -36,7 +37,10 @@ class VerificationFragment : Fragment(), View.OnClickListener {
         binding.btnContinue.setOnClickListener(this)
         binding.tvUnsentCode.setOnClickListener(this)
 
-        (activity as MainActivity).setHomeItemsVisibility(View.INVISIBLE)
+        (activity as MainActivity).setHomeItemsVisibility(
+            View.INVISIBLE,
+            DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+        )
     }
 
     override fun onClick(v: View?) {

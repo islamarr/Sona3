@@ -98,6 +98,8 @@ dependencies {
     implementation "com.truecaller.android.sdk:truecaller-sdk:2.6.0"
     //multidex for truecaller error
     implementation 'com.android.support:multidex:1.0.3'
+    //timber for log
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 
 
     testImplementation 'junit:junit:4.13.2'

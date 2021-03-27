@@ -17,6 +17,7 @@ import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.databinding.SplashFragmentBinding
 import com.truecaller.android.sdk.*
+import timber.log.Timber
 import java.util.*
 
 
@@ -98,12 +99,6 @@ class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback {
 
     override fun onSuccessProfileShared(trueProfile: TrueProfile) {
 
-        Log.d(
-            "zxc",
-            "Verified Successfully : " + trueProfile.phoneNumber + "-----" + trueProfile.userLocale
-                    + "----" + trueProfile.signature + "----" + trueProfile.requestNonce + "-----" + trueProfile.signatureAlgorithm
-                    + "---" + trueProfile.accessToken
-        )
         val TCname = trueProfile.firstName + " " + trueProfile.lastName
         val TCemail = trueProfile.email
         val TCgender = trueProfile.gender
@@ -112,11 +107,13 @@ class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback {
         val TCcity = trueProfile.city
         val TCurl = trueProfile.url
         val phoneNumberString = trueProfile.phoneNumber
-        //  integrate with backend
+
+        Timber.d("Verified Successfully : $TCname  $TCemail  $phoneNumberString  ")
+       //  integrate with backend
     }
 
     override fun onFailureProfileShared(trueError: TrueError) {
-        Log.d("zxc", "onFailureProfileShared: " + trueError.errorType)
+        Timber.d("onFailureProfileShared: ${trueError.errorType}")
         when (trueError.errorType) {
             TrueError.ERROR_TYPE_USER_DENIED -> {
             }
@@ -134,7 +131,7 @@ class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback {
     }
 
     override fun onVerificationRequired(p: TrueError?) {
-        Log.d("zxc", "onVerificationRequired: " + p.toString())
+        Timber.d("onVerificationRequired: $p ")
     }
 
 

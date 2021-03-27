@@ -12,18 +12,61 @@ android {
         applicationId "com.ihsan.sona3"
         minSdkVersion 17
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
+        versionCode 100
+        versionName "1.0.0"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        release {
+            keyAlias 'islam'
+            keyPassword 'islam2022'
+            storeFile file('../islam.jks')
+            storePassword 'islam2022'
+        }
     }
 
     buildTypes {
+
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    project.ext { appName = 'Sona3_' }
+                    def newName = output.outputFile.name
+                    newName = newName.replace("app-", "$project.ext.appName")
+                    newName = newName.replace("release", variant.versionName + "_release")
+                    outputFileName = newName
+                }
+            }
+            signingConfig signingConfigs.release
+            manifestPlaceholders.trueCallerKey = "l68nCc298df4873074ad293b1ff2b9f771818"
         }
+
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    project.ext { appName = 'Sona3_' }
+                    def newName = output.outputFile.name
+                    newName = newName.replace("app-", "$project.ext.appName")
+                    newName = newName.replace("debug", variant.versionName + "_debug")
+                    outputFileName = newName
+                }
+            }
+            signingConfig signingConfigs.debug
+            manifestPlaceholders.trueCallerKey = "l68nCc298df4873074ad293b1ff2b9f771818"
+        }
+
+        /*release {
+            manifestPlaceholders.trueCallerKey = "l68nCc298df4873074ad293b1ff2b9f771818"
+        }*/
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -50,6 +93,11 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    //truecaller
+    implementation "com.truecaller.android.sdk:truecaller-sdk:2.6.0"
+    //multidex for truecaller error
+    implementation 'com.android.support:multidex:1.0.3'
 
 
     testImplementation 'junit:junit:4.13.2'

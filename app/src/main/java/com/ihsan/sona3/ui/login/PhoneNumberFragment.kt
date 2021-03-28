@@ -39,6 +39,9 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
         binding = FragmentEnterPhoneNumberBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
         setCallback()
+        binding.ccp.registerCarrierNumberEditText(binding.etPhoneNumber)
+
+
         return binding.root
     }
 
@@ -59,11 +62,10 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
     }
 
     fun login() {
-        var mobileNumber = binding.etPhoneNumber.text.toString().trim()
-        if (mobileNumber.isNotEmpty()) {
-            mobileNumber = "+2$mobileNumber"
-            sendVerificationCode(mobileNumber)
-        } else requireActivity().toast("ادخل رقم هاتفك")
+
+        if (validateNumber()) {
+            sendVerificationCode(binding.ccp.fullNumberWithPlus)
+        } else requireActivity().toast("ادخل رقم هاتف صحيح")
     }
 
     private fun sendVerificationCode(mobileNumber: String) {
@@ -104,6 +106,16 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
 
             }
         }
+    }
+
+    private fun validateNumber(): Boolean {
+        var isValidate = false
+        binding.ccp.setPhoneNumberValidityChangeListener { isValidNumber ->
+            if (isValidNumber) {
+                isValidate = true
+            }
+        }
+        return isValidate
     }
 
 

@@ -12,7 +12,7 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <!-- Start   Login Screen Strings  -->
-    <string name="login_with_phone_number">تسجيل الدخول برقم التلفون</string>
+    <string name="login_with_phone_number">تسجيل الدخول برقم الهاتف</string>
     <string name="Skip">تخطي</string>
     <string name="image">image</string>
     <string name="enter_your_phone_number">أدخل رقم هاتفك المحمول</string>

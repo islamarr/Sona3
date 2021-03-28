@@ -19,28 +19,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
 
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/ccp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:ccp_autoDetectCountry="true"
+        app:layout_constraintEnd_toEndOf="@+id/tvEnterYourNumber"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvEnterYourNumber"
+        app:layout_constraintTop_toBottomOf="@+id/tvEnterYourNumber">
+
+    </com.hbb20.CountryCodePicker>
+
+    <EditText
         android:id="@+id/etPhoneNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:autofillHints="false"
-        android:ems="10"
-        android:hint="@string/phone_number"
+
         android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="@+id/tvEnterYourNumber"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/tvEnterYourNumber"
-        app:layout_constraintTop_toBottomOf="@+id/tvEnterYourNumber" />
+        android:singleLine="true"
+        app:layout_constraintEnd_toEndOf="@+id/ccp"
+        app:layout_constraintStart_toStartOf="@+id/ccp"
+        app:layout_constraintTop_toBottomOf="@+id/ccp" />
 
     <Button
-
         android:id="@+id/btnSendCode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:layout_marginStart="@dimen/_30dp"
-        android:layout_marginTop="40dp"
         android:layout_marginEnd="@dimen/_30dp"
         android:text="@string/send_verification_code"
         app:layout_constraintEnd_toEndOf="@+id/etPhoneNumber"
@@ -51,9 +60,9 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

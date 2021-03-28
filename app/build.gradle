@@ -1,7 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
+    id 'com.google.gms.google-services'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -100,6 +101,11 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     //timber for log
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:26.8.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth:20.0.3'
 
 
     testImplementation 'junit:junit:4.13.2'

@@ -2,7 +2,6 @@ package com.ihsan.sona3.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.google.firebase.auth.FirebaseAuth
 import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.databinding.SplashFragmentBinding
@@ -134,5 +134,13 @@ class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback {
         Timber.d("onVerificationRequired: $p ")
     }
 
+
+    fun checkCurrentUser() {
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            navController.navigate(R.id.action_splashFragment_to_nav_home)
+        }
+    }
 
 }

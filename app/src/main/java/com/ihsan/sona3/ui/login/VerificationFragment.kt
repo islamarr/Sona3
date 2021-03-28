@@ -11,14 +11,20 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
 import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.databinding.FragmentVerificationBinding
+import com.ihsan.sona3.utils.toast
 
 
 class VerificationFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentVerificationBinding
     private lateinit var navController: NavController
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +33,7 @@ class VerificationFragment : Fragment(), View.OnClickListener {
         // Inflate the layout for this fragment
         binding = FragmentVerificationBinding.inflate(inflater, container, false)
         formatCode()
+        auth = FirebaseAuth.getInstance()
 
 
         return binding.root
@@ -45,7 +52,7 @@ class VerificationFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.btnContinue -> navController.navigate(R.id.action_verificationFragment_to_nav_home)
+            R.id.btnContinue -> checkVerificationCode()
             R.id.tvUnsentCode -> navController.navigate(R.id.action_verificationFragment_to_incorrectNumberFragment)
         }
 
@@ -53,6 +60,7 @@ class VerificationFragment : Fragment(), View.OnClickListener {
 
     // this method was created to move from a edit text to another after writing the digit
     private fun formatCode() {
+        binding.etDigit1.requestFocus()
         binding.etDigit1.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (binding.etDigit1.text.toString().length == 1) {
@@ -222,6 +230,39 @@ class VerificationFragment : Fragment(), View.OnClickListener {
             }
         })
 
+    }
+
+    private fun checkVerificationCode() {
+        val digit1 = binding.etDigit1.text.toString()
+        val digit2 = binding.etDigit2.text.toString()
+        val digit3 = binding.etDigit3.text.toString()
+        val digit4 = binding.etDigit4.text.toString()
+        val digit5 = binding.etDigit5.text.toString()
+        val digit6 = binding.etDigit6.text.toString()
+        val code = digit1 + digit2 + digit3 + digit4 + digit5 + digit6
+        if (code.isNotEmpty()) {
+            val verificationCode = arguments?.getString("storedVerificationId")
+            val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(
+                verificationCode.toString(), code
+            )
+            signInWithPhoneAuthCredential(credential)
+        }
+    }
+
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    navController.navigate(R.id.action_verificationFragment_to_nav_home)
+                    requireContext().toast("تم التسجيل بنجاح")
+
+                } else {
+
+                    if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                        navController.navigate(R.id.action_verificationFragment_to_incorrectNumberFragment)
+                    }
+                }
+            }
     }
 
 }

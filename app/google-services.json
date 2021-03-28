@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "329635399223",
+    "project_id": "sona3-d1340",
+    "storage_bucket": "sona3-d1340.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329635399223:android:c4209fbbaac5768494e1b2",
+        "android_client_info": {
+          "package_name": "com.ihsan.sona3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "329635399223-7htcpn73fihu5qgncv0nad762ps2t8qk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-55XzhAh6KzA0xnbR_PWSvR4lXmTJZJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329635399223-7htcpn73fihu5qgncv0nad762ps2t8qk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

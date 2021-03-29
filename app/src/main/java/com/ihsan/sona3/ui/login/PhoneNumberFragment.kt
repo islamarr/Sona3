@@ -19,18 +19,17 @@ import com.google.android.gms.auth.api.credentials.HintRequest
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.databinding.FragmentEnterPhoneNumberBinding
 import com.ihsan.sona3.utils.hide
-import com.ihsan.sona3.utils.show
 import com.ihsan.sona3.utils.toast
-import java.util.concurrent.TimeUnit
 
 
 class PhoneNumberFragment : Fragment(), View.OnClickListener {
+
+
     private lateinit var binding: FragmentEnterPhoneNumberBinding
     private lateinit var navController: NavController
 
@@ -69,23 +68,16 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun login() {
+    private fun login() {
 
         if (validateNumber()) {
-            sendVerificationCode(binding.ccp.fullNumberWithPlus)
+            LoginPresenter().sendVerificationCode(
+                binding.ccp.fullNumberWithPlus,
+                requireActivity(), callbacks
+            )
         } else requireActivity().toast("ادخل رقم هاتف صحيح")
     }
 
-    private fun sendVerificationCode(mobileNumber: String) {
-        binding.progressBar.show()
-        val options = PhoneAuthOptions.newBuilder(auth)
-            .setPhoneNumber(mobileNumber) // Phone number to verify
-            .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-            .setActivity(requireActivity()) // Activity (for callback binding)
-            .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
-            .build()
-        PhoneAuthProvider.verifyPhoneNumber(options)
-    }
 
     private fun setCallback() {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -96,7 +88,7 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
 
             override fun onVerificationFailed(e: FirebaseException) {
                 binding.progressBar.hide()
-                requireContext().toast("فشل")
+                requireContext().toast("فشل في ارسال الرمز")
             }
 
             override fun onCodeSent(
@@ -114,6 +106,7 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
 
             }
         }
+
     }
 
     private fun validateNumber(): Boolean {

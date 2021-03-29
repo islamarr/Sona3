@@ -86,11 +86,7 @@ class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback {
         TruecallerSDK.init(trueScope)
     }
 
-    override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?
-    ) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == TruecallerSDK.SHARE_PROFILE_REQUEST_CODE) {
             TruecallerSDK.getInstance().onActivityResultObtained(requireActivity(), requestCode, resultCode, data)

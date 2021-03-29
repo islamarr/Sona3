@@ -17,13 +17,13 @@ import com.google.android.gms.auth.api.credentials.Credentials
 import com.google.android.gms.auth.api.credentials.CredentialsOptions
 import com.google.android.gms.auth.api.credentials.HintRequest
 import com.google.firebase.FirebaseException
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.databinding.FragmentEnterPhoneNumberBinding
 import com.ihsan.sona3.utils.hide
+import com.ihsan.sona3.utils.show
 import com.ihsan.sona3.utils.toast
 
 
@@ -32,8 +32,6 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
 
     private lateinit var binding: FragmentEnterPhoneNumberBinding
     private lateinit var navController: NavController
-
-    lateinit var auth: FirebaseAuth
     lateinit var storedVerificationId: String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
@@ -43,12 +41,9 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentEnterPhoneNumberBinding.inflate(inflater, container, false)
-        auth = FirebaseAuth.getInstance()
         setCallback()
         binding.ccp.registerCarrierNumberEditText(binding.etPhoneNumber)
         phoneNumberSelector()
-
-
         return binding.root
     }
 
@@ -69,13 +64,16 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
     }
 
     private fun login() {
-
+        binding.progressBar.show()
         if (validateNumber()) {
             LoginPresenter().sendVerificationCode(
                 binding.ccp.fullNumberWithPlus,
                 requireActivity(), callbacks
             )
-        } else requireActivity().toast("ادخل رقم هاتف صحيح")
+        } else {
+            requireActivity().toast("ادخل رقم هاتف صحيح")
+            binding.progressBar.hide()
+        }
     }
 
 

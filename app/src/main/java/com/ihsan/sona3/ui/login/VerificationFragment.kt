@@ -12,13 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.databinding.FragmentVerificationBinding
-import com.ihsan.sona3.utils.toast
+import com.ihsan.sona3.utils.show
 
 
 class VerificationFragment : Fragment(), View.OnClickListener {
@@ -233,6 +232,7 @@ class VerificationFragment : Fragment(), View.OnClickListener {
     }
 
     private fun checkVerificationCode() {
+        binding.progressBar.show()
         val digit1 = binding.etDigit1.text.toString()
         val digit2 = binding.etDigit2.text.toString()
         val digit3 = binding.etDigit3.text.toString()
@@ -245,24 +245,18 @@ class VerificationFragment : Fragment(), View.OnClickListener {
             val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(
                 verificationCode.toString(), code
             )
-            signInWithPhoneAuthCredential(credential)
+            LoginPresenter().signInWithPhoneAuthCredential(
+                credential,
+                navController,
+                requireActivity(),
+                R.id.action_verificationFragment_to_nav_home,
+                R.id.action_verificationFragment_to_incorrectNumberFragment
+            )
+
         }
+
     }
 
-    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    navController.navigate(R.id.action_verificationFragment_to_nav_home)
-                    requireContext().toast("تم التسجيل بنجاح")
 
-                } else {
-
-                    if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                        navController.navigate(R.id.action_verificationFragment_to_incorrectNumberFragment)
-                    }
-                }
-            }
-    }
 
 }

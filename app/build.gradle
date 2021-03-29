@@ -89,8 +89,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -108,7 +108,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:20.0.3'
 
     //phone number validation
-    implementation 'com.hbb20:ccp:2.4.7'    
+    implementation 'com.hbb20:ccp:2.4.7'
+    // phone number selector api
+
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
 
     testImplementation 'junit:junit:4.13.2'

@@ -1,5 +1,8 @@
 package com.ihsan.sona3.ui.login
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.content.IntentSender
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +12,10 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.google.android.gms.auth.api.credentials.Credential
+import com.google.android.gms.auth.api.credentials.Credentials
+import com.google.android.gms.auth.api.credentials.CredentialsOptions
+import com.google.android.gms.auth.api.credentials.HintRequest
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
@@ -40,6 +47,7 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
         auth = FirebaseAuth.getInstance()
         setCallback()
         binding.ccp.registerCarrierNumberEditText(binding.etPhoneNumber)
+        phoneNumberSelector()
 
 
         return binding.root
@@ -116,6 +124,41 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
             }
         }
         return isValidate
+    }
+
+    private fun phoneNumberSelector() {
+        val hintRequest = HintRequest.Builder()
+            .setPhoneNumberIdentifierSupported(true)
+            .build()
+        val options = CredentialsOptions.Builder()
+            .forceEnableSaveDialog()
+            .build()
+
+        val credentialsClient = Credentials.getClient(requireContext(), options)
+        val intent = credentialsClient.getHintPickerIntent(hintRequest)
+        try {
+            startIntentSenderForResult(
+                intent.intentSender,
+                1, null, 0, 0, 0, Bundle()
+            )
+        } catch (e: IntentSender.SendIntentException) {
+            e.printStackTrace()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            val credential: Credential? = data?.getParcelableExtra(Credential.EXTRA_KEY)
+
+            // set the received data t the text view
+            credential?.apply {
+                var phoneNumber = credential.id
+                phoneNumber = phoneNumber.replace("+20", "")
+                binding.etPhoneNumber.setText(phoneNumber)
+            }
+
+        }
     }
 
 

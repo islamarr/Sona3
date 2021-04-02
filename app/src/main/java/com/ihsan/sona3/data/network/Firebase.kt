@@ -13,7 +13,6 @@ class Firebase {
         activity: Activity,
         callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     ) {
-
         val options = PhoneAuthOptions.Builder(auth)
             .setPhoneNumber(phoneNumber)
             .setTimeout(60L, TimeUnit.SECONDS)

@@ -32,6 +32,7 @@ class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback {
         savedInstanceState: Bundle?
     ): View {
         binding = SplashFragmentBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -44,7 +45,7 @@ class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-
+        checkCurrentUser()
         (activity as MainActivity).setHomeItemsVisibility(
             View.INVISIBLE,
             DrawerLayout.LOCK_MODE_LOCKED_CLOSED

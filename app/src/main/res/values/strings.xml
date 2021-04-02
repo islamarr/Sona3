@@ -10,6 +10,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="profile">profile</string>
 
     <!-- Start   Login Screen Strings  -->
     <string name="login_with_phone_number">تسجيل الدخول برقم الهاتف</string>
@@ -24,5 +25,16 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="incorrect_number">يبدو ان الكود الذي ادخلته غير صحيح</string>
     <string name="change_number">تغيير الرقم</string>
+    <string name="login_success">تم التسجيل بنجاح</string>
+
     <!-- End   Login Screen Strings  -->
+
+    <!-- Start Profile Screen Strings -->
+    <string name="name">الاسم</string>
+    <string name="type">الصفة</string>
+    <string name="address">العنوان</string>
+    <string name="national_id">الرقم القومي</string>
+    <string name="email">الايميل</string>
+
+    <!-- End Profile Screen Strings -->
 </resources>

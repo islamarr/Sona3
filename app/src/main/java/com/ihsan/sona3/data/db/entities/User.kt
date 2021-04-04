@@ -7,17 +7,18 @@ const val CURRENT_USER_ID = 0
 
 @Entity(tableName = "user")
 class User(
-    val name: String? = null,
-    val email: String? = null,
-    val imageUrl: String? = null,
-    val gender: String? = null,
-    val countryCode: String? = null,
-    val phoneNumber: String? = null,
-    val city: String? = null,
-    val state: String? = null,
-    val country: String? = null,
-    val role: String? = null,
-    val nationalId: String? = null,
+    var name: String? = null,
+    var email: String? = null,
+    var imageUrl: String? = null,
+    var gender: String? = null,
+    var countryCode: String? = null,
+    var phoneNumber: String? = null,
+    var city: String? = null,
+    var state: String? = null,
+    var country: String? = null,
+    var role: String? = null,
+    var nationalId: String? = null,
+    var profileUrl: String? = null,
 
     ) {
     @PrimaryKey(autoGenerate = false)

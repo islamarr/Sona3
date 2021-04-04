@@ -15,7 +15,10 @@ import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
 import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
+import com.ihsan.sona3.data.db.AppDatabase
+import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.databinding.SplashFragmentBinding
+import com.ihsan.sona3.utils.Coroutines
 import com.truecaller.android.sdk.*
 import timber.log.Timber
 import java.util.*
@@ -96,17 +99,26 @@ class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback {
 
     override fun onSuccessProfileShared(trueProfile: TrueProfile) {
 
-        val TCname = trueProfile.firstName + " " + trueProfile.lastName
-        val TCemail = trueProfile.email
-        val TCgender = trueProfile.gender
-        val TCcountryCode = trueProfile.countryCode
-        val TCavatarUrl = trueProfile.avatarUrl
-        val TCcity = trueProfile.city
-        val TCurl = trueProfile.url
-        val phoneNumberString = trueProfile.phoneNumber
+        val user = User()
+        val tcName = trueProfile.firstName + " " + trueProfile.lastName
+        user.name = tcName
+        user.email = trueProfile.email
+        user.gender = trueProfile.gender
+        user.countryCode = trueProfile.countryCode
+        user.imageUrl = trueProfile.avatarUrl
+        user.city = trueProfile.city
+        user.profileUrl = trueProfile.url
+        user.phoneNumber = trueProfile.phoneNumber
 
-        Timber.d("Verified Successfully : $TCname  $TCemail  $phoneNumberString  ")
+        Timber.d("Verified Successfully : $tcName  ${user.email}  ${user.phoneNumber}  ")
        //  integrate with backend
+
+        Coroutines.io {
+            AppDatabase.invoke(requireActivity()).getUserDao().upsert(user)
+        }
+
+        navController.navigate(R.id.action_splashFragment_to_nav_home)
+
     }
 
     override fun onFailureProfileShared(trueError: TrueError) {

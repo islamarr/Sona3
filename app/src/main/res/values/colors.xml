@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="app_text_color">#272727</color>
+    <color name="roles_text_color">#424242</color>
+    <color name="bottom_sheet_background">#FB3D3D</color>
 </resources>

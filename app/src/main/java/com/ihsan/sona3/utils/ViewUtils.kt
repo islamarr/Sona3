@@ -2,6 +2,7 @@ package com.ihsan.sona3.utils
 
 import android.content.Context
 import android.view.View
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 
@@ -15,4 +16,12 @@ fun ProgressBar.show() {
 
 fun ProgressBar.hide() {
     visibility = View.GONE
+}
+
+fun ImageView.show() {
+    visibility = View.VISIBLE
+}
+
+fun ImageView.hide() {
+    visibility = View.INVISIBLE
 }

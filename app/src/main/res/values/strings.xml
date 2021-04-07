@@ -14,7 +14,7 @@
 
     <!-- Start   Login Screen Strings  -->
     <string name="login_with_phone_number">تسجيل الدخول برقم الهاتف</string>
-    <string name="Skip">تخطي</string>
+    <string name="skip">تخطي</string>
     <string name="image">image</string>
     <string name="enter_your_phone_number">أدخل رقم هاتفك المحمول</string>
     <string name="phone_number">رقم المحمول</string>
@@ -36,5 +36,21 @@
     <string name="national_id">الرقم القومي</string>
     <string name="email">الايميل</string>
 
+
     <!-- End Profile Screen Strings -->
+
+    <!--  Start Roles Screen Strings -->
+    <string name="next">التالي</string>
+    <string name="editor_or_volunteer">محرر/متبرع</string>
+    <string name="researcher">باحث</string>
+    <string name="reviewer">مراجع</string>
+    <string name="verifier">معتمد</string>
+    <string name="permissions">الصلاحيات</string>
+    <string name="all_done">all done</string>
+    <string name="editing_forms">تحرير استمارات</string>
+    <string name="show_verified_cases">استعراض الحالات المعتمدة</string>
+    <string name="show_search_forms">استعراض وبحث الاستمارات المحررة</string>
+    <string name="show_review_forms">استعراض ومراجعة الابحاث</string>
+    <string name="show_verify_forms">استعراض واعتماد الابحاث \n التي تم مراجعتها</string>
+    <!--  End Roles Screen Strings -->
 </resources>

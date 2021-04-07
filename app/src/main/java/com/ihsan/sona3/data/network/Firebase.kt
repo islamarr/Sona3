@@ -50,7 +50,7 @@ class Firebase {
                         // FirebaseUser.getToken() instead.
                         val uid = user.uid
 
-                        user.getIdToken(true).addOnCompleteListener{ task2 ->
+                        user.getIdToken(true).addOnCompleteListener { task2 ->
                             if (task2.isSuccessful) {
                                 val idToken = task2.result!!.token.toString()
                                 // Send token to your backend via HTTPS

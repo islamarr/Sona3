@@ -22,4 +22,17 @@
     <style name="Theme.Sona3.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Sona3.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="role_text">
+        <item name="android:textColor">@color/roles_text_color</item>
+        <item name="android:textSize">@dimen/_30sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="role_bottom_sheet">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginEnd">@dimen/_30dp</item>
+        <item name="android:textSize">@dimen/_20sp</item>
+        <item name="android:textStyle">bold|italic</item>
+    </style>
 </resources>

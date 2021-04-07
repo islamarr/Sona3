@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bottom_sheet_background"
+        android:paddingBottom="@dimen/_30dp">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/permissions"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_30sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivEditingForms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginEnd="@dimen/_30dp"
+            android:contentDescription="@string/all_done"
+            android:src="@drawable/ic_done_all"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <TextView
+            android:id="@+id/textView15"
+            style="@style/role_bottom_sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/editing_forms"
+            app:layout_constraintBottom_toBottomOf="@+id/ivEditingForms"
+            app:layout_constraintEnd_toStartOf="@+id/ivEditingForms"
+            app:layout_constraintTop_toTopOf="@+id/ivEditingForms" />
+
+        <ImageView
+            android:id="@+id/ivShowVerifiedCases"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginEnd="@dimen/_30dp"
+            android:contentDescription="@string/all_done"
+            android:src="@drawable/ic_done_all"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivEditingForms" />
+
+        <TextView
+            android:id="@+id/textView16"
+            style="@style/role_bottom_sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:text="@string/show_verified_cases"
+            app:layout_constraintBottom_toBottomOf="@+id/ivShowVerifiedCases"
+            app:layout_constraintEnd_toStartOf="@+id/ivShowVerifiedCases"
+            app:layout_constraintTop_toTopOf="@+id/ivShowVerifiedCases"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/ivShowSearchForms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginEnd="@dimen/_30dp"
+            android:contentDescription="@string/all_done"
+            android:src="@drawable/ic_done_all"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivShowVerifiedCases" />
+
+        <TextView
+            android:id="@+id/textView17"
+            style="@style/role_bottom_sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_30dp"
+            android:text="@string/show_search_forms"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/ivShowSearchForms"
+            app:layout_constraintEnd_toStartOf="@+id/ivShowSearchForms"
+            app:layout_constraintTop_toTopOf="@+id/ivShowSearchForms" />
+
+        <ImageView
+            android:id="@+id/ivShowReviewForms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginEnd="@dimen/_30dp"
+            android:contentDescription="@string/all_done"
+            android:src="@drawable/ic_done_all"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivShowSearchForms" />
+
+        <TextView
+            android:id="@+id/textView18"
+            style="@style/role_bottom_sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_30dp"
+            android:text="@string/show_review_forms"
+            app:layout_constraintBottom_toBottomOf="@+id/ivShowReviewForms"
+            app:layout_constraintEnd_toStartOf="@+id/ivShowReviewForms"
+            app:layout_constraintTop_toTopOf="@+id/ivShowReviewForms" />
+
+        <ImageView
+            android:id="@+id/ivShowVerifyForms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="@dimen/_30dp"
+            android:contentDescription="@string/all_done"
+            android:src="@drawable/ic_done_all"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivShowReviewForms" />
+
+        <TextView
+            android:id="@+id/textView19"
+            style="@style/role_bottom_sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/show_verify_forms"
+            app:layout_constraintBottom_toBottomOf="@+id/ivShowVerifyForms"
+            app:layout_constraintEnd_toStartOf="@+id/ivShowVerifyForms"
+            app:layout_constraintTop_toTopOf="@+id/ivShowVerifyForms" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

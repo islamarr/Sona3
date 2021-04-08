@@ -9,12 +9,17 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/profileFragment"
+            android:id="@+id/nav_profile"
             android:icon="@drawable/ic_user"
             android:title="@string/profile" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_my_form"
+            android:icon="@drawable/ic_mode_edit"
+            android:title="@string/my_form" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/logout" />
     </group>
 </menu>

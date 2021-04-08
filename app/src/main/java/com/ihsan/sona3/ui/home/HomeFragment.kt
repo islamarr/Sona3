@@ -17,9 +17,9 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
@@ -32,8 +32,8 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        (activity as MainActivity).setHomeItemsVisibility(
+        val activity = activity as MainActivity
+        activity.setHomeItemsVisibility(
             View.VISIBLE,
             DrawerLayout.LOCK_MODE_UNLOCKED
         )

@@ -86,7 +86,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/profileFragment"
+        android:id="@+id/nav_profile"
         android:name="com.ihsan.sona3.ui.profile.ProfileFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_profile">
@@ -94,10 +94,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_my_form"
         android:name="com.ihsan.sona3.ui.myForm.MyFormFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_my_form" />
     <fragment
         android:id="@+id/rolesFragment"
         android:name="com.ihsan.sona3.ui.roles.RolesFragment"

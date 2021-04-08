@@ -148,7 +148,7 @@ class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback {
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            navController.navigate(R.id.action_splashFragment_to_rolesFragment)
+            navController.navigate(R.id.action_splashFragment_to_nav_home)
         }
     }
 

@@ -29,6 +29,8 @@ class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback {
     private lateinit var binding: SplashFragmentBinding
     private lateinit var navController: NavController
     private lateinit var viewModel: LoginViewModel
+    private lateinit var db:AppDatabase
+    private lateinit var loginPresenter: LoginPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +55,9 @@ class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback {
             View.INVISIBLE,
             DrawerLayout.LOCK_MODE_LOCKED_CLOSED
         )
+
+        db =  AppDatabase.invoke(requireActivity())
+        loginPresenter = LoginPresenter(db)
     }
 
     override fun onClick(v: View?) {
@@ -113,9 +118,7 @@ class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback {
         Timber.d("Verified Successfully : $tcName  ${user.email}  ${user.phoneNumber}  ")
        //  integrate with backend
 
-        Coroutines.io {
-            AppDatabase.invoke(requireActivity()).getUserDao().upsert(user)
-        }
+        loginPresenter.saveUserLocale(user)
 
         navController.navigate(R.id.action_splashFragment_to_nav_home)
 

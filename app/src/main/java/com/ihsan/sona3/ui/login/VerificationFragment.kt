@@ -16,6 +16,7 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
+import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.databinding.FragmentVerificationBinding
 import com.ihsan.sona3.utils.show
 
@@ -24,6 +25,8 @@ class VerificationFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentVerificationBinding
     private lateinit var navController: NavController
     private lateinit var auth: FirebaseAuth
+    private lateinit var db: AppDatabase
+    private lateinit var loginPresenter: LoginPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +50,9 @@ class VerificationFragment : Fragment(), View.OnClickListener {
             View.INVISIBLE,
             DrawerLayout.LOCK_MODE_LOCKED_CLOSED
         )
+
+        db =  AppDatabase.invoke(requireActivity())
+        loginPresenter = LoginPresenter(db)
     }
 
     override fun onClick(v: View?) {
@@ -245,7 +251,7 @@ class VerificationFragment : Fragment(), View.OnClickListener {
             val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(
                 verificationCode.toString(), code
             )
-            LoginPresenter().signInWithPhoneAuthCredential(
+            loginPresenter.signInWithPhoneAuthCredential(
                 credential,
                 navController,
                 requireActivity(),

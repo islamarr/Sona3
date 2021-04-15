@@ -21,6 +21,7 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
+import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.databinding.FragmentEnterPhoneNumberBinding
 import com.ihsan.sona3.utils.hide
 import com.ihsan.sona3.utils.show
@@ -35,6 +36,8 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
     lateinit var storedVerificationId: String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    private lateinit var db: AppDatabase
+    private lateinit var loginPresenter: LoginPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +58,9 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
             View.INVISIBLE,
             DrawerLayout.LOCK_MODE_LOCKED_CLOSED
         )
+
+        db = AppDatabase.invoke(requireActivity())
+        loginPresenter = LoginPresenter(db)
     }
 
     override fun onClick(v: View?) {
@@ -65,11 +71,10 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
 
     private fun login() {
         binding.progressBar.show()
-        if (validateNumber()) {
-            LoginPresenter().sendVerificationCode(
-                binding.ccp.fullNumberWithPlus,
-                requireActivity(), callbacks
-            )
+        if (binding.ccp.isValidFullNumber) {
+
+            loginPresenter.sendVerificationCode(binding.ccp.fullNumberWithPlus, requireActivity(), callbacks)
+
         } else {
             requireActivity().toast("ادخل رقم هاتف صحيح")
             binding.progressBar.hide()
@@ -80,9 +85,7 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
     private fun setCallback() {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
-            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-
-            }
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {}
 
             override fun onVerificationFailed(e: FirebaseException) {
                 binding.progressBar.hide()
@@ -105,16 +108,6 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
             }
         }
 
-    }
-
-    private fun validateNumber(): Boolean {
-        var isValidate = false
-        binding.ccp.setPhoneNumberValidityChangeListener { isValidNumber ->
-            if (isValidNumber) {
-                isValidate = true
-            }
-        }
-        return isValidate
     }
 
     private fun phoneNumberSelector() {

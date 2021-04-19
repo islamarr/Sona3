@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.ihsan.sona3.MainActivity
@@ -19,9 +20,12 @@ import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.databinding.FragmentVerificationBinding
 import com.ihsan.sona3.utils.show
+import com.ihsan.sona3.utils.toast
+import timber.log.Timber
+import java.lang.Exception
 
 
-class VerificationFragment : Fragment(), View.OnClickListener {
+class VerificationFragment : Fragment(), View.OnClickListener, LoginContract.View  {
     private lateinit var binding: FragmentVerificationBinding
     private lateinit var navController: NavController
     private lateinit var auth: FirebaseAuth
@@ -32,11 +36,9 @@ class VerificationFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentVerificationBinding.inflate(inflater, container, false)
         formatCode()
         auth = FirebaseAuth.getInstance()
-
 
         return binding.root
     }
@@ -52,7 +54,7 @@ class VerificationFragment : Fragment(), View.OnClickListener {
         )
 
         db =  AppDatabase.invoke(requireActivity())
-        loginPresenter = LoginPresenter(db)
+        loginPresenter = LoginPresenter(db, this)
     }
 
     override fun onClick(v: View?) {
@@ -251,18 +253,51 @@ class VerificationFragment : Fragment(), View.OnClickListener {
             val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(
                 verificationCode.toString(), code
             )
-            loginPresenter.signInWithPhoneAuthCredential(
-                credential,
-                navController,
-                requireActivity(),
-                R.id.action_verificationFragment_to_nav_home,
-                R.id.action_verificationFragment_to_incorrectNumberFragment
-            )
+            loginPresenter.checkCredentials(requireActivity(), credential)
 
         }
 
     }
 
+    override fun onLoginSuccess() {
+        navController.navigate(R.id.action_verificationFragment_to_nav_home)
+        requireActivity().toast("تم التسجيل بنجاح")
+
+        val user = auth.currentUser
+        user?.let {
+            // Name, email address, and profile photo Url
+            val name = user.displayName
+            val email = user.email
+            val photoUrl = user.photoUrl
+
+            // Check if user's email is verified
+            val emailVerified = user.isEmailVerified
+
+            // The user's ID, unique to the Firebase project. Do NOT use this value to
+            // authenticate with your backend server, if you have one. Use
+            // FirebaseUser.getToken() instead.
+            val uid = user.uid
+
+            user.getIdToken(true).addOnCompleteListener { task2 ->
+                if (task2.isSuccessful) {
+                    val idToken = task2.result!!.token.toString()
+                    // Send token to your backend via HTTPS
+                    // ...
+                    Timber.d(idToken)
+                } else {
+                    // Handle error -> task.getException();
+                }
+
+
+            }
+        }
+    }
+
+    override fun onLoginFailure(exception: Exception) {
+        if (exception is FirebaseAuthInvalidCredentialsException) {
+            navController.navigate(R.id.action_verificationFragment_to_incorrectNumberFragment)
+        }
+    }
 
 
 }

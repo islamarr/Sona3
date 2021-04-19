@@ -26,9 +26,10 @@ import com.ihsan.sona3.databinding.FragmentEnterPhoneNumberBinding
 import com.ihsan.sona3.utils.hide
 import com.ihsan.sona3.utils.show
 import com.ihsan.sona3.utils.toast
+import java.lang.Exception
 
 
-class PhoneNumberFragment : Fragment(), View.OnClickListener {
+class PhoneNumberFragment : Fragment(), View.OnClickListener , LoginContract.View {
 
 
     private lateinit var binding: FragmentEnterPhoneNumberBinding
@@ -60,7 +61,7 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
         )
 
         db = AppDatabase.invoke(requireActivity())
-        loginPresenter = LoginPresenter(db)
+        loginPresenter = LoginPresenter(db, this)
     }
 
     override fun onClick(v: View?) {
@@ -103,8 +104,6 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
                     R.id.action_enterPhoneNumberFragment_to_verificationFragment,
                     bundle
                 )
-
-
             }
         }
 
@@ -143,6 +142,14 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
             }
 
         }
+    }
+
+    override fun onLoginSuccess() {
+        //
+    }
+
+    override fun onLoginFailure(exception: Exception) {
+        //
     }
 
 

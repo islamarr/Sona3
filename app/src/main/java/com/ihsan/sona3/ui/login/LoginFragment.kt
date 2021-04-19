@@ -24,7 +24,7 @@ import timber.log.Timber
 import java.util.*
 
 
-class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback {
+class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback{
 
     private lateinit var binding: SplashFragmentBinding
     private lateinit var navController: NavController
@@ -57,7 +57,7 @@ class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback {
         )
 
         db =  AppDatabase.invoke(requireActivity())
-        loginPresenter = LoginPresenter(db)
+      //  loginPresenter = LoginPresenter(db)
     }
 
     override fun onClick(v: View?) {
@@ -118,7 +118,7 @@ class LoginFragment : Fragment(), View.OnClickListener, ITrueCallback {
         Timber.d("Verified Successfully : $tcName  ${user.email}  ${user.phoneNumber}  ")
        //  integrate with backend
 
-        loginPresenter.saveUserLocale(user)
+       // loginPresenter.saveUserLocale(user)
 
         navController.navigate(R.id.action_splashFragment_to_nav_home)
 

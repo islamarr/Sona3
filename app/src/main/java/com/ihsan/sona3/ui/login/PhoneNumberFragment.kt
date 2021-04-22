@@ -4,9 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -26,10 +24,10 @@ import com.ihsan.sona3.databinding.FragmentEnterPhoneNumberBinding
 import com.ihsan.sona3.utils.hide
 import com.ihsan.sona3.utils.show
 import com.ihsan.sona3.utils.toast
-import java.lang.Exception
 
 
-class PhoneNumberFragment : Fragment(), View.OnClickListener , LoginContract.View {
+class PhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number), View.OnClickListener,
+    LoginContract.View {
 
 
     private lateinit var binding: FragmentEnterPhoneNumberBinding
@@ -40,18 +38,11 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener , LoginContract.Vie
     private lateinit var db: AppDatabase
     private lateinit var loginPresenter: LoginPresenter
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentEnterPhoneNumberBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding = FragmentEnterPhoneNumberBinding.bind(view)
         setCallback()
         binding.ccp.registerCarrierNumberEditText(binding.etPhoneNumber)
         phoneNumberSelector()
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navController = Navigation.findNavController(view)
         binding.btnSendCode.setOnClickListener(this)
 
@@ -74,7 +65,11 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener , LoginContract.Vie
         binding.progressBar.show()
         if (binding.ccp.isValidFullNumber) {
 
-            loginPresenter.sendVerificationCode(binding.ccp.fullNumberWithPlus, requireActivity(), callbacks)
+            loginPresenter.sendVerificationCode(
+                binding.ccp.fullNumberWithPlus,
+                requireActivity(),
+                callbacks
+            )
 
         } else {
             requireActivity().toast("ادخل رقم هاتف صحيح")
@@ -145,11 +140,13 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener , LoginContract.Vie
     }
 
     override fun onLoginSuccess() {
-        //
+        // TODO: 4/21/21 Login Success
     }
 
     override fun onLoginFailure(exception: Exception) {
-        //
+        // TODO: 4/21/21 Login Failed
+
+
     }
 
 

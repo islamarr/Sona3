@@ -1,20 +1,23 @@
 package com.ihsan.sona3.ui.login
 
 import android.app.Activity
-import com.google.firebase.FirebaseException
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import com.ihsan.sona3.R
 import com.ihsan.sona3.ui.login.LoginContract.OnLoginListener
-import java.lang.Exception
+import com.truecaller.android.sdk.ITrueCallback
+import com.truecaller.android.sdk.TruecallerSDK
+import com.truecaller.android.sdk.TruecallerSdkScope
 import java.util.concurrent.TimeUnit
 
-class LoginInteractor internal constructor(
+class LoginInterActor internal constructor(
     private val mOnLoginListener: OnLoginListener
-) : LoginContract.Interactor{
+) : LoginContract.InterActor {
 
-    override fun verifyPhonenumber(
+    override fun verifyPhoneNumber(
         activity: Activity?,
         phoneNumber: String,
         callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
@@ -69,4 +72,17 @@ class LoginInteractor internal constructor(
       override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
           mOnVerificationListener.onCodeSent(verificationId, token)
       }*/
+
+    override fun initTrueCaller(activity: Activity, callback: ITrueCallback) {
+        val trueScope = TruecallerSdkScope.Builder(activity, callback)
+            .consentMode(TruecallerSdkScope.CONSENT_MODE_BOTTOMSHEET)
+            .sdkOptions(TruecallerSdkScope.SDK_OPTION_WITHOUT_OTP)
+            .consentTitleOption(TruecallerSdkScope.SDK_CONSENT_TITLE_GET_STARTED)
+            .footerType(TruecallerSdkScope.FOOTER_TYPE_CONTINUE)
+            .buttonColor(ContextCompat.getColor(activity, R.color.purple_700))
+            .buttonTextColor(ContextCompat.getColor(activity, R.color.white))
+            .build()
+        TruecallerSDK.init(trueScope)
+
+    }
 }

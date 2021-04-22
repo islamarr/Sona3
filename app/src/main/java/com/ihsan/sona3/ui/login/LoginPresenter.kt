@@ -1,23 +1,20 @@
 package com.ihsan.sona3.ui.login
 
 import android.app.Activity
-import androidx.navigation.NavController
-import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.db.entities.User
-import com.ihsan.sona3.data.network.Firebase
 import com.ihsan.sona3.utils.Coroutines
-import java.lang.Exception
+import com.truecaller.android.sdk.ITrueCallback
 import java.util.concurrent.TimeUnit
 
 class LoginPresenter(var db: AppDatabase, private val mLoginView: LoginContract.View) :
     LoginContract.Presenter, LoginContract.OnLoginListener {
 
-    private val mLoginInteractor: LoginInteractor = LoginInteractor(this)
+    private val mLoginInterActor: LoginInterActor = LoginInterActor(this)
 
     override fun sendVerificationCode(
         phoneNumber: String,
@@ -40,7 +37,7 @@ class LoginPresenter(var db: AppDatabase, private val mLoginView: LoginContract.
     }
 
     override fun checkCredentials(activity: Activity?, credential: PhoneAuthCredential) {
-        mLoginInteractor.validateCredentials(activity, credential)
+        mLoginInterActor.validateCredentials(activity, credential)
     }
 
     override fun onSuccess() {
@@ -49,6 +46,10 @@ class LoginPresenter(var db: AppDatabase, private val mLoginView: LoginContract.
 
     override fun onFailure(exception: Exception) {
         mLoginView.onLoginFailure(exception)
+    }
+
+    override fun initTrueCaller(activity: Activity, callback: ITrueCallback) {
+        mLoginInterActor.initTrueCaller(activity, callback)
     }
 
 }

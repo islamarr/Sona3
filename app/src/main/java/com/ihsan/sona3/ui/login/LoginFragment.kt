@@ -1,5 +1,6 @@
 package com.ihsan.sona3.ui.login
 
+import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -8,7 +9,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.PhoneAuthProvider
 import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
@@ -142,6 +145,19 @@ class LoginFragment : Fragment(R.layout.splash_fragment), View.OnClickListener, 
     }
 
     override fun onLoginFailure(exception: Exception) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onStartIntentSenderForResult(intent: PendingIntent) {
+
+
+    }
+
+    override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onFailure(exception: FirebaseException) {
         TODO("Not yet implemented")
     }
 }

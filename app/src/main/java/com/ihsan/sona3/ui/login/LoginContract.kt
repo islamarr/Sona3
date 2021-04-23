@@ -1,6 +1,8 @@
 package com.ihsan.sona3.ui.login
 
 import android.app.Activity
+import android.app.PendingIntent
+import android.content.Context
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
@@ -12,6 +14,9 @@ interface LoginContract {
     interface View {
         fun onLoginSuccess()
         fun onLoginFailure(exception: Exception)
+        fun onStartIntentSenderForResult(intent: PendingIntent)
+        fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken)
+        fun onFailure(exception: FirebaseException)
     }
 
     interface Presenter {
@@ -20,32 +25,34 @@ interface LoginContract {
         fun sendVerificationCode(
             phoneNumber: String,
             activity: Activity,
-            callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
         )
 
         fun initTrueCaller(activity: Activity, callback: ITrueCallback)
+        fun selectPhoneNumber(context: Context)
     }
 
     interface InterActor {
         fun verifyPhoneNumber(
             activity: Activity?,
             phoneNumber: String,
-            callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
         )
 
         fun performFirebaseLogin(activity: Activity?, credential: PhoneAuthCredential)
         fun validateCredentials(activity: Activity?, credential: PhoneAuthCredential)
         fun initTrueCaller(activity: Activity, callback: ITrueCallback)
+        fun selectPhoneNumber(context: Context)
     }
 
     interface OnLoginListener {
         fun onSuccess()
         fun onFailure(exception: Exception)
+        fun setIntent(intent: PendingIntent)
     }
 
     interface OnVerificationListener {
         fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken)
         fun onFailure(exception: FirebaseException)
     }
+
 
 }

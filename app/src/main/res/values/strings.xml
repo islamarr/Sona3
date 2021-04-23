@@ -54,6 +54,7 @@
     <string name="show_search_forms">استعراض وبحث الاستمارات المحررة</string>
     <string name="show_review_forms">استعراض ومراجعة الابحاث</string>
     <string name="show_verify_forms">استعراض واعتماد الابحاث \n التي تم مراجعتها</string>
+    <string name="please_wait">انتظر من فضلك</string>
 
     <!--  End Roles Screen Strings -->
 </resources>

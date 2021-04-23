@@ -1,11 +1,13 @@
 package com.ihsan.sona3.ui.login
 
+import android.app.PendingIntent
 import android.os.Bundle
 import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
@@ -105,5 +107,15 @@ class VerificationFragment : Fragment(R.layout.fragment_verification), View.OnCl
         }
     }
 
+    override fun onStartIntentSenderForResult(intent: PendingIntent) {
+        TODO("Not yet implemented")
+    }
 
+    override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onFailure(exception: FirebaseException) {
+        TODO("Not yet implemented")
+    }
 }

@@ -2,9 +2,7 @@ package com.ihsan.sona3.ui.login
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -15,26 +13,17 @@ import com.ihsan.sona3.R
 import com.ihsan.sona3.databinding.FragmentIncorrectNumberBinding
 
 
-class IncorrectNumberFragment : Fragment(), View.OnClickListener {
+class IncorrectNumberFragment : Fragment(R.layout.fragment_incorrect_number), View.OnClickListener {
     private lateinit var binding: FragmentIncorrectNumberBinding
     private lateinit var navController: NavController
     private lateinit var timer: CountDownTimer
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        binding = FragmentIncorrectNumberBinding.inflate(inflater, container, false)
-        setWarningImageAnimation()
-        setTimer()
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding = FragmentIncorrectNumberBinding.bind(view)
         navController = Navigation.findNavController(view)
         binding.btnChangeNumber.setOnClickListener(this)
-
+        setWarningImageAnimation()
+        setTimer()
         (activity as MainActivity).setHomeItemsVisibility(
             View.INVISIBLE,
             DrawerLayout.LOCK_MODE_LOCKED_CLOSED

@@ -18,7 +18,7 @@ import com.truecaller.android.sdk.TruecallerSDK
 import com.truecaller.android.sdk.TruecallerSdkScope
 import java.util.concurrent.TimeUnit
 
-class LoginInterActor internal constructor(
+class LoginInteractor internal constructor(
     private val mOnLoginListener: OnLoginListener,
     private val mOnVerificationListener: LoginContract.OnVerificationListener
 ) : LoginContract.InterActor {
@@ -49,38 +49,6 @@ class LoginInterActor internal constructor(
             .setCallbacks(callback)
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
-    }
-
-    override fun performFirebaseLogin(activity: Activity?, credential: PhoneAuthCredential) {
-        FirebaseAuth.getInstance().signInWithCredential(credential)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    mOnLoginListener.onSuccess()
-                } else {
-                    mOnLoginListener.onFailure(task.exception!!)
-                }
-            }
-    }
-
-
-    override fun validateCredentials(activity: Activity?, credential: PhoneAuthCredential) {
-        /*if (email == "") {
-            mOnLoginListener.onFailure(email)
-            return
-        }
-        if (!email!!.contains("@")) {
-            mOnLoginListener.onFailure(email)
-            return
-        }
-        if (password == "") {
-            mOnLoginListener.onFailure("Password is empty")
-            return
-        }
-        if (password!!.length < 6) {
-            mOnLoginListener.onFailure("Short password")
-            return
-        }*/
-        performFirebaseLogin(activity, credential)
     }
 
     /* override fun onVerificationCompleted(p0: PhoneAuthCredential) {}

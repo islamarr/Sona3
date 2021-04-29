@@ -1,4 +1,4 @@
-package com.ihsan.sona3.ui.login
+package com.ihsan.sona3.ui.verification
 
 import android.app.PendingIntent
 import android.os.Bundle
@@ -16,18 +16,20 @@ import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.databinding.FragmentVerificationBinding
+import com.ihsan.sona3.ui.login.LoginContract
+import com.ihsan.sona3.ui.login.LoginPresenter
 import com.ihsan.sona3.utils.show
 import com.ihsan.sona3.utils.toast
 import timber.log.Timber
 
 
 class VerificationFragment : Fragment(R.layout.fragment_verification), View.OnClickListener,
-    LoginContract.View {
+    VerificationContract.View {
     private lateinit var binding: FragmentVerificationBinding
     private lateinit var navController: NavController
     private lateinit var auth: FirebaseAuth
     private lateinit var db: AppDatabase
-    private lateinit var loginPresenter: LoginPresenter
+    private lateinit var verificationPresenter: VerificationPresenter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentVerificationBinding.bind(view)
@@ -41,7 +43,7 @@ class VerificationFragment : Fragment(R.layout.fragment_verification), View.OnCl
         )
 
         db = AppDatabase.invoke(requireActivity())
-        loginPresenter = LoginPresenter(db, this)
+        verificationPresenter = VerificationPresenter(db, this)
 
     }
 
@@ -61,7 +63,7 @@ class VerificationFragment : Fragment(R.layout.fragment_verification), View.OnCl
             val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(
                 verificationCode.toString(), code
             )
-            loginPresenter.checkCredentials(requireActivity(), credential)
+            verificationPresenter.checkCredentials(requireActivity(), credential)
 
         }
 
@@ -107,15 +109,4 @@ class VerificationFragment : Fragment(R.layout.fragment_verification), View.OnCl
         }
     }
 
-    override fun onStartIntentSenderForResult(intent: PendingIntent) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onFailure(exception: FirebaseException) {
-        TODO("Not yet implemented")
-    }
 }

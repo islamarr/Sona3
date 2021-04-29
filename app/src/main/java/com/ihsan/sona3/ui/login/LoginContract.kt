@@ -21,7 +21,6 @@ interface LoginContract {
 
     interface Presenter {
         fun saveUserLocale(user: User)
-        fun checkCredentials(activity: Activity?, credential: PhoneAuthCredential)
         fun sendVerificationCode(
             phoneNumber: String,
             activity: Activity,
@@ -37,15 +36,13 @@ interface LoginContract {
             phoneNumber: String,
         )
 
-        fun performFirebaseLogin(activity: Activity?, credential: PhoneAuthCredential)
-        fun validateCredentials(activity: Activity?, credential: PhoneAuthCredential)
+      //  fun performFirebaseLogin(activity: Activity?, credential: PhoneAuthCredential)
+      //  fun validateCredentials(activity: Activity?, credential: PhoneAuthCredential)
         fun initTrueCaller(activity: Activity, callback: ITrueCallback)
         fun selectPhoneNumber(context: Context)
     }
 
     interface OnLoginListener {
-        fun onSuccess()
-        fun onFailure(exception: Exception)
         fun setIntent(intent: PendingIntent)
     }
 

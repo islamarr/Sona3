@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/verificationFragment"
-        android:name="com.ihsan.sona3.ui.login.VerificationFragment"
+        android:name="com.ihsan.sona3.ui.verification.VerificationFragment"
         android:label="fragment_verification"
         tools:layout="@layout/fragment_verification">
         <action

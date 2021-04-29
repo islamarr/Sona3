@@ -12,8 +12,6 @@ import com.truecaller.android.sdk.ITrueCallback
 interface LoginContract {
 
     interface View {
-        fun onLoginSuccess()
-        fun onLoginFailure(exception: Exception)
         fun onStartIntentSenderForResult(intent: PendingIntent)
         fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken)
         fun onFailure(exception: FirebaseException)

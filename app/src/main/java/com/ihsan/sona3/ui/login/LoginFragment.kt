@@ -140,18 +140,7 @@ class LoginFragment : Fragment(R.layout.splash_fragment), View.OnClickListener, 
         }
     }
 
-    override fun onLoginSuccess() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onLoginFailure(exception: Exception) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onStartIntentSenderForResult(intent: PendingIntent) {
-
-
-    }
+    override fun onStartIntentSenderForResult(intent: PendingIntent) {}
 
     override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
         TODO("Not yet implemented")

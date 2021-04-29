@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/enterPhoneNumberFragment"
-        android:name="com.ihsan.sona3.ui.login.PhoneNumberFragment"
+        android:name="com.ihsan.sona3.ui.phoneNumber.PhoneNumberFragment"
         android:label="fragment_enter_phone_number"
         tools:layout="@layout/fragment_enter_phone_number">
         <action

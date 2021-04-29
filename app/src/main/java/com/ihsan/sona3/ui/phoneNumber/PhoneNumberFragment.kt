@@ -1,4 +1,4 @@
-package com.ihsan.sona3.ui.login
+package com.ihsan.sona3.ui.phoneNumber
 
 import android.app.Activity.RESULT_OK
 import android.app.PendingIntent
@@ -18,12 +18,14 @@ import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.databinding.FragmentEnterPhoneNumberBinding
+import com.ihsan.sona3.ui.login.LoginContract
+import com.ihsan.sona3.ui.login.LoginPresenter
 import com.ihsan.sona3.utils.toast
 
 
 class PhoneNumberFragment : BaseFragment(R.layout.fragment_enter_phone_number),
     View.OnClickListener,
-    LoginContract.View {
+    PhoneNumberContract.View {
 
 
     private lateinit var binding: FragmentEnterPhoneNumberBinding
@@ -31,7 +33,7 @@ class PhoneNumberFragment : BaseFragment(R.layout.fragment_enter_phone_number),
     lateinit var storedVerificationId: String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var db: AppDatabase
-    private lateinit var loginPresenter: LoginPresenter
+    private lateinit var phoneNumberPresenter: PhoneNumberPresenter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentEnterPhoneNumberBinding.bind(view)
@@ -45,11 +47,11 @@ class PhoneNumberFragment : BaseFragment(R.layout.fragment_enter_phone_number),
         )
 
         db = AppDatabase.invoke(requireActivity())
-        loginPresenter = LoginPresenter(db, this)
+        phoneNumberPresenter = PhoneNumberPresenter(this)
 
 
         // to pop up phone number dialog
-        loginPresenter.selectPhoneNumber(requireContext())
+        phoneNumberPresenter.selectPhoneNumber(requireContext())
 
     }
 
@@ -60,19 +62,16 @@ class PhoneNumberFragment : BaseFragment(R.layout.fragment_enter_phone_number),
     }
 
     private fun login() {
-//        binding.progressBar.show()
         showProgressDialog(requireContext())
         if (binding.ccp.isValidFullNumber) {
-            loginPresenter.sendVerificationCode(
+            phoneNumberPresenter.sendVerificationCode(
                 binding.ccp.fullNumberWithPlus,
                 requireActivity()
             )
 
-
         } else {
             requireActivity().toast("ادخل رقم هاتف صحيح")
             hideProgressDialog()
-//            binding.progressBar.hide()
         }
     }
 
@@ -89,15 +88,6 @@ class PhoneNumberFragment : BaseFragment(R.layout.fragment_enter_phone_number),
             }
 
         }
-    }
-
-
-    override fun onLoginSuccess() {
-        // TODO
-    }
-
-    override fun onLoginFailure(exception: Exception) {
-        // TODO
     }
 
     override fun onStartIntentSenderForResult(intent: PendingIntent) {
@@ -123,7 +113,6 @@ class PhoneNumberFragment : BaseFragment(R.layout.fragment_enter_phone_number),
     }
 
     override fun onFailure(exception: FirebaseException) {
-//        binding.progressBar.hide()
         hideProgressDialog()
         requireContext().toast("فشل في ارسال الرمز")
     }

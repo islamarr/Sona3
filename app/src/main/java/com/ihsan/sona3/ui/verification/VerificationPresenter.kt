@@ -10,7 +10,7 @@ class VerificationPresenter(
 ) :
     VerificationContract.Presenter, VerificationContract.OnLoginListener {
 
-    private val mVerificationInteractor : VerificationInteractor = VerificationInteractor(this)
+    private val mVerificationInteractor: VerificationInteractor = VerificationInteractor(this)
 
     override fun checkCredentials(activity: Activity?, credential: PhoneAuthCredential) {
         mVerificationInteractor.validateCredentials(activity, credential)

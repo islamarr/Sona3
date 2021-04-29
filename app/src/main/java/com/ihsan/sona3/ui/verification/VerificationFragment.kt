@@ -1,13 +1,11 @@
 package com.ihsan.sona3.ui.verification
 
-import android.app.PendingIntent
 import android.os.Bundle
 import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
@@ -16,8 +14,6 @@ import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.databinding.FragmentVerificationBinding
-import com.ihsan.sona3.ui.login.LoginContract
-import com.ihsan.sona3.ui.login.LoginPresenter
 import com.ihsan.sona3.utils.show
 import com.ihsan.sona3.utils.toast
 import timber.log.Timber

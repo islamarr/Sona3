@@ -13,6 +13,7 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
+import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.databinding.FragmentVerificationBinding
 import com.ihsan.sona3.utils.show
 import com.ihsan.sona3.utils.toast
@@ -69,22 +70,26 @@ class VerificationFragment : Fragment(R.layout.fragment_verification), View.OnCl
         navController.navigate(R.id.action_verificationFragment_to_nav_home)
         requireActivity().toast("تم التسجيل بنجاح")
 
-        val user = auth.currentUser
-        user?.let {
+        val currentUser = auth.currentUser
+        currentUser?.let {
+
+            val user = User()
             // Name, email address, and profile photo Url
-            val name = user.displayName
-            val email = user.email
-            val photoUrl = user.photoUrl
+            user.name = currentUser.displayName
+            user.email = currentUser.email
+            user.imageUrl = currentUser.photoUrl!!.toString()
 
             // Check if user's email is verified
-            val emailVerified = user.isEmailVerified
+            val emailVerified = currentUser.isEmailVerified
+
+            verificationPresenter.saveUserLocale(user)
 
             // The user's ID, unique to the Firebase project. Do NOT use this value to
             // authenticate with your backend server, if you have one. Use
             // FirebaseUser.getToken() instead.
             val uid = user.uid
 
-            user.getIdToken(true).addOnCompleteListener { task2 ->
+            currentUser.getIdToken(true).addOnCompleteListener { task2 ->
                 if (task2.isSuccessful) {
                     val idToken = task2.result!!.token.toString()
                     // Send token to your backend via HTTPS

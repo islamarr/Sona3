@@ -99,7 +99,7 @@ class LoginFragment : Fragment(R.layout.splash_fragment), View.OnClickListener, 
         Timber.d("Verified Successfully : $tcName  ${user.email}  ${user.phoneNumber}  ")
         //  integrate with backend
 
-//       loginPresenter.saveUserLocale(user)
+        loginPresenter.saveUserLocale(user)
 
         navController.navigate(R.id.action_splashFragment_to_nav_home)
 

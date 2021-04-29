@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.PendingIntent
 import android.content.Context
 import com.google.firebase.auth.PhoneAuthCredential
+import com.ihsan.sona3.data.db.entities.User
 import com.truecaller.android.sdk.ITrueCallback
 
 interface VerificationContract {
@@ -14,7 +15,7 @@ interface VerificationContract {
     }
 
     interface Presenter {
-        // fun saveUserLocale(user: User)
+        fun saveUserLocale(user: User)
         fun checkCredentials(activity: Activity?, credential: PhoneAuthCredential)
     }
 

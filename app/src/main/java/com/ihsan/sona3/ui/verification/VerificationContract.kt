@@ -17,11 +17,14 @@ interface VerificationContract {
     interface Presenter {
         fun saveUserLocale(user: User)
         fun checkCredentials(activity: Activity?, credential: PhoneAuthCredential)
+        //fun checkUserApi(payload: String, token: String)
     }
 
     interface InterActor {
         fun performFirebaseLogin(activity: Activity?, credential: PhoneAuthCredential)
         fun validateCredentials(activity: Activity?, credential: PhoneAuthCredential)
+        fun checkUser(payload: String, token: String)
+        fun getCurrentUserPayload()
     }
 
     interface OnLoginListener {

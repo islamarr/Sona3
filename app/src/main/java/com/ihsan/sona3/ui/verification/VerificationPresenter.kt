@@ -24,6 +24,10 @@ class VerificationPresenter(
         mVerificationInteractor.validateCredentials(activity, credential)
     }
 
+//    override fun checkUserApi(payload: String, token: String) {
+//        mVerificationInteractor.checkUser(payload, token)
+//    }
+
     override fun onSuccess() {
         verificationView.onLoginSuccess()
     }

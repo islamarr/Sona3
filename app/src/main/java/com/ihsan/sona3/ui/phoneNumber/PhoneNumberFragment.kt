@@ -5,7 +5,10 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -21,39 +24,18 @@ import com.ihsan.sona3.databinding.FragmentEnterPhoneNumberBinding
 import com.ihsan.sona3.ui.login.LoginContract
 import com.ihsan.sona3.ui.login.LoginPresenter
 import com.ihsan.sona3.utils.toast
+import timber.log.Timber
 
 
-class PhoneNumberFragment : BaseFragment(R.layout.fragment_enter_phone_number),
+class PhoneNumberFragment : BaseFragment<FragmentEnterPhoneNumberBinding>(),
     View.OnClickListener,
     PhoneNumberContract.View {
 
-
-    private lateinit var binding: FragmentEnterPhoneNumberBinding
     private lateinit var navController: NavController
     lateinit var storedVerificationId: String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var db: AppDatabase
     private lateinit var phoneNumberPresenter: PhoneNumberPresenter
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentEnterPhoneNumberBinding.bind(view)
-        binding.ccp.registerCarrierNumberEditText(binding.etPhoneNumber)
-        navController = Navigation.findNavController(view)
-        binding.btnSendCode.setOnClickListener(this)
-
-        (activity as MainActivity).setHomeItemsVisibility(
-            View.INVISIBLE,
-            DrawerLayout.LOCK_MODE_LOCKED_CLOSED
-        )
-
-        db = AppDatabase.invoke(requireActivity())
-        phoneNumberPresenter = PhoneNumberPresenter(this)
-
-
-        // to pop up phone number dialog
-        phoneNumberPresenter.selectPhoneNumber(requireContext())
-
-    }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
@@ -114,6 +96,28 @@ class PhoneNumberFragment : BaseFragment(R.layout.fragment_enter_phone_number),
 
     override fun onFailure(exception: FirebaseException) {
         hideProgressDialog()
+        Timber.i("Exception on Code $exception")
         requireContext().toast("فشل في ارسال الرمز")
+    }
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentEnterPhoneNumberBinding
+        get() = FragmentEnterPhoneNumberBinding::inflate
+
+    override fun setupOnViewCreated(view: View) {
+        binding.ccp.registerCarrierNumberEditText(binding.etPhoneNumber)
+        navController = Navigation.findNavController(view)
+        binding.btnSendCode.setOnClickListener(this)
+
+        (activity as MainActivity).setHomeItemsVisibility(
+            View.INVISIBLE,
+            DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+        )
+
+        db = AppDatabase.invoke(requireActivity())
+        phoneNumberPresenter = PhoneNumberPresenter(this)
+
+
+        // to pop up phone number dialog
+        phoneNumberPresenter.selectPhoneNumber(requireContext())
     }
 }

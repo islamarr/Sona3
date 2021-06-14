@@ -1,6 +1,7 @@
 package com.ihsan.sona3.ui.verification
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -77,7 +78,7 @@ class VerificationFragment : Fragment(R.layout.fragment_verification), View.OnCl
             // Name, email address, and profile photo Url
             user.name = currentUser.displayName
             user.email = currentUser.email
-            user.imageUrl = currentUser.photoUrl!!.toString()
+            //user.imageUrl = currentUser.photoUrl!!.toString()
 
             // Check if user's email is verified
             val emailVerified = currentUser.isEmailVerified
@@ -94,6 +95,8 @@ class VerificationFragment : Fragment(R.layout.fragment_verification), View.OnCl
                     val idToken = task2.result!!.token.toString()
                     // Send token to your backend via HTTPS
                     // ...
+                    //verificationPresenter.checkUserApi(payload = idToken, token = "Token db4e439c5269c2c311f186eb35b12c2ec1ef163d")
+                    verificationPresenter
                     Timber.d(idToken)
                 } else {
                     // Handle error -> task.getException();

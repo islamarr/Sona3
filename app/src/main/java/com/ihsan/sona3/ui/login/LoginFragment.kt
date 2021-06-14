@@ -2,13 +2,16 @@ package com.ihsan.sona3.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
+import com.ihsan.sona3.BaseFragment
 import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
@@ -22,21 +25,13 @@ import timber.log.Timber
 import java.util.*
 
 
-class LoginFragment : Fragment(R.layout.splash_fragment), View.OnClickListener, ITrueCallback {
+class LoginFragment : BaseFragment<SplashFragmentBinding>(), View.OnClickListener, ITrueCallback {
 
 
-    private lateinit var binding: SplashFragmentBinding
     private lateinit var navController: NavController
     private lateinit var db: AppDatabase
     private lateinit var loginPresenter: LoginPresenter
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = SplashFragmentBinding.bind(view)
-        navController = Navigation.findNavController(view)
-        binding.btnLogin.setOnClickListener(this)
-        binding.tvSkip.setOnClickListener(this)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -134,6 +129,15 @@ class LoginFragment : Fragment(R.layout.splash_fragment), View.OnClickListener, 
         if (currentUser != null) {
             navController.navigate(R.id.action_splashFragment_to_nav_home)
         }
+    }
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> SplashFragmentBinding
+        get() = SplashFragmentBinding::inflate
+
+    override fun setupOnViewCreated(view: View) {
+        navController = Navigation.findNavController(view)
+        binding.btnLogin.setOnClickListener(this)
+        binding.tvSkip.setOnClickListener(this)
     }
 
 }

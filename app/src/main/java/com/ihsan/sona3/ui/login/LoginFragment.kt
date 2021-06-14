@@ -1,6 +1,8 @@
 package com.ihsan.sona3.ui.login
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +33,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(), View.OnClickListene
     private lateinit var navController: NavController
     private lateinit var db: AppDatabase
     private lateinit var loginPresenter: LoginPresenter
+    private lateinit var sharedPreferences: SharedPreferences
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -44,6 +47,11 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(), View.OnClickListene
 
         db = AppDatabase.invoke(requireActivity())
         loginPresenter = LoginPresenter(db)
+
+        sharedPreferences = requireActivity().getSharedPreferences(
+            getString(R.string.shared_preference_name),
+            Context.MODE_PRIVATE
+        )
     }
 
     override fun onClick(v: View?) {
@@ -51,6 +59,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(), View.OnClickListene
             R.id.btnLogin -> {
 
                 loginPresenter.initTrueCaller(requireActivity(), this)
+                loginPresenter.getUserToken("ashraf", "ashraf", sharedPreferences)
 
                 val isTCLoginMethod = TruecallerSDK.getInstance().isUsable
 

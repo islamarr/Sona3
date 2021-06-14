@@ -57,4 +57,6 @@
     <string name="please_wait">انتظر من فضلك</string>
 
     <!--  End Roles Screen Strings -->
+
+    <string name="shared_preference_name">sona3.preference_file_key</string>
 </resources>

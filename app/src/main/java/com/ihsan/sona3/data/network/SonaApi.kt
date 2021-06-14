@@ -4,6 +4,8 @@
 
 package com.ihsan.sona3.data.network
 
+import com.google.gson.JsonObject
+import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.data.model.UserResponse
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.http.*
@@ -21,7 +23,10 @@ interface SonaApi {
         @Header("Authorization") token: String
     ): Flowable<UserResponse>
 
-    @GET("/en/api/v1/login/username/")
-    fun userLoginUsername(username: String, password: String): Flowable<UserResponse>
+    @POST("/en/api/v1/login/username/")
+    fun userLoginUsername(@Body loginBody: JsonObject): Flowable<UserResponse>
+
+    @GET("/en/api/v1/me/")
+    fun getUserData(@Header("Authorization") token: String): Flowable<User>
 
 }

@@ -3,62 +3,54 @@ package com.ihsan.sona3.ui.roles
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.ihsan.sona3.BaseFragment
 import com.ihsan.sona3.R
 import com.ihsan.sona3.databinding.RolesFragmentBinding
 import com.ihsan.sona3.utils.show
 import net.igenius.customcheckbox.CustomCheckBox
+import timber.log.Timber
 
-class RolesFragment : Fragment(R.layout.roles_fragment), View.OnClickListener {
-
-
-    companion object {
-        fun newInstance() = RolesFragment()
-    }
+class RolesFragment : BaseFragment<RolesFragmentBinding>(), View.OnClickListener {
 
     private lateinit var viewModel: RolesViewModel
-
-    private lateinit var binding: RolesFragmentBinding
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = RolesFragmentBinding.bind(view)
-        binding.ckEditor.setOnClickListener(this)
-        binding.ckReviewer.setOnClickListener(this)
-        binding.ckResearcher.setOnClickListener(this)
-        binding.ckVerifier.setOnClickListener(this)
-        binding.ivEditor.setOnClickListener(this)
-        binding.ivResearcher.setOnClickListener(this)
-        binding.ivVerifier.setOnClickListener(this)
-        binding.ivReviewer.setOnClickListener(this)
-    }
+    private var checkboxGroup = ArrayList<CustomCheckBox>()
 
     override fun onClick(v: View?) {
         when (v!!.id) {
+
+            //Selected role
             R.id.ckEditor -> validateCheckBox(0)
             R.id.ckResearcher -> validateCheckBox(1)
             R.id.ckReviewer -> validateCheckBox(2)
             R.id.ckVerifier -> validateCheckBox(3)
+
+            //Show role
             R.id.ivEditor -> setBottomSheetDialog(R.id.ivEditor)
             R.id.ivResearcher -> setBottomSheetDialog(R.id.ivResearcher)
             R.id.ivVerifier -> setBottomSheetDialog(R.id.ivVerifier)
             R.id.ivReviewer -> setBottomSheetDialog(R.id.ivReviewer)
 
+            //Next Button
+            R.id.btnNext -> nextButtonPressed()
         }
+    }
+
+    private fun nextButtonPressed() {
+        Timber.i("NextButton Pressed")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(RolesViewModel::class.java)
-
-
     }
 
     private fun validateCheckBox(position: Int) {
 
-        val checkboxGroup = ArrayList<CustomCheckBox>()
+        //val checkboxGroup = ArrayList<CustomCheckBox>()
         checkboxGroup.add(0, binding.ckEditor)
         checkboxGroup.add(1, binding.ckResearcher)
         checkboxGroup.add(2, binding.ckReviewer)
@@ -93,6 +85,21 @@ class RolesFragment : Fragment(R.layout.roles_fragment), View.OnClickListener {
             }
         }
         dialog.show()
+    }
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> RolesFragmentBinding
+        get() = RolesFragmentBinding::inflate
+
+    override fun setupOnViewCreated(view: View) {
+        binding.ckEditor.setOnClickListener(this)
+        binding.ckReviewer.setOnClickListener(this)
+        binding.ckResearcher.setOnClickListener(this)
+        binding.ckVerifier.setOnClickListener(this)
+        binding.ivEditor.setOnClickListener(this)
+        binding.ivResearcher.setOnClickListener(this)
+        binding.ivVerifier.setOnClickListener(this)
+        binding.ivReviewer.setOnClickListener(this)
+        binding.btnNext.setOnClickListener(this)
     }
 
 }

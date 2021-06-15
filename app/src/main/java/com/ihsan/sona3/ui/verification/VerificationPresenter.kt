@@ -4,7 +4,9 @@ import android.app.Activity
 import com.google.firebase.auth.PhoneAuthCredential
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.db.entities.User
+import com.ihsan.sona3.data.model.UserResponse
 import com.ihsan.sona3.utils.Coroutines
+import com.ihsan.sona3.utils.saveTokenPreferences
 
 class VerificationPresenter(
     var db: AppDatabase,
@@ -24,12 +26,13 @@ class VerificationPresenter(
         mVerificationInteractor.validateCredentials(activity, credential)
     }
 
-//    override fun checkUserApi(payload: String, token: String) {
-//        mVerificationInteractor.checkUser(payload, token)
-//    }
+    override fun saveUserToken(activity: Activity?, token: String?) {
+        //Util function
+        saveTokenPreferences(activity, token)
+    }
 
-    override fun onSuccess() {
-        verificationView.onLoginSuccess()
+    override fun onSuccess(user: UserResponse) {
+        verificationView.onLoginSuccess(user)
     }
 
     override fun onFailure(exception: Exception) {

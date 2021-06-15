@@ -13,12 +13,15 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.JsonObject
 import com.ihsan.sona3.BaseFragment
 import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.db.entities.User
+import com.ihsan.sona3.data.model.UserResponse
 import com.ihsan.sona3.databinding.SplashFragmentBinding
+import com.ihsan.sona3.utils.getTokenPreferences
 import com.truecaller.android.sdk.ITrueCallback
 import com.truecaller.android.sdk.TrueError
 import com.truecaller.android.sdk.TrueProfile
@@ -27,13 +30,14 @@ import timber.log.Timber
 import java.util.*
 
 
-class LoginFragment : BaseFragment<SplashFragmentBinding>(), View.OnClickListener, ITrueCallback {
+class LoginFragment : BaseFragment<SplashFragmentBinding>(),
+    View.OnClickListener, ITrueCallback, LoginContract.View {
 
 
     private lateinit var navController: NavController
     private lateinit var db: AppDatabase
     private lateinit var loginPresenter: LoginPresenter
-    private lateinit var sharedPreferences: SharedPreferences
+    //private lateinit var sharedPreferences: SharedPreferences
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -46,12 +50,12 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(), View.OnClickListene
         )
 
         db = AppDatabase.invoke(requireActivity())
-        loginPresenter = LoginPresenter(db)
+        loginPresenter = LoginPresenter(db, this)
 
-        sharedPreferences = requireActivity().getSharedPreferences(
-            getString(R.string.shared_preference_name),
-            Context.MODE_PRIVATE
-        )
+//        sharedPreferences = requireActivity().getSharedPreferences(
+//            getString(R.string.shared_preference_name),
+//            Context.MODE_PRIVATE
+//        )
     }
 
     override fun onClick(v: View?) {
@@ -59,7 +63,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(), View.OnClickListene
             R.id.btnLogin -> {
 
                 loginPresenter.initTrueCaller(requireActivity(), this)
-                loginPresenter.getUserToken("ashraf", "ashraf", sharedPreferences)
+                loginPresenter.getUserToken("ashraf", "ashraf", activity)
 
                 val isTCLoginMethod = TruecallerSDK.getInstance().isUsable
 
@@ -89,24 +93,53 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(), View.OnClickListene
 
     override fun onSuccessProfileShared(trueProfile: TrueProfile) {
 
-        val user = User()
-        val tcName = trueProfile.firstName + " " + trueProfile.lastName
-        user.name = tcName
-        user.email = trueProfile.email
-        user.gender = trueProfile.gender
-        user.countryCode = trueProfile.countryCode
-        user.imageUrl = trueProfile.avatarUrl
-        user.city = trueProfile.city
-        user.profileUrl = trueProfile.url
-        user.phoneNumber = trueProfile.phoneNumber
+//        val user = User()
+//        val tcName = trueProfile.firstName + " " + trueProfile.lastName
+//        user.name = tcName
+//        user.email = trueProfile.email
+//        user.gender = trueProfile.gender
+//        user.countryCode = trueProfile.countryCode
+//        user.imageUrl = trueProfile.avatarUrl
+//        user.city = trueProfile.city
+//        user.profileUrl = trueProfile.url
+//        user.phoneNumber = trueProfile.phoneNumber
 
-        Timber.d("Verified Successfully : $tcName  ${user.email}  ${user.phoneNumber}  ")
-        //  integrate with backend
+        val userTrueCaller = UserResponse()
+        userTrueCaller.apply {
+            username = trueProfile.phoneNumber
+            first_name = trueProfile.firstName
+            last_name = trueProfile.lastName
+            email = trueProfile.email
+            address = trueProfile.city
+            image = trueProfile.avatarUrl
+            token = trueProfile.accessToken
+        }
+        Timber.d("Verified user $userTrueCaller")
+        Timber.d(
+            "Payload: ${trueProfile.payload}" +
+                    "Signature: ${trueProfile.signature}" +
+                    "Algorithm: ${trueProfile.signatureAlgorithm}"
+        )
+        //Timber.d("Verified Successfully : $tcName  ${user.email}  ${user.phoneNumber}  ")
+        /**
+         * integrate with backend
+         * TrueCaller API Service
+         **/
+        val trueCallerBodyObject = JsonObject()
+        trueCallerBodyObject.addProperty("payload", trueProfile.payload)
+        trueCallerBodyObject.addProperty("signature", trueProfile.signature)
+        trueCallerBodyObject.addProperty("algorithm", trueProfile.signatureAlgorithm)
 
-        loginPresenter.saveUserLocale(user)
-
-        navController.navigate(R.id.action_splashFragment_to_nav_home)
-
+        //loginPresenter.saveUserLocale(user)
+        loginPresenter.userLoginTrueCaller(
+            trueCallerBodyObject,
+            getTokenPreferences(
+                requireActivity().getSharedPreferences(
+                    getString(R.string.shared_preference_name),
+                    Context.MODE_PRIVATE
+                )
+            )
+        )
     }
 
     override fun onFailureProfileShared(trueError: TrueError) {
@@ -138,6 +171,15 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(), View.OnClickListene
         if (currentUser != null) {
             navController.navigate(R.id.action_splashFragment_to_nav_home)
         }
+    }
+
+    override fun onSuccessTruCaller(user: UserResponse?) {
+        Timber.d("OnSuccessAPI Call: $user")
+        navController.navigate(R.id.action_splashFragment_to_nav_home)
+    }
+
+    override fun onFailTrueCaller(error: Throwable?) {
+        Timber.e(error)
     }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> SplashFragmentBinding

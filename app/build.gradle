@@ -44,7 +44,7 @@ android {
                 }
             }
             signingConfig signingConfigs.release
-            manifestPlaceholders.trueCallerKey = "l68nCc298df4873074ad293b1ff2b9f771818"
+            manifestPlaceholders.trueCallerKey = "2cG5D394fbdc57ac14b919fad69c2ab28b720"
         }
 
         debug {
@@ -61,7 +61,7 @@ android {
                 }
             }
             signingConfig signingConfigs.debug
-            manifestPlaceholders.trueCallerKey = "l68nCc298df4873074ad293b1ff2b9f771818"
+            manifestPlaceholders.trueCallerKey = "2cG5D394fbdc57ac14b919fad69c2ab28b720"
         }
 
         /*release {

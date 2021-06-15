@@ -1,10 +1,14 @@
 package com.ihsan.sona3.ui.verification
 
 import android.app.Activity
+import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
-import com.ihsan.sona3.data.model.UserResponse
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.ihsan.sona3.R
 import com.ihsan.sona3.data.network.ApiSettings
+import com.ihsan.sona3.utils.getTokenPreferences
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
@@ -16,8 +20,7 @@ class VerificationInteractor internal constructor(private val mOnLoginListener: 
         FirebaseAuth.getInstance().signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    getCurrentUserPayload()
-                    //mOnLoginListener.onSuccess()
+                    getCurrentUserPayload(activity)
                 } else {
                     mOnLoginListener.onFailure(task.exception!!)
                 }
@@ -28,35 +31,43 @@ class VerificationInteractor internal constructor(private val mOnLoginListener: 
         performFirebaseLogin(activity, credential)
     }
 
-    override fun getCurrentUserPayload() {
+    override fun getCurrentUserPayload(activity: Activity?) {
         var payload: String?
 
         FirebaseAuth.getInstance().currentUser?.getIdToken(true)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 payload = task.result!!.token.toString()
-
                 Timber.d("PayLoad: $payload")
 
                 checkUser(
                     payload = payload!!,
-                    token = "Token db4e439c5269c2c311f186eb35b12c2ec1ef163d"
+                    token = getTokenPreferences(
+                        activity!!.getSharedPreferences(
+                            activity.getString(R.string.shared_preference_name),
+                            Context.MODE_PRIVATE
+                        )
+                    )
                 )
 
             }
         }
     }
 
-    override fun checkUser(payload: String, token: String) {
+    override fun checkUser(payload: String?, token: String?) {
 
-        var userLogin: UserResponse? = null
+        //var userLogin: UserResponse? = null
+        val payloadJsonObject = JsonObject()
 
-        ApiSettings.apiInstance.userLoginFirebase(payload = payload, token = token)
+        payloadJsonObject.addProperty("payload", payload)
+        Timber.i("Payload Json: $payloadJsonObject")
+
+        ApiSettings.apiInstance.userLoginFirebase(payload = payloadJsonObject, token = token!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { response -> userLogin = response }, //OnSuccess
+                { response -> mOnLoginListener.onSuccess(response) }, //OnSuccess
                 { error -> Timber.e("Error: ${error.message}") }, //OnError
-                { Timber.d("Response: $userLogin") } //OnComplete [End]
+                { Timber.d("Response: $") } //OnComplete [End]
             )
     }
 }

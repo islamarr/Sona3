@@ -19,7 +19,13 @@ interface SonaApi {
 
     @POST("/en/api/v1/login/firebase/")
     fun userLoginFirebase(
-        @Body payload: String,
+        @Body payload: JsonObject,
+        @Header("Authorization") token: String
+    ): Flowable<UserResponse>
+
+    @POST("/en/api/v1/login/truecaller/")
+    fun userLoginTrueCaller(
+        @Body trueCallerBody: JsonObject,
         @Header("Authorization") token: String
     ): Flowable<UserResponse>
 
@@ -27,6 +33,6 @@ interface SonaApi {
     fun userLoginUsername(@Body loginBody: JsonObject): Flowable<UserResponse>
 
     @GET("/en/api/v1/me/")
-    fun getUserData(@Header("Authorization") token: String): Flowable<User>
+    fun getUserData(@Header("Authorization") token: String): Flowable<UserResponse>
 
 }

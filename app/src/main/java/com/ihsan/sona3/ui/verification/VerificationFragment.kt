@@ -1,5 +1,6 @@
 package com.ihsan.sona3.ui.verification
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +15,10 @@ import com.ihsan.sona3.BaseFragment
 import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
-import com.ihsan.sona3.data.model.UserResponse
+import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.databinding.FragmentVerificationBinding
 import com.ihsan.sona3.utils.show
 import com.ihsan.sona3.utils.toast
-import timber.log.Timber
 
 
 class VerificationFragment : BaseFragment<FragmentVerificationBinding>(), View.OnClickListener,
@@ -50,12 +50,22 @@ class VerificationFragment : BaseFragment<FragmentVerificationBinding>(), View.O
 
     }
 
-    override fun onLoginSuccess(user: UserResponse) {
+    override fun onLoginSuccess(user: User?) {
 
-        navController.navigate(R.id.action_verificationFragment_to_rolesFragment)
+        //insert UserData into Room
+        //verificationPresenter.saveUserLocale(user!!)
+
+        //Saving user token
+        verificationPresenter.saveUserToken(requireActivity(), user?.token)
+
+        //Navigate to Role
+        val bundle = Bundle()
+        bundle.putSerializable("userData", user)
+        navController.navigate(
+            R.id.action_verificationFragment_to_rolesFragment,
+            bundle //User data
+        )
         requireActivity().toast("تم التسجيل بنجاح")
-
-        verificationPresenter.saveUserToken(requireActivity(), user.token)
 
     }
 

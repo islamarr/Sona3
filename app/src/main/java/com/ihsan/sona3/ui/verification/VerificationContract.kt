@@ -8,12 +8,12 @@ import com.ihsan.sona3.data.model.UserResponse
 interface VerificationContract {
 
     interface View {
-        fun onLoginSuccess(user: UserResponse)
+        fun onLoginSuccess(user: User?)
         fun onLoginFailure(exception: Exception)
     }
 
     interface Presenter {
-        fun saveUserLocale(user: User)
+        //fun saveUserLocale(user: User)
         fun saveUserToken(activity: Activity?, token: String?)
         fun checkCredentials(activity: Activity?, credential: PhoneAuthCredential)
     }
@@ -26,7 +26,7 @@ interface VerificationContract {
     }
 
     interface OnLoginListener {
-        fun onSuccess(user: UserResponse)
+        fun onSuccess(user: User?)
         fun onFailure(exception: Exception)
     }
 }

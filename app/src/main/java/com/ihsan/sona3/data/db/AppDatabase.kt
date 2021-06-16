@@ -10,7 +10,7 @@ import com.ihsan.sona3.utils.TypeConvertersObject
 
 @Database(
     entities = [User::class],
-    version = 1
+    version = 2
 )
 @TypeConverters(TypeConvertersObject::class)
 abstract class AppDatabase : RoomDatabase() {

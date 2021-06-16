@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,28 +94,17 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
 
     override fun onSuccessProfileShared(trueProfile: TrueProfile) {
 
-//        val user = User()
-//        val tcName = trueProfile.firstName + " " + trueProfile.lastName
-//        user.name = tcName
-//        user.email = trueProfile.email
-//        user.gender = trueProfile.gender
-//        user.countryCode = trueProfile.countryCode
-//        user.imageUrl = trueProfile.avatarUrl
-//        user.city = trueProfile.city
-//        user.profileUrl = trueProfile.url
-//        user.phoneNumber = trueProfile.phoneNumber
-
-        val userTrueCaller = UserResponse()
-        userTrueCaller.apply {
-            username = trueProfile.phoneNumber
-            first_name = trueProfile.firstName
-            last_name = trueProfile.lastName
-            email = trueProfile.email
-            address = trueProfile.city
-            image = trueProfile.avatarUrl
-            token = trueProfile.accessToken
-        }
-        Timber.d("Verified user $userTrueCaller")
+//        val userTrueCaller = UserResponse()
+//        userTrueCaller.apply {
+//            username = trueProfile.phoneNumber
+//            first_name = trueProfile.firstName
+//            last_name = trueProfile.lastName
+//            email = trueProfile.email
+//            address = trueProfile.city
+//            image = trueProfile.avatarUrl
+//            token = trueProfile.accessToken
+//        }
+//        Timber.d("Verified user $userTrueCaller")
         Timber.d(
             "Payload: ${trueProfile.payload}" +
                     "Signature: ${trueProfile.signature}" +
@@ -173,9 +163,20 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
         }
     }
 
-    override fun onSuccessTruCaller(user: UserResponse?) {
+    override fun onSuccessTruCaller(user: User?) {
         Timber.d("OnSuccessAPI Call: $user")
-        navController.navigate(R.id.action_splashFragment_to_nav_home)
+        Log.i("TrueCaller", "onSuccessTruCaller: ${user?.image}")
+
+        //insert userData into Room DB for later use
+        //loginPresenter.saveUserLocale(user!!)
+
+        //navController.navigate(R.id.action_splashFragment_to_nav_home)
+        val bundle = Bundle()
+        bundle.putSerializable("userData", user!!)
+        navController.navigate(
+            R.id.action_splashFragment_to_rolesFragment,
+            bundle //UserData to be updated
+        )
     }
 
     override fun onFailTrueCaller(error: Throwable?) {

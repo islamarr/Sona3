@@ -19,9 +19,9 @@
             app:popExitAnim="@anim/slide_out_left" />
         <action
             android:id="@+id/action_splashFragment_to_nav_home"
+            app:destination="@id/nav_home"
             app:popUpTo="@+id/mobile_navigation"
-            app:popUpToInclusive="true"
-            app:destination="@id/nav_home" />
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_rolesFragment"
             app:destination="@id/rolesFragment" />
@@ -58,9 +58,9 @@
             app:popExitAnim="@anim/slide_out_left" />
         <action
             android:id="@+id/action_verificationFragment_to_nav_home"
+            app:destination="@id/nav_home"
             app:popUpTo="@+id/mobile_navigation"
-            app:popUpToInclusive="true"
-            app:destination="@id/nav_home" />
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_verificationFragment_to_rolesFragment"
             app:destination="@id/rolesFragment" />
@@ -102,5 +102,12 @@
         android:id="@+id/rolesFragment"
         android:name="com.ihsan.sona3.ui.roles.RolesFragment"
         android:label="roles_fragment"
-        tools:layout="@layout/roles_fragment" />
+        tools:layout="@layout/roles_fragment">
+        <argument
+            android:name="userData"
+            app:argType="com.ihsan.sona3.data.db.entities.User" />
+        <action
+            android:id="@+id/action_rolesFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 </navigation>

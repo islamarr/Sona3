@@ -7,7 +7,13 @@ import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.data.model.UserResponse
 import com.ihsan.sona3.utils.Coroutines
 import com.ihsan.sona3.utils.saveTokenPreferences
+import com.ihsan.sona3.utils.saveUserLocal
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.CompletableObserver
+import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import timber.log.Timber
 
 class VerificationPresenter(
     var db: AppDatabase,
@@ -19,11 +25,9 @@ class VerificationPresenter(
     private val mVerificationInteractor: VerificationInteractor =
         VerificationInteractor(this, disposableFunction)
 
-    override fun saveUserLocale(user: User) {
-        Coroutines.io {
-            db.getUserDao().upsert(user)
-        }
-    }
+//    override fun saveUserLocale(user: User) {
+//        saveUserLocal(db, user) //Util function
+//    }
 
     override fun checkCredentials(activity: Activity?, credential: PhoneAuthCredential) {
         mVerificationInteractor.validateCredentials(activity, credential)
@@ -34,7 +38,7 @@ class VerificationPresenter(
         saveTokenPreferences(activity, token)
     }
 
-    override fun onSuccess(user: UserResponse) {
+    override fun onSuccess(user: User?) {
         verificationView.onLoginSuccess(user)
     }
 

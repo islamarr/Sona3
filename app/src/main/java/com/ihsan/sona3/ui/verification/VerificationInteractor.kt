@@ -8,6 +8,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.network.ApiSettings
+import com.ihsan.sona3.utils.convertToUserRoom
 import com.ihsan.sona3.utils.getTokenPreferences
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
@@ -68,6 +69,7 @@ class VerificationInteractor internal constructor(
         disposableFunction(
             ApiSettings.apiInstance.userLoginFirebase(payload = payloadJsonObject, token = token!!)
                 .subscribeOn(Schedulers.io())
+                .map { convertToUserRoom(it) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { response -> mOnLoginListener.onSuccess(response) }, //OnSuccess

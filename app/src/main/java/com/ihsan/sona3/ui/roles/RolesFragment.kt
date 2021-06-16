@@ -1,23 +1,36 @@
 package com.ihsan.sona3.ui.roles
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.ihsan.sona3.BaseFragment
 import com.ihsan.sona3.R
+import com.ihsan.sona3.data.db.AppDatabase
+import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.databinding.RolesFragmentBinding
+import com.ihsan.sona3.utils.UserRoleEnum
 import com.ihsan.sona3.utils.show
+import com.ihsan.sona3.utils.toast
 import net.igenius.customcheckbox.CustomCheckBox
 import timber.log.Timber
 
-class RolesFragment : BaseFragment<RolesFragmentBinding>(), View.OnClickListener {
+class RolesFragment : BaseFragment<RolesFragmentBinding>(), View.OnClickListener,
+    RolesContract.View {
 
-    private lateinit var viewModel: RolesViewModel
     private var checkboxGroup = ArrayList<CustomCheckBox>()
+    private var checkedRole: Int? = null
+    private val args: RolesFragmentArgs by navArgs()
+    private var user: User? = null
+    private lateinit var db: AppDatabase
+    private lateinit var navController: NavController
+
+    private lateinit var rolesPresenter: RolesPresenter
+
 
     override fun onClick(v: View?) {
         when (v!!.id) {
@@ -41,11 +54,15 @@ class RolesFragment : BaseFragment<RolesFragmentBinding>(), View.OnClickListener
 
     private fun nextButtonPressed() {
         Timber.i("NextButton Pressed")
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RolesViewModel::class.java)
+        if (checkedRole != null) {
+            //Get user Role
+            val userRole = getSelectedRole(checkedRole!!)
+            showProgressDialog(requireContext())
+            rolesPresenter.updateUserRole(user, userRole)
+        } else
+            requireContext().toast("يجب اختيار احد الوظائف")
+
     }
 
     private fun validateCheckBox(position: Int) {
@@ -55,9 +72,11 @@ class RolesFragment : BaseFragment<RolesFragmentBinding>(), View.OnClickListener
         checkboxGroup.add(1, binding.ckResearcher)
         checkboxGroup.add(2, binding.ckReviewer)
         checkboxGroup.add(3, binding.ckVerifier)
+
         for (checkbox in checkboxGroup)
             if (checkboxGroup[position] == checkbox) {
                 checkbox.setChecked(true, true)
+                checkedRole = position //Save the last position user checked
             } else checkbox.setChecked(false, false)
 
     }
@@ -87,6 +106,23 @@ class RolesFragment : BaseFragment<RolesFragmentBinding>(), View.OnClickListener
         dialog.show()
     }
 
+    /**
+     * Get Selected User role From the selected CheckBox
+     * [ 0 -> محرر ]
+     * [ 1 -> باحث ]
+     * [ 2 -> مراجع ]
+     * [ 3 -> معتمد ]
+     */
+    private fun getSelectedRole(role: Int): String? {
+        when (role) {
+            0 -> return UserRoleEnum.Editor.toString()
+            1 -> return UserRoleEnum.Researcher.toString()
+            2 -> return UserRoleEnum.Reviewer.toString()
+            3 -> return UserRoleEnum.Verifier.toString()
+        }
+        return null
+    }
+
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> RolesFragmentBinding
         get() = RolesFragmentBinding::inflate
 
@@ -100,6 +136,24 @@ class RolesFragment : BaseFragment<RolesFragmentBinding>(), View.OnClickListener
         binding.ivVerifier.setOnClickListener(this)
         binding.ivReviewer.setOnClickListener(this)
         binding.btnNext.setOnClickListener(this)
+
+        navController = Navigation.findNavController(view)
+
+        //Get the userData from loginFragment..
+        user = args.userData
+
+        db = AppDatabase.invoke(requireContext())
+        rolesPresenter = RolesPresenter(db, this)
     }
 
+
+    override fun onSuccess() {
+        hideProgressDialog()
+        navController.navigate(R.id.action_rolesFragment_to_nav_home)
+    }
+
+    override fun onError(message: String) {
+        hideProgressDialog()
+        Timber.e("Error MSG: $message")
+    }
 }

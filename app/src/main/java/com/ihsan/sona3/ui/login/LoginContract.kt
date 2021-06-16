@@ -16,12 +16,12 @@ import com.truecaller.android.sdk.ITrueCallback
 interface LoginContract {
 
     interface View {
-        fun onSuccessTruCaller(user: UserResponse?)
+        fun onSuccessTruCaller(user: User?)
         fun onFailTrueCaller(error: Throwable?)
     }
 
     interface Presenter {
-        fun saveUserLocale(user: User)
+        //fun saveUserLocale(user: User)
         fun initTrueCaller(activity: Activity, callback: ITrueCallback)
         fun getUserToken(username: String, password: String, activity: Activity?)
         fun saveToken(activity: Activity?, token: String?)

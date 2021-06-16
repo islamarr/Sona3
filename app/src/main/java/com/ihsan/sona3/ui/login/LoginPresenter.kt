@@ -4,9 +4,12 @@ import android.app.Activity
 import com.google.gson.JsonObject
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.db.entities.User
+import com.ihsan.sona3.data.model.UserResponse
 import com.ihsan.sona3.data.network.ApiSettings
 import com.ihsan.sona3.utils.Coroutines
+import com.ihsan.sona3.utils.convertToUserRoom
 import com.ihsan.sona3.utils.saveTokenPreferences
+import com.ihsan.sona3.utils.saveUserLocal
 import com.truecaller.android.sdk.ITrueCallback
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -19,11 +22,9 @@ class LoginPresenter(
 
     private val mLoginInteractor: LoginInteractor = LoginInteractor()
 
-    override fun saveUserLocale(user: User) {
-        Coroutines.io {
-            db.getUserDao().upsert(user)
-        }
-    }
+//    override fun saveUserLocale(user: User) {
+//        saveUserLocal(db, user) //Util function
+//    }
 
 
     override fun initTrueCaller(activity: Activity, callback: ITrueCallback) {
@@ -33,6 +34,7 @@ class LoginPresenter(
     override fun userLoginTrueCaller(payload: JsonObject, token: String?) {
         ApiSettings.apiInstance.userLoginTrueCaller(payload, token!!)
             .subscribeOn(Schedulers.io())
+            .map { convertToUserRoom(it) } //Convert response to Room Object
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { response -> loginView.onSuccessTruCaller(response) }, //onSuccess
@@ -58,5 +60,4 @@ class LoginPresenter(
     override fun saveToken(activity: Activity?, token: String?) {
         saveTokenPreferences(activity, token)
     }
-
 }

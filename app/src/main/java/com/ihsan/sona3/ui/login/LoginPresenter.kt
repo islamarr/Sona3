@@ -35,8 +35,8 @@ class LoginPresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { response -> loginView.onSuccessTruCaller(response) }, //onNext
-                { error -> loginView.onFailTrueCaller(error) }
+                { response -> loginView.onSuccessTruCaller(response) }, //onSuccess
+                { error -> loginView.onFailTrueCaller(error) } //onError
             )
     }
 
@@ -50,9 +50,8 @@ class LoginPresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { response -> response.token?.let { saveToken(activity, it) } },
-                { error -> Timber.e(error) },
-                { Timber.i("Completed") }
+                { response -> response.token?.let { saveToken(activity, it) } }, //onSuccess
+                { error -> Timber.e(error) } //onError
             )
     }
 

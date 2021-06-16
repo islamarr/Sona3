@@ -7,14 +7,17 @@ import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.data.model.UserResponse
 import com.ihsan.sona3.utils.Coroutines
 import com.ihsan.sona3.utils.saveTokenPreferences
+import io.reactivex.rxjava3.disposables.Disposable
 
 class VerificationPresenter(
     var db: AppDatabase,
-    private val verificationView: VerificationContract.View
+    private val verificationView: VerificationContract.View,
+    private val disposableFunction: (disposable: Disposable?) -> Unit
 ) :
     VerificationContract.Presenter, VerificationContract.OnLoginListener {
 
-    private val mVerificationInteractor: VerificationInteractor = VerificationInteractor(this)
+    private val mVerificationInteractor: VerificationInteractor =
+        VerificationInteractor(this, disposableFunction)
 
     override fun saveUserLocale(user: User) {
         Coroutines.io {

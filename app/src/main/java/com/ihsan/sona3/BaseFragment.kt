@@ -9,9 +9,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.ihsan.sona3.data.db.AppDatabase
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
+import timber.log.Timber
 
 
 abstract class BaseFragment<T : ViewBinding> : Fragment() {
+
+    //Disposable for RxCalls
+    private lateinit var compositeDisposable: CompositeDisposable
 
     //Binding View
     private var _binding: ViewBinding? = null
@@ -33,6 +39,11 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
         mDialog.dismiss()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        compositeDisposable = CompositeDisposable()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,8 +61,21 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+
+        //Return true if it is Disposed
+        if (!compositeDisposable.isDisposed) compositeDisposable.dispose()
+        Timber.d("onFragmentDestroyed ${compositeDisposable.isDisposed}")
     }
+
 
     //Implemented into the child class
     abstract fun setupOnViewCreated(view: View)
+
+    @Synchronized
+    protected fun addDisposed(disposable: Disposable? = null) {
+        Timber.d("Disposed Called ${disposable?.isDisposed}")
+
+        if (disposable == null) return
+        compositeDisposable.add(disposable)
+    }
 }

@@ -10,10 +10,14 @@ import com.ihsan.sona3.R
 import com.ihsan.sona3.data.network.ApiSettings
 import com.ihsan.sona3.utils.getTokenPreferences
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
-class VerificationInteractor internal constructor(private val mOnLoginListener: VerificationContract.OnLoginListener) :
+class VerificationInteractor internal constructor(
+    private val mOnLoginListener: VerificationContract.OnLoginListener,
+    private val disposableFunction: (disposable: Disposable?) -> Unit
+) :
     VerificationContract.InterActor {
 
     override fun performFirebaseLogin(activity: Activity?, credential: PhoneAuthCredential) {
@@ -61,13 +65,14 @@ class VerificationInteractor internal constructor(private val mOnLoginListener: 
         payloadJsonObject.addProperty("payload", payload)
         Timber.i("Payload Json: $payloadJsonObject")
 
-        ApiSettings.apiInstance.userLoginFirebase(payload = payloadJsonObject, token = token!!)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { response -> mOnLoginListener.onSuccess(response) }, //OnSuccess
-                { error -> Timber.e("Error: ${error.message}") }, //OnError
-                { Timber.d("Response: $") } //OnComplete [End]
-            )
+        disposableFunction(
+            ApiSettings.apiInstance.userLoginFirebase(payload = payloadJsonObject, token = token!!)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { response -> mOnLoginListener.onSuccess(response) }, //OnSuccess
+                    { error -> Timber.e("Error: ${error.message}") }, //OnError
+                )
+        )
     }
 }

@@ -8,6 +8,7 @@ import com.google.gson.JsonObject
 import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.data.model.UserResponse
 import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Single
 import retrofit2.http.*
 
 /**
@@ -21,16 +22,16 @@ interface SonaApi {
     fun userLoginFirebase(
         @Body payload: JsonObject,
         @Header("Authorization") token: String
-    ): Flowable<UserResponse>
+    ): Single<UserResponse>
 
     @POST("/en/api/v1/login/truecaller/")
     fun userLoginTrueCaller(
         @Body trueCallerBody: JsonObject,
         @Header("Authorization") token: String
-    ): Flowable<UserResponse>
+    ): Single<UserResponse>
 
     @POST("/en/api/v1/login/username/")
-    fun userLoginUsername(@Body loginBody: JsonObject): Flowable<UserResponse>
+    fun userLoginUsername(@Body loginBody: JsonObject): Single<UserResponse>
 
     @GET("/en/api/v1/me/")
     fun getUserData(@Header("Authorization") token: String): Flowable<UserResponse>

@@ -1,12 +1,9 @@
 package com.ihsan.sona3.ui.verification
 
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
@@ -17,7 +14,6 @@ import com.ihsan.sona3.BaseFragment
 import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
-import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.data.model.UserResponse
 import com.ihsan.sona3.databinding.FragmentVerificationBinding
 import com.ihsan.sona3.utils.show
@@ -55,6 +51,7 @@ class VerificationFragment : BaseFragment<FragmentVerificationBinding>(), View.O
     }
 
     override fun onLoginSuccess(user: UserResponse) {
+
         navController.navigate(R.id.action_verificationFragment_to_rolesFragment)
         requireActivity().toast("تم التسجيل بنجاح")
 
@@ -82,7 +79,7 @@ class VerificationFragment : BaseFragment<FragmentVerificationBinding>(), View.O
         )
 
         db = AppDatabase.invoke(requireActivity())
-        verificationPresenter = VerificationPresenter(db, this)
+        verificationPresenter = VerificationPresenter(db, this) { addDisposed() }
 
     }
 

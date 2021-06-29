@@ -43,6 +43,10 @@
             android:name="verification_code"
             android:defaultValue="ahmed"
             app:argType="string" />
+        <argument
+            android:name="phone_number"
+            app:argType="string"
+            android:defaultValue="000" />
     </fragment>
     <fragment
         android:id="@+id/verificationFragment"

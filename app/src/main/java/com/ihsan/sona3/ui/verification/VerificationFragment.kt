@@ -88,6 +88,11 @@ class VerificationFragment : BaseFragment<FragmentVerificationBinding>(), View.O
             DrawerLayout.LOCK_MODE_LOCKED_CLOSED
         )
 
+        //Get the phone number and assign it to the textView
+        ("+20" + arguments?.getString("phoneNumber")).also {
+            binding.tvPhoneNumber.text = it
+        }
+
         db = AppDatabase.invoke(requireActivity())
         verificationPresenter = VerificationPresenter(db, this) { addDisposed() }
 

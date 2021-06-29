@@ -1,8 +1,10 @@
 package com.ihsan.sona3
 
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -26,6 +28,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var toolbar: Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // TODO: 6/29/2021 Uncomment After solving layout issue
+        //supportRTL()
+
         setContentView(R.layout.activity_main)
 
         toolbar = findViewById(R.id.toolbar)
@@ -81,6 +87,10 @@ class MainActivity : AppCompatActivity() {
         fab.visibility = visibility
         drawerLayout.setDrawerLockMode(mode)
 
+    }
+
+    private fun supportRTL() {
+        window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
     }
 
 }

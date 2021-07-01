@@ -53,10 +53,10 @@ class VerificationFragment : BaseFragment<FragmentVerificationBinding>(), View.O
     override fun onLoginSuccess(user: User?) {
 
         //insert UserData into Room
-        //verificationPresenter.saveUserLocale(user!!)
+        verificationPresenter.saveUserLocale(user!!)
 
         //Saving user token
-        verificationPresenter.saveUserToken(requireActivity(), user?.token)
+        verificationPresenter.saveUserToken(requireActivity(), user.token)
 
         //Navigate to Role
         val bundle = Bundle()

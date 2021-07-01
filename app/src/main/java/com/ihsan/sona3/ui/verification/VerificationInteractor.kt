@@ -4,12 +4,10 @@ import android.app.Activity
 import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
-import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.ihsan.sona3.R
 import com.ihsan.sona3.data.network.ApiSettings
+import com.ihsan.sona3.utils.SharedPreferencesUtil
 import com.ihsan.sona3.utils.convertToUserRoom
-import com.ihsan.sona3.utils.getTokenPreferences
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -36,22 +34,18 @@ class VerificationInteractor internal constructor(
         performFirebaseLogin(activity, credential)
     }
 
-    override fun getCurrentUserPayload(activity: Activity?) {
+    override fun getCurrentUserPayload(context: Context?) {
         var payload: String?
 
         FirebaseAuth.getInstance().currentUser?.getIdToken(true)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 payload = task.result!!.token.toString()
                 Timber.d("PayLoad: $payload")
+                Timber.d("Token: ${SharedPreferencesUtil(context!!).getTokenPreferences()}")
 
                 checkUser(
                     payload = payload!!,
-                    token = getTokenPreferences(
-                        activity!!.getSharedPreferences(
-                            activity.getString(R.string.shared_preference_name),
-                            Context.MODE_PRIVATE
-                        )
-                    )
+                    token = SharedPreferencesUtil(context!!).getTokenPreferences()
                 )
 
             }

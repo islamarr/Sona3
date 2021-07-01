@@ -1,9 +1,9 @@
 package com.ihsan.sona3.ui.verification
 
 import android.app.Activity
+import android.content.Context
 import com.google.firebase.auth.PhoneAuthCredential
 import com.ihsan.sona3.data.db.entities.User
-import com.ihsan.sona3.data.model.UserResponse
 
 interface VerificationContract {
 
@@ -13,8 +13,8 @@ interface VerificationContract {
     }
 
     interface Presenter {
-        //fun saveUserLocale(user: User)
-        fun saveUserToken(activity: Activity?, token: String?)
+        fun saveUserLocale(user: User)
+        fun saveUserToken(context: Context?, token: String?)
         fun checkCredentials(activity: Activity?, credential: PhoneAuthCredential)
     }
 
@@ -22,7 +22,7 @@ interface VerificationContract {
         fun performFirebaseLogin(activity: Activity?, credential: PhoneAuthCredential)
         fun validateCredentials(activity: Activity?, credential: PhoneAuthCredential)
         fun checkUser(payload: String?, token: String?)
-        fun getCurrentUserPayload(activity: Activity?)
+        fun getCurrentUserPayload(context: Context?)
     }
 
     interface OnLoginListener {

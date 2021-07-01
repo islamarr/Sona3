@@ -34,6 +34,6 @@ interface SonaApi {
     fun userLoginUsername(@Body loginBody: JsonObject): Single<UserResponse>
 
     @GET("/en/api/v1/me/")
-    fun getUserData(@Header("Authorization") token: String): Flowable<UserResponse>
+    fun getUserData(@Header("Authorization") token: String): Single<UserResponse>
 
 }

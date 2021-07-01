@@ -4,11 +4,6 @@
 
 package com.ihsan.sona3.utils
 
-import android.app.Activity
-import android.content.Context
-import android.content.SharedPreferences
-import android.util.Log
-import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.data.model.UserResponse
@@ -32,47 +27,23 @@ enum class UserRoleEnum {
     Reviewer
 }
 
-fun saveTokenPreferences(activity: Activity?, token: String?) {
-
-    val preference = activity!!.getSharedPreferences(
-        activity.getString(R.string.shared_preference_name),
-        Context.MODE_PRIVATE
+fun convertToUserRoom(user: UserResponse): User =
+    User(
+        address = user.address,
+        first_name = user.first_name,
+        last_name = user.last_name,
+        email = user.email,
+        image = user.image,
+        token = user.token,
+        national_id = user.national_id,
+        last_login = user.last_login,
+        role_approval_status = user.role_approval_status,
+        username = user.username,
+        user_role = user.user_role
     )
 
-    val tokenPreference = getTokenPreferences(preference)
 
-    //Check if we saved this token before
-    if (tokenPreference != null && tokenPreference != token) {
-        Timber.i("Saving new token...")
-
-        with(preference.edit()) {
-            putString("token", token)
-            apply()
-        }
-    }
-}
-
-fun getTokenPreferences(sharedPreferences: SharedPreferences?): String? =
-    sharedPreferences!!.getString("token", null)
-
-
-fun convertToUserRoom(user: UserResponse): User {
-    val userToSave = User()
-    userToSave.apply {
-        address = user.address
-        first_name = user.first_name
-        last_name = user.last_name
-        email = user.email
-        image = user.image
-        token = user.token
-        national_id = user.national_id
-        last_login = user.last_login
-        role_approval_status = user.role_approval_status
-    }
-    return userToSave
-}
-
-fun saveUserLocal(db: AppDatabase, user: User, roles: RolesPresenter) {
+fun saveUserLocal(db: AppDatabase, user: User, roles: RolesPresenter?) {
     db.getUserDao().upsert(user)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -81,12 +52,12 @@ fun saveUserLocal(db: AppDatabase, user: User, roles: RolesPresenter) {
 
             override fun onComplete() {
                 Timber.d("User saved locally!!")
-                roles.onSuccess()
+                roles?.onSuccess()
             }
 
             override fun onError(e: Throwable?) {
                 Timber.d("Error save user locally ${e!!.message}")
-                roles.onError(e.message!!)
+                roles?.onError(e.message!!)
             }
 
         })

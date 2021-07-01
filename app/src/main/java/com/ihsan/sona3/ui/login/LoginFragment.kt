@@ -1,8 +1,6 @@
 package com.ihsan.sona3.ui.login
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
@@ -20,9 +17,8 @@ import com.ihsan.sona3.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.db.entities.User
-import com.ihsan.sona3.data.model.UserResponse
 import com.ihsan.sona3.databinding.SplashFragmentBinding
-import com.ihsan.sona3.utils.getTokenPreferences
+import com.ihsan.sona3.utils.SharedPreferencesUtil
 import com.truecaller.android.sdk.ITrueCallback
 import com.truecaller.android.sdk.TrueError
 import com.truecaller.android.sdk.TrueProfile
@@ -38,13 +34,13 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
     private lateinit var navController: NavController
     private lateinit var db: AppDatabase
     private lateinit var loginPresenter: LoginPresenter
-    //private lateinit var sharedPreferences: SharedPreferences
-
+    private lateinit var sharedPreferencesUtil: SharedPreferencesUtil
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-//        checkCurrentUser()
+        checkCurrentUser()
+
         (activity as MainActivity).setHomeItemsVisibility(
             View.INVISIBLE,
             DrawerLayout.LOCK_MODE_LOCKED_CLOSED
@@ -52,11 +48,6 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
 
         db = AppDatabase.invoke(requireActivity())
         loginPresenter = LoginPresenter(db, this)
-
-//        sharedPreferences = requireActivity().getSharedPreferences(
-//            getString(R.string.shared_preference_name),
-//            Context.MODE_PRIVATE
-//        )
     }
 
     override fun onClick(v: View?) {
@@ -123,12 +114,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
         //loginPresenter.saveUserLocale(user)
         loginPresenter.userLoginTrueCaller(
             trueCallerBodyObject,
-            getTokenPreferences(
-                requireActivity().getSharedPreferences(
-                    getString(R.string.shared_preference_name),
-                    Context.MODE_PRIVATE
-                )
-            )
+            SharedPreferencesUtil(requireContext()).getTokenPreferences()
         )
     }
 
@@ -155,10 +141,19 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
     }
 
 
-    fun checkCurrentUser() {
-        val auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
+    /**
+     * if the user login before.
+     * check if token is stored && move to home.
+     */
+    private fun checkCurrentUser() {
+
+        showProgressDialog(requireContext())
+
+        val isFirstLogin = sharedPreferencesUtil.getFirstLoginBoolean()
+        val userToken = sharedPreferencesUtil.getTokenPreferences()
+
+        if (!isFirstLogin && userToken != null) {
+            hideProgressDialog()
             navController.navigate(R.id.action_splashFragment_to_nav_home)
         }
     }
@@ -190,6 +185,8 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
         navController = Navigation.findNavController(view)
         binding.btnLogin.setOnClickListener(this)
         binding.tvSkip.setOnClickListener(this)
+
+        sharedPreferencesUtil = SharedPreferencesUtil(requireContext())
     }
 
 }

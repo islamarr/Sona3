@@ -58,5 +58,6 @@
 
     <!--  End Roles Screen Strings -->
 
+    <string name="edit">تعديل</string>
     <string name="shared_preference_name">sona3.preference_file_key</string>
 </resources>

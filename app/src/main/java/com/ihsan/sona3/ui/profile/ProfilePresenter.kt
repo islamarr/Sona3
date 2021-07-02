@@ -4,7 +4,9 @@
 
 package com.ihsan.sona3.ui.profile
 
+import android.widget.Toast
 import com.ihsan.sona3.data.db.AppDatabase
+import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.data.network.ApiSettings
 import com.ihsan.sona3.utils.convertToUserRoom
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -44,6 +46,16 @@ class ProfilePresenter(
                     Timber.i("Data: ${response.username}")
                     profileView.onDataLoaded(response)
                 },
+                { error -> profileView.onError(error.message!!) }
+            )
+    }
+
+    override fun saveUpdatedUserLocal(user: User?) {
+        db.getUserDao().upsert(user!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { profileView.onDataSavedLocal() },
                 { error -> profileView.onError(error.message!!) }
             )
     }

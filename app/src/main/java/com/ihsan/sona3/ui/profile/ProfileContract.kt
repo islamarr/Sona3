@@ -16,11 +16,13 @@ interface ProfileContract {
     interface View {
         fun onDataLoaded(user: User?)
         fun onError(msg: String)
+        fun onDataSavedLocal()
     }
 
     interface Presenter {
         fun getUserDataLocal()
         fun getUserDataRemote(token: String?)
+        fun saveUpdatedUserLocal(user: User?)
     }
 
 }

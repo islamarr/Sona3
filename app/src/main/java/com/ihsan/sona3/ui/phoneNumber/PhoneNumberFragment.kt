@@ -86,7 +86,10 @@ class PhoneNumberFragment : BaseFragment<FragmentEnterPhoneNumberBinding>(),
     override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
         storedVerificationId = verificationId
         resendToken = token
-        val bundle = bundleOf("storedVerificationId" to storedVerificationId)
+        val bundle = bundleOf(
+            "storedVerificationId" to storedVerificationId,
+            "phoneNumber" to binding.etPhoneNumber.text.toString()
+        )
         navController.navigate(
             R.id.action_enterPhoneNumberFragment_to_verificationFragment,
             bundle

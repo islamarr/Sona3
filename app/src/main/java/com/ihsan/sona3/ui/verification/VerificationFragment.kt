@@ -53,10 +53,10 @@ class VerificationFragment : BaseFragment<FragmentVerificationBinding>(), View.O
     override fun onLoginSuccess(user: User?) {
 
         //insert UserData into Room
-        //verificationPresenter.saveUserLocale(user!!)
+        verificationPresenter.saveUserLocale(user!!)
 
         //Saving user token
-        verificationPresenter.saveUserToken(requireActivity(), user?.token)
+        verificationPresenter.saveUserToken(requireActivity(), user.token)
 
         //Navigate to Role
         val bundle = Bundle()
@@ -87,6 +87,11 @@ class VerificationFragment : BaseFragment<FragmentVerificationBinding>(), View.O
             View.INVISIBLE,
             DrawerLayout.LOCK_MODE_LOCKED_CLOSED
         )
+
+        //Get the phone number and assign it to the textView
+        ("+20" + arguments?.getString("phoneNumber")).also {
+            binding.tvPhoneNumber.text = it
+        }
 
         db = AppDatabase.invoke(requireActivity())
         verificationPresenter = VerificationPresenter(db, this) { addDisposed() }

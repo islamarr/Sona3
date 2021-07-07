@@ -1,15 +1,12 @@
 package com.ihsan.sona3.ui.login
 
 import android.app.Activity
+import android.content.Context
 import com.google.gson.JsonObject
 import com.ihsan.sona3.data.db.AppDatabase
-import com.ihsan.sona3.data.db.entities.User
-import com.ihsan.sona3.data.model.UserResponse
 import com.ihsan.sona3.data.network.ApiSettings
-import com.ihsan.sona3.utils.Coroutines
+import com.ihsan.sona3.utils.SharedPreferencesUtil
 import com.ihsan.sona3.utils.convertToUserRoom
-import com.ihsan.sona3.utils.saveTokenPreferences
-import com.ihsan.sona3.utils.saveUserLocal
 import com.truecaller.android.sdk.ITrueCallback
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -57,7 +54,7 @@ class LoginPresenter(
             )
     }
 
-    override fun saveToken(activity: Activity?, token: String?) {
-        saveTokenPreferences(activity, token)
+    override fun saveToken(context: Context?, token: String?) {
+        SharedPreferencesUtil(context!!).saveTokenPreferences(token)
     }
 }

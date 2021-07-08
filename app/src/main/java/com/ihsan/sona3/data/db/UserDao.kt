@@ -19,6 +19,6 @@ interface UserDao {
     fun getuser(): Single<User>
 
     @Query("DELETE FROM user")
-    fun delete()
+    fun delete(): Completable
 
 }

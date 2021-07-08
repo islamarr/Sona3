@@ -5,11 +5,13 @@
 package com.ihsan.sona3.data.network
 
 import com.google.gson.JsonObject
-import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.data.model.UserResponse
-import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.POST
 
 /**
  * Created by (Ameen Essa) on 6/13/2021
@@ -35,5 +37,8 @@ interface SonaApi {
 
     @GET("/en/api/v1/me/")
     fun getUserData(@Header("Authorization") token: String): Single<UserResponse>
+
+    @POST("/en/api/v1/logout/")
+    fun logOut(@Header("Authorization") token: String): Completable
 
 }

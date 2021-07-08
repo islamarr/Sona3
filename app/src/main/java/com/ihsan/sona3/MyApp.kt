@@ -10,6 +10,8 @@ class MyApp : Application() {
         super.onCreate()
 
         Timber.plant(Timber.DebugTree())
+
+        appContext = applicationContext
     }
 
     companion object {

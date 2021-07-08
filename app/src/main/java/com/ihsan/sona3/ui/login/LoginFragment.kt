@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.JsonObject
 import com.ihsan.sona3.BaseFragment
 import com.ihsan.sona3.MainActivity
@@ -18,7 +17,8 @@ import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.databinding.SplashFragmentBinding
-import com.ihsan.sona3.utils.SharedPreferencesUtil
+import com.ihsan.sona3.utils.SharedKeyEnum
+import com.ihsan.sona3.utils.Sona3Preferences
 import com.truecaller.android.sdk.ITrueCallback
 import com.truecaller.android.sdk.TrueError
 import com.truecaller.android.sdk.TrueProfile
@@ -34,7 +34,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
     private lateinit var navController: NavController
     private lateinit var db: AppDatabase
     private lateinit var loginPresenter: LoginPresenter
-    private lateinit var sharedPreferencesUtil: SharedPreferencesUtil
+    private lateinit var sharedPreferencesUtil: Sona3Preferences
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -114,7 +114,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
         //loginPresenter.saveUserLocale(user)
         loginPresenter.userLoginTrueCaller(
             trueCallerBodyObject,
-            SharedPreferencesUtil(requireContext()).getTokenPreferences()
+            sharedPreferencesUtil.getString(SharedKeyEnum.TOKEN.toString())
         )
     }
 
@@ -149,13 +149,16 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
 
         showProgressDialog(requireContext())
 
-        val isFirstLogin = sharedPreferencesUtil.getFirstLoginBoolean()
-        val userToken = sharedPreferencesUtil.getTokenPreferences()
+        val isFirstLogin =
+            sharedPreferencesUtil.getBoolean(SharedKeyEnum.FIRST_LOGIN.toString(), true)
+        val userToken = sharedPreferencesUtil.getString(SharedKeyEnum.TOKEN.toString())
 
         if (!isFirstLogin && userToken != null) {
             hideProgressDialog()
             navController.navigate(R.id.action_splashFragment_to_nav_home)
         }
+
+        hideProgressDialog()
     }
 
     override fun onSuccessTruCaller(user: User?) {
@@ -186,7 +189,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
         binding.btnLogin.setOnClickListener(this)
         binding.tvSkip.setOnClickListener(this)
 
-        sharedPreferencesUtil = SharedPreferencesUtil(requireContext())
+        sharedPreferencesUtil = Sona3Preferences()
     }
 
 }

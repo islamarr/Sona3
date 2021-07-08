@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.ihsan.sona3.MyApp
 
-class Sona3Parameters {
+class Sona3Preferences {
     var sona3Settings: SharedPreferences? = null
     var editor: SharedPreferences.Editor? = null
 

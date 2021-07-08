@@ -14,7 +14,7 @@ interface VerificationContract {
 
     interface Presenter {
         fun saveUserLocale(user: User)
-        fun saveUserToken(context: Context?, token: String?)
+        fun saveUserToken(context: Context?, key: String?, token: String?)
         fun checkCredentials(activity: Activity?, credential: PhoneAuthCredential)
     }
 

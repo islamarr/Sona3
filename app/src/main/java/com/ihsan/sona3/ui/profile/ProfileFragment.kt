@@ -10,7 +10,8 @@ import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.databinding.FragmentProfileBinding
-import com.ihsan.sona3.utils.SharedPreferencesUtil
+import com.ihsan.sona3.utils.SharedKeyEnum
+import com.ihsan.sona3.utils.Sona3Preferences
 import com.ihsan.sona3.utils.UserRoleEnum
 import com.ihsan.sona3.utils.toast
 import timber.log.Timber
@@ -38,7 +39,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         profilePresenter = ProfilePresenter(db, this)
         profilePresenter.getUserDataLocal()
 
-        val token = "Token ${SharedPreferencesUtil(requireContext()).getTokenPreferences()}"
+        val token = "Token ${Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())}"
         Timber.i("Token: $token")
 
         //profilePresenter.getUserDataRemote(token)
@@ -107,7 +108,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
     private fun setData(user: User?) {
 
         binding.apply {
-            tvName.setText(user?.first_name + user?.last_name)
+            tvName.setText(user?.first_name)
             tvAddress.setText(user?.address)
             tvEmail.setText(user?.email)
             tvPhoneNumber.setText(user?.username)

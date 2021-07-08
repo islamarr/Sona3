@@ -17,6 +17,7 @@ import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.databinding.FragmentVerificationBinding
+import com.ihsan.sona3.utils.SharedKeyEnum
 import com.ihsan.sona3.utils.show
 import com.ihsan.sona3.utils.toast
 
@@ -56,7 +57,11 @@ class VerificationFragment : BaseFragment<FragmentVerificationBinding>(), View.O
         verificationPresenter.saveUserLocale(user!!)
 
         //Saving user token
-        verificationPresenter.saveUserToken(requireActivity(), user.token)
+        verificationPresenter.saveUserToken(
+            requireActivity(),
+            SharedKeyEnum.TOKEN.toString(),
+            user.token
+        )
 
         //Navigate to Role
         val bundle = Bundle()

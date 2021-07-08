@@ -5,7 +5,8 @@ import android.content.Context
 import com.google.gson.JsonObject
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.network.ApiSettings
-import com.ihsan.sona3.utils.SharedPreferencesUtil
+import com.ihsan.sona3.utils.SharedKeyEnum
+import com.ihsan.sona3.utils.Sona3Preferences
 import com.ihsan.sona3.utils.convertToUserRoom
 import com.truecaller.android.sdk.ITrueCallback
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -49,12 +50,21 @@ class LoginPresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { response -> response.token?.let { saveToken(activity, it) } }, //onSuccess
+                { response ->
+                    response.token?.let {
+                        saveToken(
+                            activity,
+                            SharedKeyEnum.TOKEN.toString(),
+                            it
+                        )
+                    }
+                }, //onSuccess
                 { error -> Timber.e(error) } //onError
             )
     }
 
-    override fun saveToken(context: Context?, token: String?) {
-        SharedPreferencesUtil(context!!).saveTokenPreferences(token)
+    override fun saveToken(context: Context?, key: String?, token: String?) {
+        //SharedPreferencesUtil(context!!).saveTokenPreferences(token)
+        Sona3Preferences().setString(key, token)
     }
 }

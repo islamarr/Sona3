@@ -27,6 +27,11 @@ enum class UserRoleEnum {
     Reviewer
 }
 
+enum class SharedKeyEnum {
+    TOKEN,
+    FIRST_LOGIN
+}
+
 fun convertToUserRoom(user: UserResponse): User =
     User(
         address = user.address,

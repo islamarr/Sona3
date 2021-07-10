@@ -6,7 +6,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.gson.JsonObject
 import com.ihsan.sona3.data.network.ApiSettings
-import com.ihsan.sona3.utils.SharedPreferencesUtil
+import com.ihsan.sona3.utils.SharedKeyEnum
+import com.ihsan.sona3.utils.Sona3Preferences
 import com.ihsan.sona3.utils.convertToUserRoom
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
@@ -41,11 +42,11 @@ class VerificationInteractor internal constructor(
             if (task.isSuccessful) {
                 payload = task.result!!.token.toString()
                 Timber.d("PayLoad: $payload")
-                Timber.d("Token: ${SharedPreferencesUtil(context!!).getTokenPreferences()}")
+                Timber.d("Token: ${Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())}")
 
                 checkUser(
                     payload = payload!!,
-                    token = SharedPreferencesUtil(context!!).getTokenPreferences()
+                    token = Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())
                 )
 
             }

@@ -17,7 +17,7 @@ interface LoginContract {
         //fun saveUserLocale(user: User)
         fun initTrueCaller(activity: Activity, callback: ITrueCallback)
         fun getUserToken(username: String, password: String, activity: Activity?)
-        fun saveToken(context: Context?, token: String?)
+        fun saveToken(context: Context?, key: String?, token: String?)
         fun userLoginTrueCaller(payload: JsonObject, token: String?)
     }
 

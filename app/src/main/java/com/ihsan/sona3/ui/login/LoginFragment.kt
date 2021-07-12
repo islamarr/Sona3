@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.gson.JsonObject
 import com.ihsan.sona3.BaseFragment
-import com.ihsan.sona3.MainActivity
+import com.ihsan.sona3.ui.main.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.db.entities.User
@@ -163,12 +163,13 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
 
     override fun onSuccessTruCaller(user: User?) {
         Timber.d("OnSuccessAPI Call: $user")
-        Log.i("TrueCaller", "onSuccessTruCaller: ${user?.image}")
 
         //insert userData into Room DB for later use
         //loginPresenter.saveUserLocale(user!!)
 
-        //navController.navigate(R.id.action_splashFragment_to_nav_home)
+        //Save Token
+        loginPresenter.saveToken(requireContext(), SharedKeyEnum.TOKEN.toString(), user!!.token)
+
         val bundle = Bundle()
         bundle.putSerializable("userData", user!!)
         navController.navigate(

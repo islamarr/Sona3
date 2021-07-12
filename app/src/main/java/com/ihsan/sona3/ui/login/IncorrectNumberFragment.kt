@@ -8,7 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.ihsan.sona3.MainActivity
+import com.ihsan.sona3.ui.main.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.databinding.FragmentIncorrectNumberBinding
 

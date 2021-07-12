@@ -4,6 +4,7 @@
 
 package com.ihsan.sona3.ui.profile
 
+import android.app.Activity
 import com.ihsan.sona3.data.db.entities.User
 
 /**
@@ -17,12 +18,14 @@ interface ProfileContract {
         fun onDataLoaded(user: User?)
         fun onError(msg: String)
         fun onDataSavedLocal()
+        fun openGallery()
     }
 
     interface Presenter {
         fun getUserDataLocal()
         fun getUserDataRemote(token: String?)
         fun saveUpdatedUserLocal(user: User?)
+        fun selectPhoto(activity: Activity?, permission: String?)
     }
 
 }

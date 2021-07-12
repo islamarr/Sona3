@@ -66,5 +66,6 @@ class LoginPresenter(
     override fun saveToken(context: Context?, key: String?, token: String?) {
         //SharedPreferencesUtil(context!!).saveTokenPreferences(token)
         Sona3Preferences().setString(key, token)
+        Sona3Preferences().setBoolean(SharedKeyEnum.FIRST_LOGIN.toString(), false)
     }
 }

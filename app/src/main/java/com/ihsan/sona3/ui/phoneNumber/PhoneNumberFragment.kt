@@ -5,7 +5,6 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +16,10 @@ import com.google.android.gms.auth.api.credentials.Credential
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthProvider
 import com.ihsan.sona3.BaseFragment
-import com.ihsan.sona3.MainActivity
+import com.ihsan.sona3.ui.main.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.databinding.FragmentEnterPhoneNumberBinding
-import com.ihsan.sona3.ui.login.LoginContract
-import com.ihsan.sona3.ui.login.LoginPresenter
 import com.ihsan.sona3.utils.toast
 import timber.log.Timber
 

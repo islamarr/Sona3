@@ -163,12 +163,13 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
 
     override fun onSuccessTruCaller(user: User?) {
         Timber.d("OnSuccessAPI Call: $user")
-        Log.i("TrueCaller", "onSuccessTruCaller: ${user?.image}")
 
         //insert userData into Room DB for later use
         //loginPresenter.saveUserLocale(user!!)
 
-        //navController.navigate(R.id.action_splashFragment_to_nav_home)
+        //Save Token
+        loginPresenter.saveToken(requireContext(), SharedKeyEnum.TOKEN.toString(), user!!.token)
+
         val bundle = Bundle()
         bundle.putSerializable("userData", user!!)
         navController.navigate(

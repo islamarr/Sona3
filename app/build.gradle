@@ -1,3 +1,7 @@
+/*
+ * Last modified 7/6/21 10:39 PM
+ */
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
@@ -75,7 +79,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-    }
+    }   
     buildFeatures {
         viewBinding true
     }
@@ -139,4 +143,6 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxjava:3.0.13"
     implementation "com.squareup.retrofit2:adapter-rxjava3:2.9.0"
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+
+
 }

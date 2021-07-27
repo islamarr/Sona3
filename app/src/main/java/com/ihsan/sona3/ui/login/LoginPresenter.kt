@@ -29,37 +29,14 @@ class LoginPresenter(
         mLoginInteractor.initTrueCaller(activity, callback)
     }
 
-    override fun userLoginTrueCaller(payload: JsonObject, token: String?) {
-        ApiSettings.apiInstance.userLoginTrueCaller(payload, token!!)
+    override fun userLoginTrueCaller(payload: JsonObject) {
+        ApiSettings.apiInstance.userLoginTrueCaller(payload)
             .subscribeOn(Schedulers.io())
             .map { convertToUserRoom(it) } //Convert response to Room Object
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { response -> loginView.onSuccessTruCaller(response) }, //onSuccess
                 { error -> loginView.onFailTrueCaller(error) } //onError
-            )
-    }
-
-    override fun getUserToken(username: String, password: String, activity: Activity?) {
-
-        val jsonBodyObject = JsonObject()
-        jsonBodyObject.addProperty("username", username)
-        jsonBodyObject.addProperty("password", password)
-
-        ApiSettings.apiInstance.userLoginUsername(jsonBodyObject)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { response ->
-                    response.token?.let {
-                        saveToken(
-                            activity,
-                            SharedKeyEnum.TOKEN.toString(),
-                            it
-                        )
-                    }
-                }, //onSuccess
-                { error -> Timber.e(error) } //onError
             )
     }
 

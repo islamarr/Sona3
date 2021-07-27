@@ -23,13 +23,11 @@ interface SonaApi {
     @POST("/en/api/v1/login/firebase/")
     fun userLoginFirebase(
         @Body payload: JsonObject,
-        @Header("Authorization") token: String
     ): Single<UserResponse>
 
     @POST("/en/api/v1/login/truecaller/")
     fun userLoginTrueCaller(
         @Body trueCallerBody: JsonObject,
-        @Header("Authorization") token: String
     ): Single<UserResponse>
 
     @POST("/en/api/v1/login/username/")

@@ -21,7 +21,7 @@ interface VerificationContract {
     interface InterActor {
         fun performFirebaseLogin(activity: Activity?, credential: PhoneAuthCredential)
         fun validateCredentials(activity: Activity?, credential: PhoneAuthCredential)
-        fun checkUser(payload: String?, token: String?)
+        fun checkUser(payload: String?)
         fun getCurrentUserPayload(context: Context?)
     }
 

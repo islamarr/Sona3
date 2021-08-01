@@ -19,10 +19,7 @@ import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.databinding.FragmentProfileBinding
 import com.ihsan.sona3.ui.main.MainActivity
-import com.ihsan.sona3.utils.SharedKeyEnum
-import com.ihsan.sona3.utils.Sona3Preferences
-import com.ihsan.sona3.utils.UserRoleEnum
-import com.ihsan.sona3.utils.toast
+import com.ihsan.sona3.utils.*
 import timber.log.Timber
 
 
@@ -63,6 +60,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
 
         Timber.i("User: ${user?.username}")
         hideProgressDialog()
+
+        user?.address = "eeeeeeee"
+        user?.user_role = "editor"
+        user?.national_id = "20991122334456"
 
         userData = user!!
         setData(user)
@@ -212,9 +213,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         if (resultCode == RESULT_OK && requestCode == 2000) {
             val uriResult = data!!.data
 
+            val uri = Uri.parse(uriResult.toString())
+            val fileName = "img"
+            val stringBase64 = convertToStringBase64(requireActivity(), uri)
+
             setImage(uriResult!!)
 
-            userData.image = uriResult.toString()
+            userData.image = stringBase64
             profilePresenter.saveUpdatedUserLocal(userData)
         } else {
             Timber.i("$resultCode:  $data")

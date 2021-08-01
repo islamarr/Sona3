@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
+import com.google.gson.JsonObject
 import com.ihsan.sona3.BaseFragment
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
@@ -74,8 +75,33 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         Timber.i("Error: $msg")
     }
 
-    override fun onDataSavedLocal() {
+    override fun onDataSavedRemote() {
         requireContext().toast("تم الحفظ")
+    }
+
+    override fun onDataSavedLocal(user: User?) {
+        //requireContext().toast("تم الحفظ")
+        saveUserRemote(
+            "token ${Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())}",
+            user
+        )
+    }
+
+    private fun saveUserRemote(token: String?, user: User?) {
+
+        val userObject = JsonObject()
+        user?.also {
+            userObject.addProperty("email", it.email)
+            userObject.addProperty("first_name", it.first_name)
+            userObject.addProperty("last_name", it.last_name)
+            userObject.addProperty("last_login", it.last_login)
+            userObject.addProperty("user_role", it.user_role)
+            userObject.addProperty("address", it.address)
+            userObject.addProperty("national_id", it.national_id)
+            userObject.addProperty("image", it.image)
+        }
+
+        profilePresenter.saveUpdatedUserRemote(token, userObject)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -153,13 +179,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
     }
 
     private fun getUserData(): User =
-        User(
-            username = binding.tvPhoneNumber.text.toString(),
-            email = binding.tvEmail.text.toString(),
-            first_name = binding.tvName.text.toString(),
-            address = binding.tvAddress.text.toString(),
+        userData.apply {
+            username = binding.tvPhoneNumber.text.toString()
+            email = binding.tvEmail.text.toString()
+            first_name = binding.tvName.text.toString()
+            address = binding.tvAddress.text.toString()
             national_id = binding.tvID.text.toString()
-        )
+        }
 
 
     override fun openGallery() {
@@ -191,7 +217,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
             userData.image = uriResult.toString()
             profilePresenter.saveUpdatedUserLocal(userData)
         } else {
-          Timber.i("$resultCode:  $data")
+            Timber.i("$resultCode:  $data")
         }
     }
 }

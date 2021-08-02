@@ -45,15 +45,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         db = AppDatabase.invoke(requireContext())
 
         profilePresenter = ProfilePresenter(db, this)
-        profilePresenter.getUserDataLocal()
+        //profilePresenter.getUserDataLocal()
 
         val token = "Token ${Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())}"
         Timber.i("Token: $token")
 
-        //profilePresenter.getUserDataRemote(token)
+        profilePresenter.getUserDataRemote(token)
 
         binding.editBtn.setOnClickListener(this)
         binding.ivProfilePhoto.setOnClickListener(this)
+        binding.ivProfilePhoto.isEnabled = false
     }
 
     override fun onDataLoaded(user: User?) {
@@ -66,6 +67,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         user?.national_id = "20991122334456"
 
         userData = user!!
+        profilePresenter.saveUpdatedUserLocal(userData)
         setData(user)
     }
 
@@ -131,6 +133,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
                 tvEmail.isEnabled = true
                 tvID.isEnabled = true
                 tvName.isEnabled = true
+                ivProfilePhoto.isClickable = true
+                ivProfilePhoto.isEnabled = true
             }
 
         } else {
@@ -145,6 +149,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
                 tvEmail.isEnabled = false
                 tvID.isEnabled = false
                 tvName.isEnabled = false
+                ivProfilePhoto.isClickable = false
+                ivProfilePhoto.isEnabled = false
             }
         }
     }
@@ -220,7 +226,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
             setImage(uriResult!!)
 
             userData.image = stringBase64
-            profilePresenter.saveUpdatedUserLocal(userData)
+            //profilePresenter.saveUpdatedUserLocal(userData)
         } else {
             Timber.i("$resultCode:  $data")
         }

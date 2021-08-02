@@ -21,6 +21,7 @@ interface ProfileContract {
         fun onDataSavedLocal(user: User?)
         fun onDataSavedRemote()
         fun openGallery()
+        fun requestPermission(permission: String?)
     }
 
     interface Presenter {

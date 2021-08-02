@@ -3,6 +3,7 @@ package com.ihsan.sona3.ui.profile
 import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -230,5 +231,21 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         } else {
             Timber.i("$resultCode:  $data")
         }
+    }
+
+    override fun requestPermission(permission: String?) {
+        requestPermissions(arrayOf(permission), 2000)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        Timber.i("Code: $requestCode, Permission: ${grantResults[0]}")
+        if (requestCode == 2000
+            && grantResults.isNotEmpty()
+            && grantResults[0] == PackageManager.PERMISSION_GRANTED
+        ) openGallery()
     }
 }

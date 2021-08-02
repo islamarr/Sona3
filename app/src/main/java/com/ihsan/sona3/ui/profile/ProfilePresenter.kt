@@ -82,9 +82,8 @@ class ProfilePresenter(
                 permission!!
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            activity.requestPermissions(arrayOf(permission), 2000)
+            profileView.requestPermission(permission)
         } else {
-
             profileView.openGallery()
         }
     }

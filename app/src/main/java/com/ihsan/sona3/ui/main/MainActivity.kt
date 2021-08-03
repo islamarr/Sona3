@@ -156,6 +156,8 @@ class MainActivity : AppCompatActivity(), MainContract.View,
     override fun onLogOutSuccess() {
         this.toast("تم تسجيل الخروج بنجاح")
         mainPresenter.userDeleteLocal()
+        navController.popBackStack(R.id.nav_home, true)
+        navController.navigate(R.id.splashFragment)
     }
 
     override fun onError(error: String?) {

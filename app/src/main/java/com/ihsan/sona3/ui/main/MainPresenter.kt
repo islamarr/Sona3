@@ -35,7 +35,7 @@ class MainPresenter(
                 },
                 { error ->
                     Timber.i(error)
-                    mainView.onError(error!!.message)
+                    mainView.onError("حدث خطا الرجاء المحاوله مره اخري")
                 }
             )
     }

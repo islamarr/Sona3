@@ -51,7 +51,10 @@ class ProfilePresenter(
                     Timber.i("Data: ${response.username}")
                     profileView.onDataLoaded(response)
                 },
-                { error -> profileView.onError(error.message!!) }
+                { error ->
+                    profileView.onError("حدث خطا الرجاء المحاوله مره اخري")
+                    Timber.e(error.message!!)
+                }
             )
     }
 
@@ -61,7 +64,10 @@ class ProfilePresenter(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { profileView.onDataSavedLocal(user) },
-                { error -> profileView.onError(error.message!!) }
+                { error ->
+                    profileView.onError("تعذر حفظ البيانات الرجاء المحاوله مره اخري")
+                    Timber.e(error.message!!)
+                }
             )
     }
 
@@ -71,7 +77,10 @@ class ProfilePresenter(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { profileView.onDataSavedRemote() },
-                { error -> profileView.onError(error.localizedMessage!!) }
+                { error ->
+                    profileView.onError("تعذر حفظ البيانات الرجاء المحاوله مره اخري")
+                    Timber.e(error.message!!)
+                }
             )
     }
 

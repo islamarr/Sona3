@@ -4,6 +4,11 @@
 
 package com.ihsan.sona3.utils
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.net.Uri
+import android.provider.MediaStore
+import android.util.Base64
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.data.model.UserResponse
@@ -13,6 +18,7 @@ import io.reactivex.rxjava3.core.CompletableObserver
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
+import java.io.ByteArrayOutputStream
 
 /**
  * Created by (Ameen Essa) on 6/15/2021
@@ -66,4 +72,21 @@ fun saveUserLocal(db: AppDatabase, user: User, roles: RolesPresenter?) {
             }
 
         })
+}
+
+fun convertToStringBase64(context: Context, selectedfile: Uri): String {
+    val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, selectedfile)
+
+    val bitmapOut = Bitmap.createScaledBitmap(bitmap, 320, 480, false)
+
+    val outputStream = ByteArrayOutputStream()
+    bitmapOut.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+    val byteArray = outputStream.toByteArray()
+
+    //Use your Base64 String as you wish
+    val encodedString = Base64.encodeToString(byteArray, Base64.DEFAULT)
+
+    val encodedWithdata = "data:image/png;base64,$encodedString"
+
+    return encodedString
 }

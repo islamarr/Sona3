@@ -44,16 +44,13 @@ class VerificationInteractor internal constructor(
                 Timber.d("PayLoad: $payload")
                 Timber.d("Token: ${Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())}")
 
-                checkUser(
-                    payload = payload!!,
-                    token = Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())
-                )
+                checkUser(payload = payload!!)
 
             }
         }
     }
 
-    override fun checkUser(payload: String?, token: String?) {
+    override fun checkUser(payload: String?) {
 
         //var userLogin: UserResponse? = null
         val payloadJsonObject = JsonObject()
@@ -62,7 +59,7 @@ class VerificationInteractor internal constructor(
         Timber.i("Payload Json: $payloadJsonObject")
 
         disposableFunction(
-            ApiSettings.apiInstance.userLoginFirebase(payload = payloadJsonObject, token = token!!)
+            ApiSettings.apiInstance.userLoginFirebase(payload = payloadJsonObject)
                 .subscribeOn(Schedulers.io())
                 .map { convertToUserRoom(it) }
                 .observeOn(AndroidSchedulers.mainThread())

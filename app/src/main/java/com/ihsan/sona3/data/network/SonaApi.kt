@@ -8,10 +8,7 @@ import com.google.gson.JsonObject
 import com.ihsan.sona3.data.model.UserResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * Created by (Ameen Essa) on 6/13/2021
@@ -23,13 +20,11 @@ interface SonaApi {
     @POST("/en/api/v1/login/firebase/")
     fun userLoginFirebase(
         @Body payload: JsonObject,
-        @Header("Authorization") token: String
     ): Single<UserResponse>
 
     @POST("/en/api/v1/login/truecaller/")
     fun userLoginTrueCaller(
         @Body trueCallerBody: JsonObject,
-        @Header("Authorization") token: String
     ): Single<UserResponse>
 
     @POST("/en/api/v1/login/username/")
@@ -37,6 +32,12 @@ interface SonaApi {
 
     @GET("/en/api/v1/me/")
     fun getUserData(@Header("Authorization") token: String): Single<UserResponse>
+
+    @PATCH("/en/api/v1/me/")
+    fun updateUserData(
+        @Header("Authorization") token: String,
+        @Body updatedUserData: JsonObject
+    ): Completable
 
     @POST("/en/api/v1/logout/")
     fun logOut(@Header("Authorization") token: String): Completable

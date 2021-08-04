@@ -20,9 +20,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.utils.toast
@@ -33,7 +31,6 @@ class MainActivity : AppCompatActivity(), MainContract.View,
     NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var appBarConfiguration: AppBarConfiguration
-    lateinit var fab: FloatingActionButton
     lateinit var mainAppbar: AppBarLayout
     lateinit var drawerLayout: DrawerLayout
     lateinit var toolbar: Toolbar
@@ -56,14 +53,6 @@ class MainActivity : AppCompatActivity(), MainContract.View,
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         mainAppbar = findViewById(R.id.mainAppbar)
-        fab = findViewById(R.id.fab)
-
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-
 
         drawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -106,9 +95,7 @@ class MainActivity : AppCompatActivity(), MainContract.View,
 
     fun setHomeItemsVisibility(visibility: Int, mode: Int) {
         mainAppbar.visibility = visibility
-        fab.visibility = visibility
         drawerLayout.setDrawerLockMode(mode)
-
     }
 
     private fun supportRTL() {

@@ -9,8 +9,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.ihsan.sona3.ui.main.MainActivity
 import com.ihsan.sona3.R
+import com.ihsan.sona3.ui.main.MainActivity
 
 class HomeFragment : Fragment() {
 

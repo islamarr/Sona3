@@ -11,9 +11,9 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import com.google.gson.JsonObject
 import com.ihsan.sona3.data.db.AppDatabase
+import com.ihsan.sona3.data.db.RoomHandler
 import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.data.network.ApiSettings
-import com.ihsan.sona3.utils.convertToUserRoom
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
@@ -43,7 +43,7 @@ class ProfilePresenter(
             .subscribeOn(Schedulers.io())
             .map {
                 Timber.i("Data: $it")
-                convertToUserRoom(it)
+                RoomHandler(db).convertToUserRoom(it)
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

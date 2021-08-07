@@ -5,22 +5,18 @@
 package com.ihsan.sona3.ui.profile
 
 import android.app.Activity
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import android.provider.MediaStore
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.startActivityForResult
+import com.google.gson.JsonObject
 import com.ihsan.sona3.data.db.AppDatabase
+import com.ihsan.sona3.data.db.RoomHandler
 import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.data.network.ApiSettings
-import com.ihsan.sona3.utils.convertToUserRoom
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
-import java.util.jar.Manifest
 
 /**
  * Created by (Ameen Essa) on 7/1/2021
@@ -47,7 +43,7 @@ class ProfilePresenter(
             .subscribeOn(Schedulers.io())
             .map {
                 Timber.i("Data: $it")
-                convertToUserRoom(it)
+                RoomHandler(db).convertToUserRoom(it)
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -55,7 +51,10 @@ class ProfilePresenter(
                     Timber.i("Data: ${response.username}")
                     profileView.onDataLoaded(response)
                 },
-                { error -> profileView.onError(error.message!!) }
+                { error ->
+                    profileView.onError("حدث خطا الرجاء المحاوله مره اخري")
+                    Timber.e(error.message!!)
+                }
             )
     }
 
@@ -64,8 +63,24 @@ class ProfilePresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { profileView.onDataSavedLocal() },
-                { error -> profileView.onError(error.message!!) }
+                { profileView.onDataSavedLocal(user) },
+                { error ->
+                    profileView.onError("تعذر حفظ البيانات الرجاء المحاوله مره اخري")
+                    Timber.e(error.message!!)
+                }
+            )
+    }
+
+    override fun saveUpdatedUserRemote(token: String?, user: JsonObject?) {
+        ApiSettings.apiInstance.updateUserData(token = token!!, updatedUserData = user!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { profileView.onDataSavedRemote() },
+                { error ->
+                    profileView.onError("تعذر حفظ البيانات الرجاء المحاوله مره اخري")
+                    Timber.e(error.message!!)
+                }
             )
     }
 
@@ -76,9 +91,8 @@ class ProfilePresenter(
                 permission!!
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            activity.requestPermissions(arrayOf(permission), 2000)
+            profileView.requestPermission(permission)
         } else {
-
             profileView.openGallery()
         }
     }

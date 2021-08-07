@@ -8,9 +8,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.ihsan.sona3.ui.main.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.databinding.FragmentIncorrectNumberBinding
+import com.ihsan.sona3.ui.main.MainActivity
 
 
 class IncorrectNumberFragment : Fragment(R.layout.fragment_incorrect_number), View.OnClickListener {

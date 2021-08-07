@@ -4,15 +4,12 @@
 
 package com.ihsan.sona3.utils
 
-import com.ihsan.sona3.data.db.AppDatabase
-import com.ihsan.sona3.data.db.entities.User
-import com.ihsan.sona3.data.model.UserResponse
-import com.ihsan.sona3.ui.roles.RolesPresenter
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.CompletableObserver
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
-import timber.log.Timber
+import android.content.Context
+import android.graphics.Bitmap
+import android.net.Uri
+import android.provider.MediaStore
+import android.util.Base64
+import java.io.ByteArrayOutputStream
 
 /**
  * Created by (Ameen Essa) on 6/15/2021
@@ -32,38 +29,19 @@ enum class SharedKeyEnum {
     FIRST_LOGIN
 }
 
-fun convertToUserRoom(user: UserResponse): User =
-    User(
-        address = user.address,
-        first_name = user.first_name,
-        last_name = user.last_name,
-        email = user.email,
-        image = user.image,
-        token = user.token,
-        national_id = user.national_id,
-        last_login = user.last_login,
-        role_approval_status = user.role_approval_status,
-        username = user.username,
-        user_role = user.user_role
-    )
+fun convertToStringBase64(context: Context, selectedfile: Uri): String {
+    val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, selectedfile)
 
+    val bitmapOut = Bitmap.createScaledBitmap(bitmap, 320, 480, false)
 
-fun saveUserLocal(db: AppDatabase, user: User, roles: RolesPresenter?) {
-    db.getUserDao().upsert(user)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(object : CompletableObserver {
-            override fun onSubscribe(d: Disposable?) {}
+    val outputStream = ByteArrayOutputStream()
+    bitmapOut.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+    val byteArray = outputStream.toByteArray()
 
-            override fun onComplete() {
-                Timber.d("User saved locally!!")
-                roles?.onSuccess()
-            }
+    //Use your Base64 String as you wish
+    val encodedString = Base64.encodeToString(byteArray, Base64.DEFAULT)
 
-            override fun onError(e: Throwable?) {
-                Timber.d("Error save user locally ${e!!.message}")
-                roles?.onError(e.message!!)
-            }
+    val encodedWithdata = "data:image/png;base64,$encodedString"
 
-        })
+    return encodedString
 }

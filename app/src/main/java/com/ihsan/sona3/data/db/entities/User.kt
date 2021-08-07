@@ -2,7 +2,6 @@ package com.ihsan.sona3.data.db.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 const val CURRENT_USER_ID = 0

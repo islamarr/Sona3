@@ -16,10 +16,10 @@ import com.google.android.gms.auth.api.credentials.Credential
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthProvider
 import com.ihsan.sona3.BaseFragment
-import com.ihsan.sona3.ui.main.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.databinding.FragmentEnterPhoneNumberBinding
+import com.ihsan.sona3.ui.main.MainActivity
 import com.ihsan.sona3.utils.toast
 import timber.log.Timber
 

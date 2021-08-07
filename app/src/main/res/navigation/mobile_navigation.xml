@@ -63,7 +63,9 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_verificationFragment_to_rolesFragment"
-            app:destination="@id/rolesFragment" />
+            app:destination="@id/rolesFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/incorrectNumberFragment"
@@ -108,6 +110,8 @@
             app:argType="com.ihsan.sona3.data.db.entities.User" />
         <action
             android:id="@+id/action_rolesFragment_to_nav_home"
-            app:destination="@id/nav_home" />
+            app:destination="@id/nav_home"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

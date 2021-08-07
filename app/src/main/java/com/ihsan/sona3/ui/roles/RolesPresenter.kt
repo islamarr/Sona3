@@ -5,8 +5,8 @@
 package com.ihsan.sona3.ui.roles
 
 import com.ihsan.sona3.data.db.AppDatabase
+import com.ihsan.sona3.data.db.RoomHandler
 import com.ihsan.sona3.data.db.entities.User
-import com.ihsan.sona3.utils.saveUserLocal
 
 /**
  * Created by (Ameen Essa) on 6/16/2021
@@ -23,7 +23,7 @@ class RolesPresenter(
         // TODO: 6/16/2021 Update User Role data from selected
         if (user != null && userRole != null) {
             user.user_role = userRole //Update the user role from selected
-            saveUserLocal(db, user, this) //Update user role
+            RoomHandler(db).saveUserLocal(user, this) //Update user role
         }
     }
 

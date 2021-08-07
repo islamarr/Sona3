@@ -2,7 +2,6 @@ package com.ihsan.sona3.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +11,11 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.gson.JsonObject
 import com.ihsan.sona3.BaseFragment
-import com.ihsan.sona3.ui.main.MainActivity
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.databinding.SplashFragmentBinding
+import com.ihsan.sona3.ui.main.MainActivity
 import com.ihsan.sona3.utils.SharedKeyEnum
 import com.ihsan.sona3.utils.Sona3Preferences
 import com.truecaller.android.sdk.ITrueCallback
@@ -55,7 +54,6 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
             R.id.btnLogin -> {
 
                 loginPresenter.initTrueCaller(requireActivity(), this)
-                loginPresenter.getUserToken("ashraf", "ashraf", activity)
 
                 val isTCLoginMethod = TruecallerSDK.getInstance().isUsable
 
@@ -112,10 +110,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
         trueCallerBodyObject.addProperty("algorithm", trueProfile.signatureAlgorithm)
 
         //loginPresenter.saveUserLocale(user)
-        loginPresenter.userLoginTrueCaller(
-            trueCallerBodyObject,
-            sharedPreferencesUtil.getString(SharedKeyEnum.TOKEN.toString())
-        )
+        loginPresenter.userLoginTrueCaller(trueCallerBodyObject)
     }
 
     override fun onFailureProfileShared(trueError: TrueError) {

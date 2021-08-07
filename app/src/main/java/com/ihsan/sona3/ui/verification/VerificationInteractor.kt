@@ -1,3 +1,7 @@
+/*
+ * Last modified 8/7/21 3:13 PM
+ */
+
 package com.ihsan.sona3.ui.verification
 
 import android.app.Activity
@@ -44,13 +48,16 @@ class VerificationInteractor internal constructor(
                 Timber.d("PayLoad: $payload")
                 Timber.d("Token: ${Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())}")
 
-                checkUser(payload = payload!!)
+                checkUser(
+                    payload = payload!!,
+                    token = Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())
+                )
 
             }
         }
     }
 
-    override fun checkUser(payload: String?) {
+    override fun checkUser(payload: String?, token: String?) {
 
         //var userLogin: UserResponse? = null
         val payloadJsonObject = JsonObject()
@@ -59,7 +66,7 @@ class VerificationInteractor internal constructor(
         Timber.i("Payload Json: $payloadJsonObject")
 
         disposableFunction(
-            ApiSettings.apiInstance.userLoginFirebase(payload = payloadJsonObject)
+            ApiSettings.apiInstance.userLoginFirebase(payload = payloadJsonObject, token = token!!)
                 .subscribeOn(Schedulers.io())
                 .map { convertToUserRoom(it) }
                 .observeOn(AndroidSchedulers.mainThread())

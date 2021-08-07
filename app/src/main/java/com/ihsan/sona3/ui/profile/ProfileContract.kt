@@ -1,11 +1,14 @@
 /*
+ * Last modified 8/7/21 3:13 PM
+ */
+
+/*
  * Last modified 7/1/21 5:04 PM
  */
 
 package com.ihsan.sona3.ui.profile
 
 import android.app.Activity
-import com.google.gson.JsonObject
 import com.ihsan.sona3.data.db.entities.User
 
 /**
@@ -18,17 +21,14 @@ interface ProfileContract {
     interface View {
         fun onDataLoaded(user: User?)
         fun onError(msg: String)
-        fun onDataSavedLocal(user: User?)
-        fun onDataSavedRemote()
+        fun onDataSavedLocal()
         fun openGallery()
-        fun requestPermission(permission: String?)
     }
 
     interface Presenter {
         fun getUserDataLocal()
         fun getUserDataRemote(token: String?)
         fun saveUpdatedUserLocal(user: User?)
-        fun saveUpdatedUserRemote(token: String?, user: JsonObject?)
         fun selectPhoto(activity: Activity?, permission: String?)
     }
 

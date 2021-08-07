@@ -1,9 +1,12 @@
+/*
+ * Last modified 8/7/21 9:16 PM
+ */
+
 package com.ihsan.sona3.ui.profile
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -13,14 +16,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
-import com.google.gson.JsonObject
 import com.ihsan.sona3.BaseFragment
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.databinding.FragmentProfileBinding
 import com.ihsan.sona3.ui.main.MainActivity
-import com.ihsan.sona3.utils.*
+import com.ihsan.sona3.utils.SharedKeyEnum
+import com.ihsan.sona3.utils.Sona3Preferences
+import com.ihsan.sona3.utils.UserRoleEnum
+import com.ihsan.sona3.utils.toast
 import timber.log.Timber
 
 
@@ -46,16 +51,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         db = AppDatabase.invoke(requireContext())
 
         profilePresenter = ProfilePresenter(db, this)
-        //profilePresenter.getUserDataLocal()
+        profilePresenter.getUserDataLocal()
 
         val token = "Token ${Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())}"
         Timber.i("Token: $token")
 
-        profilePresenter.getUserDataRemote(token)
+        //profilePresenter.getUserDataRemote(token)
 
         binding.editBtn.setOnClickListener(this)
         binding.ivProfilePhoto.setOnClickListener(this)
-        binding.ivProfilePhoto.isEnabled = false
     }
 
     override fun onDataLoaded(user: User?) {
@@ -63,12 +67,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         Timber.i("User: ${user?.username}")
         hideProgressDialog()
 
-        user?.address = "eeeeeeee"
-        user?.user_role = "editor"
-        user?.national_id = "20991122334456"
-
         userData = user!!
-        profilePresenter.saveUpdatedUserLocal(userData)
         setData(user)
     }
 
@@ -79,33 +78,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         Timber.i("Error: $msg")
     }
 
-    override fun onDataSavedRemote() {
+    override fun onDataSavedLocal() {
         requireContext().toast("تم الحفظ")
-    }
-
-    override fun onDataSavedLocal(user: User?) {
-        //requireContext().toast("تم الحفظ")
-        saveUserRemote(
-            "token ${Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())}",
-            user
-        )
-    }
-
-    private fun saveUserRemote(token: String?, user: User?) {
-
-        val userObject = JsonObject()
-        user?.also {
-            userObject.addProperty("email", it.email)
-            userObject.addProperty("first_name", it.first_name)
-            userObject.addProperty("last_name", it.last_name)
-            userObject.addProperty("last_login", it.last_login)
-            userObject.addProperty("user_role", it.user_role)
-            userObject.addProperty("address", it.address)
-            userObject.addProperty("national_id", it.national_id)
-            userObject.addProperty("image", it.image)
-        }
-
-        profilePresenter.saveUpdatedUserRemote(token, userObject)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -134,8 +108,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
                 tvEmail.isEnabled = true
                 tvID.isEnabled = true
                 tvName.isEnabled = true
-                ivProfilePhoto.isClickable = true
-                ivProfilePhoto.isEnabled = true
             }
 
         } else {
@@ -150,8 +122,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
                 tvEmail.isEnabled = false
                 tvID.isEnabled = false
                 tvName.isEnabled = false
-                ivProfilePhoto.isClickable = false
-                ivProfilePhoto.isEnabled = false
             }
         }
     }
@@ -187,13 +157,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
     }
 
     private fun getUserData(): User =
-        userData.apply {
-            username = binding.tvPhoneNumber.text.toString()
-            email = binding.tvEmail.text.toString()
-            first_name = binding.tvName.text.toString()
-            address = binding.tvAddress.text.toString()
+        User(
+            username = binding.tvPhoneNumber.text.toString(),
+            email = binding.tvEmail.text.toString(),
+            first_name = binding.tvName.text.toString(),
+            address = binding.tvAddress.text.toString(),
             national_id = binding.tvID.text.toString()
-        }
+        )
 
 
     override fun openGallery() {
@@ -220,32 +190,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         if (resultCode == RESULT_OK && requestCode == 2000) {
             val uriResult = data!!.data
 
-            val uri = Uri.parse(uriResult.toString())
-            val fileName = "img"
-            val stringBase64 = convertToStringBase64(requireActivity(), uri)
-
             setImage(uriResult!!)
 
-            userData.image = stringBase64
-            //profilePresenter.saveUpdatedUserLocal(userData)
+            userData.image = uriResult.toString()
+            profilePresenter.saveUpdatedUserLocal(userData)
         } else {
             Timber.i("$resultCode:  $data")
         }
-    }
-
-    override fun requestPermission(permission: String?) {
-        requestPermissions(arrayOf(permission), 2000)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        Timber.i("Code: $requestCode, Permission: ${grantResults[0]}")
-        if (requestCode == 2000
-            && grantResults.isNotEmpty()
-            && grantResults[0] == PackageManager.PERMISSION_GRANTED
-        ) openGallery()
     }
 }

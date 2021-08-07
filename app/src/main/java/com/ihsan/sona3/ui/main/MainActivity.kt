@@ -1,4 +1,12 @@
 /*
+ * Last modified 8/7/21 9:16 PM
+ */
+
+/*
+ * Last modified 7/16/21 2:32 PM
+ */
+
+/*
  * Last modified 7/12/21, 2:21 PM
  */
 
@@ -47,7 +55,6 @@ class MainActivity : AppCompatActivity(), MainContract.View,
 
         // TODO: 6/29/2021 Uncomment After solving layout issue
         //supportRTL()
-
         setContentView(R.layout.activity_main)
 
         db = AppDatabase.invoke(this)
@@ -156,6 +163,7 @@ class MainActivity : AppCompatActivity(), MainContract.View,
     override fun onLogOutSuccess() {
         this.toast("تم تسجيل الخروج بنجاح")
         mainPresenter.userDeleteLocal()
+        navController.navigate(R.id.splashFragment)
     }
 
     override fun onError(error: String?) {

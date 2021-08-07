@@ -1,4 +1,12 @@
 /*
+ * Last modified 8/7/21 3:13 PM
+ */
+
+/*
+ * Last modified 8/3/21 2:29 PM
+ */
+
+/*
  * Last modified 7/6/21 10:39 PM
  */
 
@@ -79,7 +87,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-    }   
+    }
     buildFeatures {
         viewBinding true
     }
@@ -139,10 +147,39 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
     // RxJava
     implementation "io.reactivex.rxjava3:rxjava:3.0.13"
     implementation "com.squareup.retrofit2:adapter-rxjava3:2.9.0"
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
 
+    // Paging 3
+    implementation "androidx.paging:paging-runtime-ktx:3.0.1"
+    implementation "androidx.paging:paging-rxjava2-ktx:3.0.1"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    // Dagger 2
+    implementation 'com.google.dagger:dagger:2.35.1'
+    kapt 'com.google.dagger:dagger-compiler:2.22'
+    implementation 'com.google.dagger:dagger-android:2.35.1'
+    kapt 'com.google.dagger:dagger-android-processor:2.22'
+
+
+
+    //Lifecycle
+
+    def lifecycle_version = "2.4.0-alpha02"
+
+    // Annotation processor
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
+    // optional - helpers for implementing LifecycleOwner in a Service
+    implementation "androidx.lifecycle:lifecycle-service:$lifecycle_version"
+
+    // optional - ProcessLifecycleOwner provides a lifecycle for the whole application process
+    implementation "androidx.lifecycle:lifecycle-process:$lifecycle_version"
 }

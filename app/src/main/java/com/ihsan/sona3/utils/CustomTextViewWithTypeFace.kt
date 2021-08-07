@@ -1,10 +1,12 @@
 /*
- * Last modified 7/7/21 12:41 AM
+ * Last modified 8/7/21 3:13 PM
  */
 
 /*
- * Last modified 7/6/21 10:05 PM
+ * Last modified 7/15/21 5:24 PM
  */
+
+
 /**
  * Created by Ahmed Shehatah
  *
@@ -24,7 +26,6 @@ class CustomTextViewWithTypeFace @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
-//    private var binding: SplashFragmentBinding = SplashFragmentBinding.inflate(LayoutInflater.from(context))
 
     init {
 
@@ -36,7 +37,7 @@ class CustomTextViewWithTypeFace @JvmOverloads constructor(
                 typedArray.getString(R.styleable.CustomTextViewWithTypeFace_typeface)
             try {
                 if (fontName != null) {
-                    val typeface = Typeface.createFromAsset(context.assets, "fonts/$fontName.ttf")
+                    val typeface = Typeface.createFromAsset(context.assets, "fonts/$fontName")
                     setTypeface(typeface)
                 }
             } catch (ex: Exception) {

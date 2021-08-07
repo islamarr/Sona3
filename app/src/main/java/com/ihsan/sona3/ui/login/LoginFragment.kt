@@ -1,5 +1,14 @@
+/*
+ * Last modified 8/7/21 3:13 PM
+ */
+
+/*
+ * Last modified 8/3/21 5:12 PM
+ */
+
 package com.ihsan.sona3.ui.login
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -54,6 +63,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
             R.id.btnLogin -> {
 
                 loginPresenter.initTrueCaller(requireActivity(), this)
+                loginPresenter.getUserToken("ashraf", "ashraf", activity)
 
                 val isTCLoginMethod = TruecallerSDK.getInstance().isUsable
 
@@ -81,6 +91,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
         }
     }
 
+    @SuppressLint("BinaryOperationInTimber")
     override fun onSuccessProfileShared(trueProfile: TrueProfile) {
 
 //        val userTrueCaller = UserResponse()
@@ -110,7 +121,10 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
         trueCallerBodyObject.addProperty("algorithm", trueProfile.signatureAlgorithm)
 
         //loginPresenter.saveUserLocale(user)
-        loginPresenter.userLoginTrueCaller(trueCallerBodyObject)
+        loginPresenter.userLoginTrueCaller(
+            trueCallerBodyObject,
+            sharedPreferencesUtil.getString(SharedKeyEnum.TOKEN.toString())
+        )
     }
 
     override fun onFailureProfileShared(trueError: TrueError) {
@@ -166,7 +180,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
         loginPresenter.saveToken(requireContext(), SharedKeyEnum.TOKEN.toString(), user!!.token)
 
         val bundle = Bundle()
-        bundle.putSerializable("userData", user!!)
+        bundle.putSerializable("userData", user)
         navController.navigate(
             R.id.action_splashFragment_to_rolesFragment,
             bundle //UserData to be updated

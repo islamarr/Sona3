@@ -1,3 +1,11 @@
+/*
+ * Last modified 8/7/21 3:13 PM
+ */
+
+/*
+ * Last modified 7/15/21 7:59 PM
+ */
+
 package com.ihsan.sona3.ui.login
 
 import android.app.Activity
@@ -18,7 +26,7 @@ class LoginPresenter(
     private val loginView: LoginContract.View
 ) : LoginContract.Presenter {
 
-    private val mLoginInteractor: LoginInteractor = LoginInteractor()
+    private val mLoginInterActor: LoginInteractor = LoginInteractor()
 
 //    override fun saveUserLocale(user: User) {
 //        saveUserLocal(db, user) //Util function
@@ -26,17 +34,40 @@ class LoginPresenter(
 
 
     override fun initTrueCaller(activity: Activity, callback: ITrueCallback) {
-        mLoginInteractor.initTrueCaller(activity, callback)
+        mLoginInterActor.initTrueCaller(activity, callback)
     }
 
-    override fun userLoginTrueCaller(payload: JsonObject) {
-        ApiSettings.apiInstance.userLoginTrueCaller(payload)
+    override fun userLoginTrueCaller(payload: JsonObject, token: String?) {
+        ApiSettings.apiInstance.userLoginTrueCaller(payload, token!!)
             .subscribeOn(Schedulers.io())
             .map { convertToUserRoom(it) } //Convert response to Room Object
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { response -> loginView.onSuccessTruCaller(response) }, //onSuccess
                 { error -> loginView.onFailTrueCaller(error) } //onError
+            )
+    }
+
+    override fun getUserToken(username: String, password: String, activity: Activity?) {
+
+        val jsonBodyObject = JsonObject()
+        jsonBodyObject.addProperty("username", username)
+        jsonBodyObject.addProperty("password", password)
+
+        ApiSettings.apiInstance.userLoginUsername(jsonBodyObject)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { response ->
+                    response.token?.let {
+                        saveToken(
+                            activity,
+                            SharedKeyEnum.TOKEN.toString(),
+                            it
+                        )
+                    }
+                }, //onSuccess
+                { error -> Timber.e(error) } //onError
             )
     }
 

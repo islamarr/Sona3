@@ -1,4 +1,8 @@
 /*
+ * Last modified 8/7/21 9:16 PM
+ */
+
+/*
  * Last modified 7/1/21 5:06 PM
  */
 
@@ -9,7 +13,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import com.google.gson.JsonObject
 import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.data.network.ApiSettings
@@ -60,18 +63,8 @@ class ProfilePresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { profileView.onDataSavedLocal(user) },
+                { profileView.onDataSavedLocal() },
                 { error -> profileView.onError(error.message!!) }
-            )
-    }
-
-    override fun saveUpdatedUserRemote(token: String?, user: JsonObject?) {
-        ApiSettings.apiInstance.updateUserData(token = token!!, updatedUserData = user!!)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { profileView.onDataSavedRemote() },
-                { error -> profileView.onError(error.localizedMessage!!) }
             )
     }
 
@@ -82,8 +75,9 @@ class ProfilePresenter(
                 permission!!
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            profileView.requestPermission(permission)
+            activity.requestPermissions(arrayOf(permission), 2000)
         } else {
+
             profileView.openGallery()
         }
     }

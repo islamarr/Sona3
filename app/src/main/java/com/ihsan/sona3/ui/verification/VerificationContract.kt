@@ -1,3 +1,7 @@
+/*
+ * Last modified 8/7/21 3:13 PM
+ */
+
 package com.ihsan.sona3.ui.verification
 
 import android.app.Activity
@@ -21,7 +25,7 @@ interface VerificationContract {
     interface InterActor {
         fun performFirebaseLogin(activity: Activity?, credential: PhoneAuthCredential)
         fun validateCredentials(activity: Activity?, credential: PhoneAuthCredential)
-        fun checkUser(payload: String?)
+        fun checkUser(payload: String?, token: String?)
         fun getCurrentUserPayload(context: Context?)
     }
 

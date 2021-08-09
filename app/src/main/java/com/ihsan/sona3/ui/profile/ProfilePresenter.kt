@@ -52,7 +52,7 @@ class ProfilePresenter(
                     profileView.onDataLoaded(response)
                 },
                 { error ->
-                    profileView.onError("حدث خطا الرجاء المحاوله مره اخري")
+                    //profileView.onError("حدث خطا الرجاء المحاوله مره اخري")
                     Timber.e(error.message!!)
                 }
             )
@@ -65,7 +65,7 @@ class ProfilePresenter(
             .subscribe(
                 { profileView.onDataSavedLocal(user) },
                 { error ->
-                    profileView.onError("تعذر حفظ البيانات الرجاء المحاوله مره اخري")
+                    //profileView.onError("تعذر حفظ البيانات الرجاء المحاوله مره اخري")
                     Timber.e(error.message!!)
                 }
             )
@@ -78,13 +78,13 @@ class ProfilePresenter(
             .subscribe(
                 { profileView.onDataSavedRemote() },
                 { error ->
-                    profileView.onError("تعذر حفظ البيانات الرجاء المحاوله مره اخري")
+                    //profileView.onError("تعذر حفظ البيانات الرجاء المحاوله مره اخري")
                     Timber.e(error.message!!)
                 }
             )
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun selectPhoto(activity: Activity?, permission: String?) {
         if (ActivityCompat.checkSelfPermission(
                 activity!!,

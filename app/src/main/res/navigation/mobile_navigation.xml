@@ -111,7 +111,7 @@
         <action
             android:id="@+id/action_rolesFragment_to_nav_home"
             app:destination="@id/nav_home"
-            app:popUpTo="@id/splashFragment"
+            app:popUpTo="@id/mobile_navigation"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

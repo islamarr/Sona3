@@ -63,13 +63,16 @@ class VerificationFragment : BaseFragment<FragmentVerificationBinding>(), View.O
             user.token
         )
 
-        //Navigate to Role
-        val bundle = Bundle()
-        bundle.putSerializable("userData", user)
-        navController.navigate(
-            R.id.action_verificationFragment_to_rolesFragment,
-            bundle //User data
-        )
+        if (user.user_role == null) {
+            //Navigate to Role
+            val bundle = Bundle()
+            bundle.putSerializable("userData", user)
+            navController.navigate(
+                R.id.action_verificationFragment_to_rolesFragment,
+                bundle //User data
+            )
+        } else navController.navigate(R.id.action_verificationFragment_to_nav_home)
+
         requireActivity().toast("تم التسجيل بنجاح")
 
     }

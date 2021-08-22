@@ -33,7 +33,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        (activity as MainActivity).fab.visibility = View.GONE
         (activity as MainActivity).toolbar.title = getString(R.string.profile)
     }
 
@@ -108,14 +107,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         profilePresenter.saveUpdatedUserRemote(token, userObject)
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.editBtn -> makeEditTextEnable()
-            R.id.ivProfilePhoto -> profilePresenter.selectPhoto(
-                activity,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            )
+            R.id.ivProfilePhoto -> {
+
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+                    profilePresenter.selectPhoto(
+                        activity,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                } else openGallery()
+            }
         }
     }
 

@@ -109,7 +109,10 @@ class MainActivity : AppCompatActivity(), MainContract.View,
                 Timber.i("Logout Here")
                 dialog()
             }
-            R.id.nav_home -> navController.navigate(R.id.nav_home)
+            R.id.nav_home -> {
+                navController.navigate(R.id.nav_home)
+                navController.popBackStack(R.id.mobile_navigation, true)
+            }
             R.id.nav_profile -> navController.navigate(R.id.nav_profile)
             R.id.nav_my_form -> navController.navigate(R.id.nav_my_form)
         }

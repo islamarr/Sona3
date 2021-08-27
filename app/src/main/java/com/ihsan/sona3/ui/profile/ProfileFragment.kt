@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.google.gson.JsonObject
 import com.ihsan.sona3.BaseFragment
@@ -69,6 +70,20 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         userData = user!!
         profilePresenter.saveUpdatedUserLocal(userData)
         setData(user)
+
+        showHintDialog(user)
+    }
+
+    private fun showHintDialog(user: User) {
+        if (user.role_approval_status.equals("pending")) {
+
+            val dialog = AlertDialog.Builder(requireContext())
+                .setMessage("جاري مراجعة بياناتك")
+                .setPositiveButton("تم") { _, _ -> }
+                .create()
+
+            dialog.show()
+        }
     }
 
     override fun onError(msg: String) {

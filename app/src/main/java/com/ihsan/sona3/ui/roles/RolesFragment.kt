@@ -3,7 +3,9 @@ package com.ihsan.sona3.ui.roles
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -149,11 +151,32 @@ class RolesFragment : BaseFragment<RolesFragmentBinding>(), View.OnClickListener
 
     override fun onSuccess() {
         hideProgressDialog()
-        navController.navigate(R.id.action_rolesFragment_to_nav_home)
+        showHintDialog()
+        //navController.navigate(R.id.action_rolesFragment_to_nav_home)
     }
 
     override fun onError(message: String) {
         hideProgressDialog()
         Timber.e("Error MSG: $message")
+    }
+
+    private fun showHintDialog() {
+
+        val customDialogView = layoutInflater.inflate(R.layout.custom_dialog, null)
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setCancelable(false)
+            .setView(customDialogView)
+            .create()
+
+        val button = customDialogView.findViewById<Button>(R.id.okDialogButton)
+
+        button.setOnClickListener {
+            Timber.i("Button")
+            dialog.cancel()
+            navController.navigate(R.id.action_rolesFragment_to_nav_home)
+        }
+
+        dialog.show()
     }
 }

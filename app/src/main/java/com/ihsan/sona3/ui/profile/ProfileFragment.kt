@@ -70,20 +70,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         userData = user!!
         profilePresenter.saveUpdatedUserLocal(userData)
         setData(user)
-
-        showHintDialog(user)
-    }
-
-    private fun showHintDialog(user: User) {
-        if (user.role_approval_status.equals("pending")) {
-
-            val dialog = AlertDialog.Builder(requireContext())
-                .setMessage("جاري مراجعة بياناتك")
-                .setPositiveButton("تم") { _, _ -> }
-                .create()
-
-            dialog.show()
-        }
     }
 
     override fun onError(msg: String) {

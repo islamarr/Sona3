@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Last modified 8/31/21, 10:15 PM
+  -->
+
+<resources>
+    <string name="dialog_role_text">سيتم مراجعه بياناتك والموافقه علي الصلاحية في اقرب وقت ممكن</string>
+    <string name="dialog_button_ok">حسنآ</string>
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/_50dp"
+    app:cardCornerRadius="@dimen/_50dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_30dp"
+            android:layout_marginTop="@dimen/_30dp"
+            android:layout_marginEnd="@dimen/_30dp"
+            android:layout_marginBottom="@dimen/_30dp"
+            android:gravity="center"
+            android:text="@string/dialog_role_text"
+            android:textColor="@color/purple_500"
+            android:textSize="@dimen/_30sp" />
+
+        <Button
+            android:id="@+id/okDialogButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView20"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:layout_marginStart="@dimen/_50dp"
+            android:layout_marginEnd="@dimen/_50dp"
+            android:text="@string/dialog_button_ok"
+            android:textSize="@dimen/_30sp" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
+

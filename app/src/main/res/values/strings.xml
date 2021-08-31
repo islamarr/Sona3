@@ -60,4 +60,6 @@
 
     <string name="edit">تعديل</string>
     <string name="shared_preference_name">sona3.preference_file_key</string>
+    <string name="dialog_role_text">سيتم مراجعه بياناتك والموافقه علي الصلاحية في اقرب وقت ممكن</string>
+    <string name="dialog_button_ok">حسنآ</string>
 </resources>

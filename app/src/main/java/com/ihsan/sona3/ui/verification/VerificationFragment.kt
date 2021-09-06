@@ -63,7 +63,7 @@ class VerificationFragment : BaseFragment<FragmentVerificationBinding>(), View.O
             user.token
         )
 
-        if (user.user_role == null) {
+        if (user.user_role == null || user.role_approval_status.equals("pending")) {
             //Navigate to Role
             val bundle = Bundle()
             bundle.putSerializable("userData", user)

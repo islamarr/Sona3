@@ -151,8 +151,10 @@ class RolesFragment : BaseFragment<RolesFragmentBinding>(), View.OnClickListener
 
     override fun onSuccess() {
         hideProgressDialog()
-        showHintDialog()
-        //navController.navigate(R.id.action_rolesFragment_to_nav_home)
+
+        if (checkedRole != 0)
+            showHintDialog()
+        else navController.navigate(R.id.action_rolesFragment_to_nav_home)
     }
 
     override fun onError(message: String) {

@@ -163,7 +163,6 @@ class RolesFragment : BaseFragment<RolesFragmentBinding>(), View.OnClickListener
         if (checkedRole != 0)
             showHintDialog()
         else navController.navigate(R.id.action_rolesFragment_to_nav_home)
-
     }
 
     override fun onError(message: String) {

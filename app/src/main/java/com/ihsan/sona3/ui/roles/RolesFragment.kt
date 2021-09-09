@@ -117,10 +117,10 @@ class RolesFragment : BaseFragment<RolesFragmentBinding>(), View.OnClickListener
      */
     private fun getSelectedRole(role: Int): String? {
         when (role) {
-            0 -> return UserRoleEnum.Editor.toString()
-            1 -> return UserRoleEnum.Researcher.toString()
-            2 -> return UserRoleEnum.Reviewer.toString()
-            3 -> return UserRoleEnum.Verifier.toString()
+            0 -> return UserRoleEnum.Editor.toString().toLowerCase()
+            1 -> return UserRoleEnum.Researcher.toString().toLowerCase()
+            2 -> return UserRoleEnum.Reviewer.toString().toLowerCase()
+            3 -> return UserRoleEnum.Verifier.toString().toLowerCase()
         }
         return null
     }
@@ -143,6 +143,14 @@ class RolesFragment : BaseFragment<RolesFragmentBinding>(), View.OnClickListener
 
         //Get the userData from loginFragment..
         user = args.userData
+
+        //Set the last selected role.
+        when (user!!.user_role) {
+            UserRoleEnum.Editor.toString().toLowerCase() -> validateCheckBox(0)
+            UserRoleEnum.Researcher.toString().toLowerCase() -> validateCheckBox(1)
+            UserRoleEnum.Reviewer.toString().toLowerCase() -> validateCheckBox(2)
+            UserRoleEnum.Verifier.toString().toLowerCase() -> validateCheckBox(3)
+        }
 
         db = AppDatabase.invoke(requireContext())
         rolesPresenter = RolesPresenter(db, this)

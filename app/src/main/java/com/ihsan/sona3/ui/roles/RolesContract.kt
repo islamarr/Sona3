@@ -20,6 +20,7 @@ interface RolesContract {
 
     interface Presenter {
         fun updateUserRole(user: User?, userRole: String?)
+        fun saveUserRemote(user: User?)
     }
 
     interface OnSaveListener {

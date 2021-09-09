@@ -1,6 +1,7 @@
 package com.ihsan.sona3.ui.profile
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,7 +13,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.google.gson.JsonObject
 import com.ihsan.sona3.BaseFragment
@@ -64,7 +64,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         hideProgressDialog()
 
         user?.address = "eeeeeeee"
-        user?.user_role = "editor"
+        //user?.user_role = "editor"
         user?.national_id = "20991122334456"
 
         userData = user!!
@@ -161,6 +161,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setData(user: User?) {
 
         binding.apply {
@@ -175,20 +176,37 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
             setImage(Uri.parse(user.image))
 
         //Convert Role to Arabic Text..
-        when (user?.user_role) {
-            UserRoleEnum.Editor.toString() -> binding.tvType.setText(
-                requireContext().getText(R.string.editor_or_volunteer)
-            )
-            UserRoleEnum.Reviewer.toString() -> binding.tvType.setText(
-                requireContext().getText(R.string.reviewer)
-            )
-            UserRoleEnum.Researcher.toString() -> binding.tvType.setText(
-                requireContext().getText(R.string.researcher)
-            )
-            UserRoleEnum.Verifier.toString() -> binding.tvType.setText(
-                requireContext().getText(R.string.verifier)
-            )
-        }
+        if (user?.role_approval_status.equals("pending"))
+            when (user?.user_role) {
+                UserRoleEnum.Editor.toString().toLowerCase() -> binding.tvType.setText(
+                    "${requireContext().getText(R.string.editor_or_volunteer)} (Pending)"
+                )
+                UserRoleEnum.Researcher.toString().toLowerCase() -> binding.tvType.setText(
+                    "${requireContext().getText(R.string.researcher)} (Pending)"
+                )
+                UserRoleEnum.Reviewer.toString().toLowerCase() -> binding.tvType.setText(
+                    "${requireContext().getText(R.string.reviewer)} (Pending)"
+                )
+                UserRoleEnum.Verifier.toString().toLowerCase() -> binding.tvType.setText(
+                    "${requireContext().getText(R.string.verifier)} (Pending)"
+                )
+            }
+        else
+
+            when (user?.user_role) {
+                UserRoleEnum.Editor.toString().toLowerCase() -> binding.tvType.setText(
+                    requireContext().getText(R.string.editor_or_volunteer)
+                )
+                UserRoleEnum.Reviewer.toString().toLowerCase() -> binding.tvType.setText(
+                    requireContext().getText(R.string.reviewer)
+                )
+                UserRoleEnum.Researcher.toString().toLowerCase() -> binding.tvType.setText(
+                    requireContext().getText(R.string.researcher)
+                )
+                UserRoleEnum.Verifier.toString().toLowerCase() -> binding.tvType.setText(
+                    requireContext().getText(R.string.verifier)
+                )
+            }
     }
 
     private fun getUserData(): User =

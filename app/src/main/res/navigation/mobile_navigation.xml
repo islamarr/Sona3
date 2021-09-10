@@ -114,4 +114,9 @@
             app:popUpTo="@id/mobile_navigation"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.ihsan.sona3.ui.family.DetailsFragment"
+        android:label="DetailsFragment"
+        tools:layout="@layout/fragment_family_details" />
 </navigation>

@@ -1,4 +1,8 @@
 /*
+ * Last modified 9/16/21 3:16 PM
+ */
+
+/*
  * Last modified 8/7/21 3:13 PM
  */
 
@@ -43,28 +47,4 @@ object ApiSettings {
         retrofit.create(SonaApi::class.java)
     }
 
-    /**
-    ~~~~~~~~~~ This code for Testing ~~~~~~~~~~~~~~
-     ***** Created By Ahmed Shehatah *******
-     *          *_*
-     */
-    private val fakeRetrofit by lazy {
-        val logging = HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-        val client = OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .build()
-
-
-        Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com")
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build()
-    }
-
-    val fakeApiInstance: SonaApi by lazy {
-        fakeRetrofit.create(SonaApi::class.java)
-    }
 }

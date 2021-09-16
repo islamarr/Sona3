@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?><!--
+  ~ Last modified 9/16/21 2:48 PM
+  -->
+
+<!--
   ~ Last modified 8/7/21 9:16 PM
   -->
 
@@ -15,7 +19,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".ui.home.HomeFragment">
 
 

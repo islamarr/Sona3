@@ -1,3 +1,11 @@
+/*
+ * Last modified 8/7/21 3:13 PM
+ */
+
+/*
+ * Last modified 8/3/21 5:12 PM
+ */
+
 package com.ihsan.sona3.ui.phoneNumber
 
 import android.app.Activity.RESULT_OK
@@ -49,7 +57,7 @@ class PhoneNumberFragment : BaseFragment<FragmentEnterPhoneNumberBinding>(),
             )
 
         } else {
-            requireActivity().toast("ادخل رقم هاتف صحيح")
+            requireActivity().toast(getString(R.string.enter_valid_phone_number))
             hideProgressDialog()
         }
     }
@@ -76,7 +84,7 @@ class PhoneNumberFragment : BaseFragment<FragmentEnterPhoneNumberBinding>(),
                 1, null, 0, 0, 0, Bundle()
             )
         } catch (e: IntentSender.SendIntentException) {
-            e.printStackTrace()
+            Timber.e(e)
         }
     }
 
@@ -97,7 +105,7 @@ class PhoneNumberFragment : BaseFragment<FragmentEnterPhoneNumberBinding>(),
     override fun onFailure(exception: FirebaseException) {
         hideProgressDialog()
         Timber.i("Exception on Code $exception")
-        requireContext().toast("فشل في ارسال الرمز")
+        requireContext().toast(getString(R.string.failed_to_send_code))
     }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentEnterPhoneNumberBinding

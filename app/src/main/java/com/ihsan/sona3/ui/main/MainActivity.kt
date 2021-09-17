@@ -20,6 +20,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity(), MainContract.View,
     lateinit var drawerLayout: DrawerLayout
     lateinit var toolbar: Toolbar
     lateinit var navController: NavController
-
+    lateinit var fab:FloatingActionButton
     lateinit var db: AppDatabase
     lateinit var mainPresenter: MainPresenter
 
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity(), MainContract.View,
 
         db = AppDatabase.invoke(this)
         mainPresenter = MainPresenter(db, this)
-
+        fab = findViewById(R.id.fab)
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         mainAppbar = findViewById(R.id.mainAppbar)
@@ -96,6 +97,7 @@ class MainActivity : AppCompatActivity(), MainContract.View,
     fun setHomeItemsVisibility(visibility: Int, mode: Int) {
         mainAppbar.visibility = visibility
         drawerLayout.setDrawerLockMode(mode)
+        fab.visibility = visibility
     }
 
     private fun supportRTL() {

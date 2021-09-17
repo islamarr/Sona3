@@ -1,37 +1,33 @@
+/*
+ * Last modified 9/16/21 3:19 PM
+ */
+
+/*
+ * Last modified 8/7/21 9:08 PM
+ */
+
+/*
+ * Last modified 8/3/21 5:12 PM
+ */
+
 package com.ihsan.sona3.ui.home
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.ihsan.sona3.R
+import com.ihsan.sona3.BaseFragment
+import com.ihsan.sona3.databinding.FragmentHomeBinding
 import com.ihsan.sona3.ui.main.MainActivity
 
-class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
+        get() = FragmentHomeBinding::inflate
+
+    override fun setupOnViewCreated(view: View) {
         val activity = activity as MainActivity
         activity.setHomeItemsVisibility(
             View.VISIBLE,

@@ -1,4 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Last modified 8/7/21 9:16 PM
+  -->
+
+<!--
+  ~ Last modified 8/3/21 5:12 PM
+  -->
+
 <!--
   ~ Last modified 7/7/21 12:29 AM
   -->
@@ -46,16 +53,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="116dp"
-        android:fontFamily="serif-monospace"
         android:text="@string/skip"
         android:textColor="@color/app_text_color"
         android:textSize="30sp"
         android:visibility="visible"
-        app:typeface="arabic_font"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:typeface="arabic_font.ttf" />
 
     <View
         android:id="@+id/underLine"

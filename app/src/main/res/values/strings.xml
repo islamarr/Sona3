@@ -1,3 +1,11 @@
+<!--
+  ~ Last modified 8/7/21 3:13 PM
+  -->
+
+<!--
+  ~ Last modified 7/15/21 10:12 PM
+  -->
+
 <resources>
     <string name="app_name">Sona3</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -30,7 +38,10 @@
     <string name="login_success">تم التسجيل بنجاح</string>
 
     <!-- End   Login Screen Strings  -->
-
+    <string name="enter_valid_phone_number">ادخل رقم هاتف صحيح</string>
+    <string name="failed_to_send_code">فشل في ارسال الرمز</string>
+    <!-- Start    Phone Number screen -->
+    <!--End   Phone Number screen -->
     <!-- Start Profile Screen Strings -->
     <string name="name">الاسم</string>
     <string name="type">الصفة</string>
@@ -60,6 +71,6 @@
 
     <string name="edit">تعديل</string>
     <string name="shared_preference_name">sona3.preference_file_key</string>
-    <string name="dialog_role_text">سيتم مراجعه بياناتك والموافقه علي الصلاحية في اقرب وقت ممكن</string>
-    <string name="dialog_button_ok">حسنآ</string>
+
+
 </resources>

@@ -120,7 +120,7 @@ class RolesFragment : BaseFragment<RolesFragmentBinding>(), View.OnClickListener
             0 -> return UserRoleEnum.Editor.toString().toLowerCase()
             1 -> return UserRoleEnum.Researcher.toString().toLowerCase()
             2 -> return UserRoleEnum.Reviewer.toString().toLowerCase()
-            3 -> return UserRoleEnum.Verifier.toString().toLowerCase()
+            3 -> return UserRoleEnum.Supervisor.toString().toLowerCase()
         }
         return null
     }
@@ -149,7 +149,7 @@ class RolesFragment : BaseFragment<RolesFragmentBinding>(), View.OnClickListener
             UserRoleEnum.Editor.toString().toLowerCase() -> validateCheckBox(0)
             UserRoleEnum.Researcher.toString().toLowerCase() -> validateCheckBox(1)
             UserRoleEnum.Reviewer.toString().toLowerCase() -> validateCheckBox(2)
-            UserRoleEnum.Verifier.toString().toLowerCase() -> validateCheckBox(3)
+            UserRoleEnum.Supervisor.toString().toLowerCase() -> validateCheckBox(3)
         }
 
         db = AppDatabase.invoke(requireContext())

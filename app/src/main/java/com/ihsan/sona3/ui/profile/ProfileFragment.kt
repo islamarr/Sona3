@@ -187,7 +187,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
                 UserRoleEnum.Reviewer.toString().toLowerCase() -> binding.tvType.setText(
                     "${requireContext().getText(R.string.reviewer)} (Pending)"
                 )
-                UserRoleEnum.Verifier.toString().toLowerCase() -> binding.tvType.setText(
+                UserRoleEnum.Supervisor.toString().toLowerCase() -> binding.tvType.setText(
                     "${requireContext().getText(R.string.verifier)} (Pending)"
                 )
             }
@@ -203,7 +203,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
                 UserRoleEnum.Researcher.toString().toLowerCase() -> binding.tvType.setText(
                     requireContext().getText(R.string.researcher)
                 )
-                UserRoleEnum.Verifier.toString().toLowerCase() -> binding.tvType.setText(
+                UserRoleEnum.Supervisor.toString().toLowerCase() -> binding.tvType.setText(
                     requireContext().getText(R.string.verifier)
                 )
             }

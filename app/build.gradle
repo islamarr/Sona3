@@ -24,14 +24,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
-    signingConfigs {
-        release {
-            keyAlias 'islam'
-            keyPassword 'islam2022'
-            storeFile file('../islam.jks')
-            storePassword 'islam2022'
-        }
-    }
 
     buildTypes {
 
@@ -39,16 +31,7 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            applicationVariants.all { variant ->
-                variant.outputs.all { output ->
-                    project.ext { appName = 'Sona3_' }
-                    def newName = output.outputFile.name
-                    newName = newName.replace("app-", "$project.ext.appName")
-                    newName = newName.replace("release", variant.versionName + "_release")
-                    outputFileName = newName
-                }
-            }
-            signingConfig signingConfigs.release
+
             manifestPlaceholders.trueCallerKey = "2cG5D394fbdc57ac14b919fad69c2ab28b720"
         }
 
@@ -56,16 +39,7 @@ android {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            applicationVariants.all { variant ->
-                variant.outputs.all { output ->
-                    project.ext { appName = 'Sona3_' }
-                    def newName = output.outputFile.name
-                    newName = newName.replace("app-", "$project.ext.appName")
-                    newName = newName.replace("debug", variant.versionName + "_debug")
-                    outputFileName = newName
-                }
-            }
-            signingConfig signingConfigs.debug
+            
             manifestPlaceholders.trueCallerKey = "2cG5D394fbdc57ac14b919fad69c2ab28b720"
         }
 

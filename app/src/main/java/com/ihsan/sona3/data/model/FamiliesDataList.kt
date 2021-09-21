@@ -9,8 +9,8 @@ package com.ihsan.sona3.data.model
  */
 
 data class FamiliesDataList(
- var name: String,
- var needs: String,
- var address: String,
- var date: String
+ var userId: Int,
+ var id: Int,
+ var title: String,
+ var body: String
 )

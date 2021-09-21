@@ -16,14 +16,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ihsan.sona3.BaseFragment
+import com.ihsan.sona3.data.model.FamiliesDataList
 import com.ihsan.sona3.databinding.FragmentHomeBinding
 import com.ihsan.sona3.ui.main.MainActivity
+import com.ihsan.sona3.utils.toast
 
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeContract.View {
 
-
+    lateinit var presenter: HomePresenter
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
 
@@ -33,6 +36,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             View.VISIBLE,
             DrawerLayout.LOCK_MODE_UNLOCKED
         )
+        binding.rvData.layoutManager = LinearLayoutManager(requireContext())
+        presenter = HomePresenter(this)
+        presenter.getData()
+    }
 
+    override fun onSuccess(list: List<FamiliesDataList>) {
+
+        val adapter = RecyclerAdapter(list)
+        binding.rvData.adapter = adapter
+
+
+    }
+
+    override fun onFailure(msg: String) {
+        requireContext().toast(msg)
     }
 }

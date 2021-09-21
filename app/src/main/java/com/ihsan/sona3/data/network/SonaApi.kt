@@ -5,6 +5,7 @@
 package com.ihsan.sona3.data.network
 
 import com.google.gson.JsonObject
+import com.ihsan.sona3.data.model.FamiliesDataList
 import com.ihsan.sona3.data.model.UserResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -41,5 +42,15 @@ interface SonaApi {
 
     @POST("/en/api/v1/logout/")
     fun logOut(@Header("Authorization") token: String): Completable
+
+
+    /**
+     *
+     * fake calls for testing
+     * created by Ahmed shehatah
+     */
+
+    @GET("/posts")
+    fun getPosts(): Single<List<FamiliesDataList>>
 
 }

@@ -20,8 +20,8 @@ import java.io.ByteArrayOutputStream
 enum class UserRoleEnum {
     Editor,
     Researcher,
-    Verifier,
-    Reviewer
+    Reviewer,
+    Supervisor
 }
 
 enum class SharedKeyEnum {

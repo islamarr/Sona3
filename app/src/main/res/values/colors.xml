@@ -10,4 +10,5 @@
     <color name="app_text_color">#272727</color>
     <color name="roles_text_color">#424242</color>
     <color name="bottom_sheet_background">#FB3D3D</color>
+    <color name="card_color">#F8F5F5</color>
 </resources>

@@ -88,6 +88,9 @@
         <action
             android:id="@+id/action_nav_home_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_formOneFragment"
+            app:destination="@id/formOneFragment" />
     </fragment>
 
     <fragment
@@ -122,4 +125,8 @@
         android:name="com.ihsan.sona3.ui.family.DetailsFragment"
         android:label="DetailsFragment"
         tools:layout="@layout/fragment_family_details" />
+    <fragment
+        android:id="@+id/formOneFragment"
+        android:name="com.ihsan.sona3.ui.form1.FormOneFragment"
+        android:label="FormOneFragment" />
 </navigation>

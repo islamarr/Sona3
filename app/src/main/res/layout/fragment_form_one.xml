@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Last modified 9/25/21 12:58 PM
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|top"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bottom_sheet_background"
+            android:gravity="center"
+            android:padding="@dimen/_10dp"
+            android:text="@string/general_data_for_family"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20sp" />
+
+        <ImageView
+            android:id="@+id/ivFamilyImage"
+            android:layout_width="@dimen/_100dp"
+            android:layout_height="@dimen/_100dp"
+            android:layout_marginTop="@dimen/_30dp"
+            android:contentDescription="@string/image"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_launcher" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:gravity="center"
+                android:text="@string/address"
+                android:textColor="@color/app_text_color"
+                android:textSize="@dimen/_24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/citySpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:entries="@array/dummy_list"
+                android:minHeight="48dp"
+                android:spinnerMode="dialog"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/centerSpinner"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <Spinner
+                android:id="@+id/centerSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:entries="@array/dummy_list"
+                android:minHeight="48dp"
+                android:spinnerMode="dialog"
+                app:layout_constraintEnd_toStartOf="@+id/citySpinner"
+                app:layout_constraintStart_toEndOf="@+id/etVillage"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <EditText
+                android:id="@+id/etVillage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:hint="@string/village"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toStartOf="@+id/centerSpinner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <EditText
+                android:id="@+id/etStreet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:ems="10"
+                android:hint="@string/street"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/citySpinner" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:gravity="center"
+                android:text="@string/social_status"
+                android:textColor="@color/app_text_color"
+                android:textSize="@dimen/_24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etStreet" />
+
+            <CheckBox
+                android:id="@+id/cbOrphans"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layoutDirection="rtl"
+                android:text="@string/orphans"
+                android:textColor="@color/app_text_color"
+                app:layout_constraintEnd_toStartOf="@+id/cbPoor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+            <CheckBox
+                android:id="@+id/cbPoor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layoutDirection="rtl"
+                android:text="@string/poor"
+                app:layout_constraintEnd_toStartOf="@+id/cbSick"
+                app:layout_constraintStart_toEndOf="@+id/cbOrphans"
+                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+            <CheckBox
+                android:id="@+id/cbHasbend"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layoutDirection="rtl"
+                android:text="@string/hasband_abanden"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cbHasDebt"
+                app:layout_constraintTop_toBottomOf="@+id/cbOrphans" />
+
+            <CheckBox
+                android:id="@+id/cbHasDebt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layoutDirection="rtl"
+                android:text="@string/has_debt"
+                app:layout_constraintEnd_toStartOf="@+id/cbHasbend"
+                app:layout_constraintStart_toEndOf="@+id/cbDisabled"
+                app:layout_constraintTop_toBottomOf="@+id/cbPoor" />
+
+            <CheckBox
+                android:id="@+id/cbSick"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layoutDirection="rtl"
+                android:text="@string/ill"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cbPoor"
+                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+            <CheckBox
+                android:id="@+id/cbDisabled"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layoutDirection="rtl"
+                android:text="@string/disabled"
+                app:layout_constraintEnd_toStartOf="@+id/cbHasDebt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cbSick" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:text="@string/house_type"
+                android:textColor="@color/app_text_color"
+                android:textSize="@dimen/_20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cbDisabled" />
+
+            <Spinner
+                android:id="@+id/HouseTypeSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:entries="@array/dummy_list"
+                android:minHeight="48dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView25"
+                app:layout_constraintEnd_toStartOf="@+id/textView25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView25" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:text="@string/house_area"
+                android:textColor="@color/app_text_color"
+                android:textSize="@dimen/_20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName3"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <EditText
+                android:id="@+id/editTextTextPersonName3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:ems="10"
+                android:hint="@string/house_area"
+                android:inputType="numberDecimal"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toStartOf="@+id/textView26"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/HouseTypeSpinner" />
+
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/next"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</ScrollView>

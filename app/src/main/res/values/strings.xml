@@ -66,5 +66,38 @@
 
     <string name="dialog_role_text">سيتم مراجعه بياناتك والموافقه علي الصلاحية في اقرب وقت ممكن</string>
     <string name="dialog_button_ok">حسنآ</string>
+    <string name="father_data">بيانات العائل</string>
+    <string name="general_data_for_family">بيانات عامة للأسرة</string>
+    <string name="father_name">اسم العائل</string>
+    <string name="fatherStatus">صفة العائل</string>
+    <string name="village">القرية</string>
+    <string name="street">الشارع</string>
+    <string name="social_status">الحالة الاجتماعية</string>
+    <string name="orphans">ايتام</string>
+    <string name="poor">فقراء</string>
+    <string name="hasband_abanden">هجر زوج</string>
+    <string name="has_debt">غارمين</string>
+    <string name="ill">مرضى</string>
+    <string name="disabled">ذو قدرات خاصة</string>
+    <string name="house_type">نوع السكن</string>
+    <string name="house_area">مساحة السكن</string>
+    <string name="previous">السابق</string>
+    <string name="extra_income">مدخولات اخرى</string>
+    <string name="add_info">اضف بيانات</string>
+    <string name="income_type">نوع الدخل</string>
+    <string name="physical">مادية</string>
+    <string name="in_kind">عينية</string>
+    <string name="type_of_help">نوع المساعدة</string>
+    <string name="value">القيمة</string>
+    <string name="delete_data">مسح البيانات</string>
+    <string name="add_new_income">أضف مدخولات أخرى</string>
 
+
+    <!-- dummy data -->
+    <string-array name="dummy_list">
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
+    </string-array>
 </resources>

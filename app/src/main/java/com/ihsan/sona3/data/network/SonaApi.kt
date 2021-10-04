@@ -7,6 +7,7 @@ package com.ihsan.sona3.data.network
 import com.google.gson.JsonObject
 import com.ihsan.sona3.data.model.FamiliesDataList
 import com.ihsan.sona3.data.model.UserResponse
+import com.ihsan.sona3.data.model.form1.Governs
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.*
@@ -42,6 +43,15 @@ interface SonaApi {
 
     @POST("/en/api/v1/logout/")
     fun logOut(@Header("Authorization") token: String): Completable
+
+    @GET("/en/api/v1/governorates/")
+    fun governs(@Header("Authorization") token: String): Single<List<Governs>>
+
+    @GET("/en/api/v1/cities/{governorate_id}/")
+    fun centers(
+        @Header("Authorization") token: String,
+        @Path("governorate_id") id: Int
+    ): Single<List<Governs>>
 
 
     /**

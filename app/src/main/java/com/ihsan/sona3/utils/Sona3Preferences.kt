@@ -27,8 +27,7 @@ class Sona3Preferences {
         openConnection()
         editor!!.putInt(key, value)
         editor!!.commit()
-        closeConnection()
-    }
+        closeConnection() }
 
     fun setLoong(key: String?, value: Long) {
         openConnection()

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.gson.JsonObject
@@ -35,7 +34,6 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
     private lateinit var db: AppDatabase
     private lateinit var loginPresenter: LoginPresenter
     private lateinit var sharedPreferencesUtil: Sona3Preferences
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -67,13 +65,10 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
                 } else {
                     navController.navigate(R.id.action_splashFragment_to_enterPhoneNumberFragment)
                 }
-            }
 
-            R.id.tvSkip -> {
-                loginPresenter.saveToken(requireContext(), SharedKeyEnum.TOKEN.toString(), "null")
-                navController.navigate(R.id.action_splashFragment_to_nav_home)
-                this.requireActivity().recreate()
+
             }
+            R.id.tvSkip -> navController.navigate(R.id.action_splashFragment_to_nav_home)
         }
     }
 
@@ -153,7 +148,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
             sharedPreferencesUtil.getBoolean(SharedKeyEnum.FIRST_LOGIN.toString(), true)
         val userToken = sharedPreferencesUtil.getString(SharedKeyEnum.TOKEN.toString())
 
-        if (!isFirstLogin && userToken != null && !userToken.equals("null")) {
+        if (!isFirstLogin && userToken != null) {
             hideProgressDialog()
             navController.navigate(R.id.action_splashFragment_to_nav_home)
         }

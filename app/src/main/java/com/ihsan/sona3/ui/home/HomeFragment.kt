@@ -1,15 +1,3 @@
-/*
- * Last modified 9/16/21 3:19 PM
- */
-
-/*
- * Last modified 8/7/21 9:08 PM
- */
-
-/*
- * Last modified 8/3/21 5:12 PM
- */
-
 package com.ihsan.sona3.ui.home
 
 import android.view.LayoutInflater
@@ -27,7 +15,7 @@ import com.ihsan.sona3.ui.main.MainActivity
 import com.ihsan.sona3.utils.toast
 
 
-class   HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeContract.View {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeContract.View {
     lateinit var navController: NavController
     lateinit var presenter: HomePresenter
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
@@ -40,7 +28,9 @@ class   HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeContract.View {
             DrawerLayout.LOCK_MODE_UNLOCKED
         )
         navController = Navigation.findNavController(view)
-        activity.fab.setOnClickListener { navController.navigate(R.id.action_nav_home_to_formOneFragment) }
+        activity.fab.setOnClickListener {
+            navController.navigate(R.id.action_nav_home_to_formOneFragment)
+        }
         binding.rvData.layoutManager = LinearLayoutManager(requireContext())
         presenter = HomePresenter(this)
         presenter.getData()
@@ -50,7 +40,6 @@ class   HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeContract.View {
 
         val adapter = RecyclerAdapter(list)
         binding.rvData.adapter = adapter
-
 
     }
 

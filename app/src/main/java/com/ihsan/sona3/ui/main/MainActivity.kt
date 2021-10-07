@@ -4,7 +4,6 @@
 
 package com.ihsan.sona3.ui.main
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -14,7 +13,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -30,7 +28,6 @@ import com.ihsan.sona3.utils.SharedKeyEnum
 import com.ihsan.sona3.utils.Sona3Preferences
 import com.ihsan.sona3.utils.toast
 import timber.log.Timber
-import java.util.zip.Inflater
 
 
 class MainActivity : AppCompatActivity(), MainContract.View,
@@ -44,7 +41,7 @@ class MainActivity : AppCompatActivity(), MainContract.View,
 
     lateinit var db: AppDatabase
     lateinit var mainPresenter: MainPresenter
-    lateinit var navigationView:NavigationView
+    lateinit var navigationView: NavigationView
     var Tag = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,25 +66,20 @@ class MainActivity : AppCompatActivity(), MainContract.View,
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.nav_home, R.id.nav_profile, R.id.nav_my_form, R.id.nav_logout),
-            drawerLayout)
+            drawerLayout
+        )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.setNavigationItemSelectedListener(this)
-        val token =Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())
 
-        if (token.equals("null")) {
-            hideItem()
-            Log.d(Tag, "create:100 ")
-        }}
+        CheckSkip()
+        }
 
-//    override fun onStart() {
-//        super.onStart()
-//        val token =Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())
-//        if (token.equals("null")) {
-//            hideItem()
-//            Log.d(Tag, "create:100 ")
-//        }}
+    override fun onResume() {
+        super.onResume()
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -108,11 +100,14 @@ class MainActivity : AppCompatActivity(), MainContract.View,
         return true
     }
 
-    fun hideItem() {
-        navigationView = findViewById(R.id.nav_view)
-        val nav_Menu:Menu = navigationView.menu
-        nav_Menu.findItem(R.id.nav_logout).setVisible(false) }
-
+    fun CheckSkip() {
+        val token = Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())
+        if (token.equals("null")) {
+            navigationView = findViewById(R.id.nav_view)
+            val nav_Menu: Menu = navigationView.menu
+            nav_Menu.findItem(R.id.nav_logout).setVisible(false)
+        }
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         navController = findNavController(R.id.nav_host_fragment)
@@ -129,7 +124,7 @@ class MainActivity : AppCompatActivity(), MainContract.View,
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val token =Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())
+        val token = Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())
 
         when (item.itemId) {
             R.id.nav_logout -> {
@@ -184,7 +179,7 @@ class MainActivity : AppCompatActivity(), MainContract.View,
         val builderX = AlertDialog.Builder(this)
             .setMessage("الرجاء تسجيل الدخول اولا ")
             .setPositiveButton("نعم") { _, _ ->
-                navController.navigate(R.id.enterPhoneNumberFragment)
+                navController.navigate(R.id.splashFragment)
             }
             .setNegativeButton("لا") { _, _ ->
 

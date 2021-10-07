@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.gson.JsonObject
@@ -71,6 +72,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
             R.id.tvSkip -> {
                 loginPresenter.saveToken(requireContext(), SharedKeyEnum.TOKEN.toString(), "null")
                 navController.navigate(R.id.action_splashFragment_to_nav_home)
+                this.requireActivity().recreate()
             }
         }
     }

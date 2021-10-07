@@ -23,6 +23,8 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
+import com.ihsan.sona3.utils.SharedKeyEnum
+import com.ihsan.sona3.utils.Sona3Preferences
 import com.ihsan.sona3.utils.toast
 import timber.log.Timber
 
@@ -34,6 +36,7 @@ class MainActivity : AppCompatActivity(), MainContract.View,
     lateinit var mainAppbar: AppBarLayout
     lateinit var drawerLayout: DrawerLayout
     lateinit var toolbar: Toolbar
+    lateinit var navigationView: NavigationView
     lateinit var navController: NavController
 
     lateinit var db: AppDatabase
@@ -67,6 +70,8 @@ class MainActivity : AppCompatActivity(), MainContract.View,
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.setNavigationItemSelectedListener(this)
+
+        CheckSkip()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -102,19 +107,38 @@ class MainActivity : AppCompatActivity(), MainContract.View,
         window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
     }
 
+    fun CheckSkip() {
+    val token = Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())
+    if (token.equals("null")) {
+        navigationView = findViewById(R.id.nav_view)
+        val nav_Menu: Menu = navigationView.menu
+        nav_Menu.findItem(R.id.nav_logout).setVisible(false)
+    }
+}
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val token =Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())
 
         when (item.itemId) {
             R.id.nav_logout -> {
                 Timber.i("Logout Here")
-                dialog()
-            }
+                dialog() }
             R.id.nav_home -> {
                 navController.navigate(R.id.nav_home)
                 navController.popBackStack(R.id.mobile_navigation, true)
             }
-            R.id.nav_profile -> navController.navigate(R.id.nav_profile)
-            R.id.nav_my_form -> navController.navigate(R.id.nav_my_form)
+            R.id.nav_profile -> {
+                if (!token.equals("null")) navController.navigate(R.id.nav_profile)
+                else {
+                    dialogLogIn()
+                }
+            }
+            R.id.nav_my_form -> {
+                if (!token.equals("null")) navController.navigate(R.id.nav_my_form)
+                else {
+                    dialogLogIn()
+                }
+            }
         }
 
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -134,6 +158,19 @@ class MainActivity : AppCompatActivity(), MainContract.View,
             .setMessage("التاكيد علي تسجيل الخروج")
             .setPositiveButton("نعم") { _, _ ->
                 mainPresenter.userLogOut()
+            }
+            .setNegativeButton("لا") { _, _ ->
+
+            }
+
+        val dialog = builderX.create()
+        dialog.show()
+    }
+    private fun dialogLogIn() {
+        val builderX = AlertDialog.Builder(this)
+            .setMessage("الرجاء تسجيل الدخول اولا ")
+            .setPositiveButton("نعم") { _, _ ->
+                navController.navigate(R.id.splashFragment)
             }
             .setNegativeButton("لا") { _, _ ->
 

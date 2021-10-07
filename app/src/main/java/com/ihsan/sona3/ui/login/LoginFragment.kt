@@ -35,6 +35,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
     private lateinit var loginPresenter: LoginPresenter
     private lateinit var sharedPreferencesUtil: Sona3Preferences
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -65,10 +66,12 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
                 } else {
                     navController.navigate(R.id.action_splashFragment_to_enterPhoneNumberFragment)
                 }
-
-
             }
-            R.id.tvSkip -> navController.navigate(R.id.action_splashFragment_to_nav_home)
+
+            R.id.tvSkip -> {
+                loginPresenter.saveToken(requireContext(), SharedKeyEnum.TOKEN.toString(), "null")
+                navController.navigate(R.id.action_splashFragment_to_nav_home)
+            }
         }
     }
 
@@ -148,7 +151,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
             sharedPreferencesUtil.getBoolean(SharedKeyEnum.FIRST_LOGIN.toString(), true)
         val userToken = sharedPreferencesUtil.getString(SharedKeyEnum.TOKEN.toString())
 
-        if (!isFirstLogin && userToken != null) {
+        if (!isFirstLogin && userToken != null && !userToken.equals("null")) {
             hideProgressDialog()
             navController.navigate(R.id.action_splashFragment_to_nav_home)
         }

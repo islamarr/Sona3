@@ -7,10 +7,15 @@ package com.ihsan.sona3.ui.form3
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.Spinner
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ihsan.sona3.BaseFragment
-import com.ihsan.sona3.databinding.Form3CardBinding
+import com.ihsan.sona3.R
+import com.ihsan.sona3.data.model.form3.Form3Model
 import com.ihsan.sona3.databinding.FragmentFormThreeBinding
 
 
@@ -18,58 +23,47 @@ class FormThreeFragment : BaseFragment<FragmentFormThreeBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentFormThreeBinding
         get() = FragmentFormThreeBinding::inflate
     private lateinit var navController: NavController
-    private var isvisible = false
-    private val views = ArrayList<Form3CardBinding>()
+    private val itemList = ArrayList<Form3Model>()
+    private lateinit var adapter: FormThreeAdapter
     override fun setupOnViewCreated(view: View) {
         navController = Navigation.findNavController(view)
-        binding.cardContainer.setOnClickListener {
-            cardAnimation()
-        }
-        binding.addNewCard.setOnClickListener { addView() }
-        binding.btnNext.setOnClickListener { getValues() }
+
+        itemList.add(Form3Model("ahmed", 12, 10.0))
+        adapter = FormThreeAdapter(itemList)
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = adapter
+        addItem()
+        binding.btnNext.setOnClickListener { getData() }
     }
 
-    private fun addView() {
-        val view = Form3CardBinding.inflate(layoutInflater)
-        binding.layoutContainer.addView(view.root)
-        views.add(view)
-        var v = false
-        view.cardContainer.setOnClickListener {
-            v = !v
+    private fun addItem() {
+        binding.addNewCard.setOnClickListener {
+            itemList.add(Form3Model("test", 1, 10.0))
 
-            if (v) {
-                view.divider.visibility = View.VISIBLE
-                view.dataContainer.visibility = View.VISIBLE
-            } else {
-                view.divider.visibility = View.GONE
-                view.dataContainer.visibility = View.GONE
+            adapter.notifyItemChanged(itemList.size - 1)
 
+        }
+    }
+
+    private fun getData() {
+        for (i in 0 until itemList.size) {
+            val view = binding.recyclerView.getChildAt(i)
+            try {
+
+                val value = view.findViewById<EditText>(R.id.etValue)
+                val cbPhysical = view.findViewById<RadioButton>(R.id.cbPhysical)
+                val cbInKind = view.findViewById<RadioButton>(R.id.cbInKind)
+                val spinner = view.findViewById<Spinner>(R.id.incomeTypeSpinner)
+                println(spinner.selectedItem.toString())
+                if (cbPhysical.isChecked) {
+                    println(cbPhysical.text.toString())
+
+                } else if (cbInKind.isChecked) println(cbInKind.text.toString())
+                println(value.text.toString())
+            } catch (ex: NullPointerException) {
+                println(null)
             }
-
-        }
-        view.btnDeleteData.setOnClickListener {
-            binding.layoutContainer.removeView(view.root)
-            views.remove(view)
         }
     }
-
-    private fun cardAnimation() {
-        isvisible = !isvisible
-        if (isvisible) {
-
-            binding.divider.visibility = View.VISIBLE
-            binding.dataContainer.visibility = View.VISIBLE
-        } else {
-            binding.divider.visibility = View.GONE
-            binding.dataContainer.visibility = View.GONE
-        }
-    }
-
-    private fun getValues() {
-        for (view in views) {
-            println(view.etValue.text.toString())
-        }
-    }
-
 
 }

@@ -123,10 +123,10 @@ class Sona3Preferences {
     }
 
     fun getString(key: String?): String? {
-        var result: String? = ""
+        var result: String? = null
         openConnection()
         if (sona3Settings?.contains(key) == true) {
-            result = sona3Settings?.getString(key, "")
+            result = sona3Settings?.getString(key, null)
         }
         closeConnection()
         return result

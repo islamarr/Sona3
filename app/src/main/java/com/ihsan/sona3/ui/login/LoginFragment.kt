@@ -18,6 +18,7 @@ import com.ihsan.sona3.databinding.SplashFragmentBinding
 import com.ihsan.sona3.ui.main.MainActivity
 import com.ihsan.sona3.utils.SharedKeyEnum
 import com.ihsan.sona3.utils.Sona3Preferences
+import com.ihsan.sona3.utils.getToken
 import com.truecaller.android.sdk.ITrueCallback
 import com.truecaller.android.sdk.TrueError
 import com.truecaller.android.sdk.TrueProfile

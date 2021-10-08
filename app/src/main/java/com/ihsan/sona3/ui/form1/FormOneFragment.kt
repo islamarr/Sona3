@@ -22,6 +22,8 @@ import com.ihsan.sona3.R
 import com.ihsan.sona3.data.model.form1.Governs
 import com.ihsan.sona3.databinding.FragmentFormOneBinding
 import com.ihsan.sona3.ui.main.MainActivity
+import com.ihsan.sona3.utils.Sona3Preferences
+import com.ihsan.sona3.utils.getToken
 import com.ihsan.sona3.utils.toast
 import timber.log.Timber
 
@@ -33,6 +35,8 @@ class FormOneFragment : BaseFragment<FragmentFormOneBinding>(), AdapterView.OnIt
     private lateinit var presenter: FormOnePresenter
     private lateinit var navController: NavController
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var sona3Pref: Sona3Preferences
+
     override fun setupOnViewCreated(view: View) {
         navController = Navigation.findNavController(view)
         presenter = FormOnePresenter(this)
@@ -43,10 +47,10 @@ class FormOneFragment : BaseFragment<FragmentFormOneBinding>(), AdapterView.OnIt
         }
         binding.citySpinner.onItemSelectedListener = this
         activityLauncher()
-        val token = "Token 96114cc99741e76b92fe9cdd2539dd2bf4c1ebc5"
         binding.citySpinner.setSelection(Adapter.NO_SELECTION, true)
         binding.citySpinner.clearFocus()
-        presenter.getGoverns(token)
+        sona3Pref = Sona3Preferences()
+        presenter.getGoverns(getToken())
 
         binding.btnNext.setOnClickListener { navController.navigate(R.id.action_formOneFragment_to_formThreeFragment) }
 
@@ -109,8 +113,7 @@ class FormOneFragment : BaseFragment<FragmentFormOneBinding>(), AdapterView.OnIt
 
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, postition: Int, id: Long) {
-        val token = "Token 96114cc99741e76b92fe9cdd2539dd2bf4c1ebc5"
-        presenter.getCenters(token, postition + 1)
+        presenter.getCenters(getToken(), postition + 1)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

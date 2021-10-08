@@ -44,7 +44,6 @@ class VerificationInteractor internal constructor(
             if (task.isSuccessful) {
                 payload = task.result!!.token.toString()
                 Timber.d("PayLoad: $payload")
-                Timber.d("Token: ${Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())}")
 
                 checkUser(payload = payload!!)
 

@@ -38,7 +38,7 @@ interface SonaApi {
     @PATCH("/en/api/v1/me/")
     fun updateUserData(
         @Header("Authorization") token: String,
-        @Body updatedUserData: JsonObject
+        @Body updatedUserData: JsonObject,
     ): Completable
 
     @POST("/en/api/v1/logout/")
@@ -50,7 +50,7 @@ interface SonaApi {
     @GET("/en/api/v1/cities/{governorate_id}/")
     fun centers(
         @Header("Authorization") token: String,
-        @Path("governorate_id") id: Int
+        @Path("governorate_id") id: Int,
     ): Single<List<Governs>>
 
 

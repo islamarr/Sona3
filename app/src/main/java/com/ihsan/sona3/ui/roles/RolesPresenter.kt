@@ -11,6 +11,7 @@ import com.ihsan.sona3.data.db.entities.User
 import com.ihsan.sona3.data.network.ApiSettings
 import com.ihsan.sona3.utils.SharedKeyEnum
 import com.ihsan.sona3.utils.Sona3Preferences
+import com.ihsan.sona3.utils.getToken
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
@@ -61,7 +62,7 @@ class RolesPresenter(
         }
 
         ApiSettings.apiInstance.updateUserData(
-            "token ${Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())}",
+            getToken(),
             userObject
         )
             .subscribeOn(Schedulers.io())

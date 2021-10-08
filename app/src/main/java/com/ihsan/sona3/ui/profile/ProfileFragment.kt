@@ -48,10 +48,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
         profilePresenter = ProfilePresenter(db, this)
         //profilePresenter.getUserDataLocal()
 
-        val token = "Token ${Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())}"
-        Timber.i("Token: $token")
-
-        profilePresenter.getUserDataRemote(token)
+        profilePresenter.getUserDataRemote(getToken())
 
         binding.editBtn.setOnClickListener(this)
         binding.ivProfilePhoto.setOnClickListener(this)
@@ -86,7 +83,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
     override fun onDataSavedLocal(user: User?) {
         //requireContext().toast("تم الحفظ")
         saveUserRemote(
-            "token ${Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())}",
+            getToken(),
             user
         )
     }

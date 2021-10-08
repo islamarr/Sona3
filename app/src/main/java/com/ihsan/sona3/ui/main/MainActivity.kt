@@ -23,6 +23,7 @@ import com.ihsan.sona3.data.db.AppDatabase
 import com.ihsan.sona3.databinding.ActivityMainBinding
 import com.ihsan.sona3.utils.SharedKeyEnum
 import com.ihsan.sona3.utils.Sona3Preferences
+import com.ihsan.sona3.utils.getToken
 import com.ihsan.sona3.utils.toast
 import timber.log.Timber
 

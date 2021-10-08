@@ -45,3 +45,8 @@ fun convertToStringBase64(context: Context, selectedfile: Uri): String {
 
     return encodedString
 }
+
+fun getToken(): String {
+    val token = Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())
+    return "Token $token"
+}

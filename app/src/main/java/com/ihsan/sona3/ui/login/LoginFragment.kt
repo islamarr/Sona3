@@ -69,7 +69,6 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
 
             }
             R.id.tvSkip -> {
-                loginPresenter.saveToken(requireContext(), SharedKeyEnum.TOKEN.toString(), "null")
                 navController.navigate(R.id.action_splashFragment_to_nav_home)
             }
         }
@@ -151,7 +150,7 @@ class LoginFragment : BaseFragment<SplashFragmentBinding>(),
             sharedPreferencesUtil.getBoolean(SharedKeyEnum.FIRST_LOGIN.toString(), true)
         val userToken = sharedPreferencesUtil.getString(SharedKeyEnum.TOKEN.toString())
 
-        if (!isFirstLogin && userToken != null && !userToken.equals("null")) {
+        if (!isFirstLogin && userToken != null) {
             hideProgressDialog()
             navController.navigate(R.id.action_splashFragment_to_nav_home)
         }

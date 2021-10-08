@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity(), MainContract.View,
         binding.navView.setupWithNavController(navController)
         binding.navView.setNavigationItemSelectedListener(this)
 
-        checkSkip()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -94,18 +93,17 @@ class MainActivity : AppCompatActivity(), MainContract.View,
         binding.appBar.mainAppbar.visibility = visibility
         binding.drawerLayout.setDrawerLockMode(mode)
         binding.appBar.fab.visibility = visibility
+        setLogOutVisibility()
     }
 
     private fun supportRTL() {
         window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
     }
 
-    private fun checkSkip() {
+    private fun setLogOutVisibility() {
         val token = Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())
-        if (token != null) {
-            val navLogout: Menu = binding.navView.menu
-            navLogout.findItem(R.id.nav_logout).isVisible = false
-        }
+        val navLogout: Menu = binding.navView.menu
+        navLogout.findItem(R.id.nav_logout).isVisible = token != null
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

@@ -37,7 +37,7 @@ class FormOneFragment : BaseFragment<FragmentFormOneBinding>(), AdapterView.OnIt
         navController = Navigation.findNavController(view)
         presenter = FormOnePresenter(this)
         val activity = activity as MainActivity
-        activity.fab.visibility = View.GONE
+        activity.binding.appBar.fab.visibility = View.GONE
         binding.ivFamilyImage.setOnClickListener {
             imagePicker()
         }

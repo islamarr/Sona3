@@ -34,7 +34,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(),
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        (activity as MainActivity).toolbar.title = getString(R.string.profile)
+        (activity as MainActivity).binding.appBar.toolbar.title = getString(R.string.profile)
     }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentProfileBinding

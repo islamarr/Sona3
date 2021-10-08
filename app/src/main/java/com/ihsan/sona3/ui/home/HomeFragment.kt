@@ -28,7 +28,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeContract.View {
             DrawerLayout.LOCK_MODE_UNLOCKED
         )
         navController = Navigation.findNavController(view)
-        activity.fab.setOnClickListener {
+        activity.binding.appBar.fab.setOnClickListener {
             navController.navigate(R.id.action_nav_home_to_formOneFragment)
         }
         binding.rvData.layoutManager = LinearLayoutManager(requireContext())

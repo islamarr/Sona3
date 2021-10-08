@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.ihsan.sona3.R
 import com.ihsan.sona3.data.db.AppDatabase
+import com.ihsan.sona3.databinding.ActivityMainBinding
 import com.ihsan.sona3.utils.SharedKeyEnum
 import com.ihsan.sona3.utils.Sona3Preferences
 import com.ihsan.sona3.utils.toast
@@ -29,13 +30,10 @@ import timber.log.Timber
 class MainActivity : AppCompatActivity(), MainContract.View,
     NavigationView.OnNavigationItemSelectedListener {
 
+    lateinit var binding: ActivityMainBinding
+
     lateinit var appBarConfiguration: AppBarConfiguration
-    lateinit var mainAppbar: AppBarLayout
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var toolbar: Toolbar
-    lateinit var navigationView: NavigationView
     lateinit var navController: NavController
-    lateinit var fab: FloatingActionButton
     lateinit var db: AppDatabase
     lateinit var mainPresenter: MainPresenter
 
@@ -45,28 +43,25 @@ class MainActivity : AppCompatActivity(), MainContract.View,
         // TODO: 6/29/2021 Uncomment After solving layout issue
         //supportRTL()
 
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         db = AppDatabase.invoke(this)
         mainPresenter = MainPresenter(db, this)
-        fab = findViewById(R.id.fab)
-        toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        mainAppbar = findViewById(R.id.mainAppbar)
+        setSupportActionBar(binding.appBar.toolbar)
 
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_profile, R.id.nav_my_form, R.id.nav_logout
-            ), drawerLayout
+            ), binding.drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navigationView.setupWithNavController(navController)
-        navigationView.setNavigationItemSelectedListener(this)
+        binding.navView.setupWithNavController(navController)
+        binding.navView.setNavigationItemSelectedListener(this)
 
         checkSkip()
     }
@@ -96,9 +91,9 @@ class MainActivity : AppCompatActivity(), MainContract.View,
     }
 
     fun setHomeItemsVisibility(visibility: Int, mode: Int) {
-        mainAppbar.visibility = visibility
-        drawerLayout.setDrawerLockMode(mode)
-        fab.visibility = visibility
+        binding.appBar.mainAppbar.visibility = visibility
+        binding.drawerLayout.setDrawerLockMode(mode)
+        binding.appBar.fab.visibility = visibility
     }
 
     private fun supportRTL() {
@@ -108,7 +103,7 @@ class MainActivity : AppCompatActivity(), MainContract.View,
     private fun checkSkip() {
         val token = Sona3Preferences().getString(SharedKeyEnum.TOKEN.toString())
         if (token != null) {
-            val navLogout: Menu = navigationView.menu
+            val navLogout: Menu = binding.navView.menu
             navLogout.findItem(R.id.nav_logout).isVisible = false
         }
     }
@@ -139,7 +134,7 @@ class MainActivity : AppCompatActivity(), MainContract.View,
             }
         }
 
-        drawerLayout.closeDrawer(GravityCompat.START)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
 
         return true
 

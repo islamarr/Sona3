@@ -33,6 +33,6 @@ class MyFormFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val activity = activity as MainActivity
-        activity.toolbar.title = getString(R.string.my_form)
+        activity.binding.appBar.toolbar.title = getString(R.string.my_form)
     }
 }

@@ -13,10 +13,12 @@
     <string name="profile">الصفحة الشخصية</string>
     <string name="my_form">استمارتي</string>
     <string name="logout">تسجيل الخروج</string>
+    <string name="setting">الاعدادات</string>
 
     <!-- Start   Login Screen Strings  -->
     <string name="login_with_phone_number">تسجيل الدخول برقم الهاتف</string>
     <string name="skip">تخطي</string>
+
     <string name="image">image</string>
     <string name="enter_your_phone_number">أدخل رقم هاتفك المحمول</string>
     <string name="phone_number">رقم المحمول</string>
@@ -58,6 +60,14 @@
     <string name="show_review_forms">استعراض ومراجعة الابحاث</string>
     <string name="show_verify_forms">استعراض واعتماد الابحاث \n التي تم مراجعتها</string>
     <string name="please_wait">انتظر من فضلك</string>
+    <string name="education">التعليم</string>
+    <string name="job">نوع العمل</string>
+    <string name="smoker">مدخن</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="quran">عدد الاجزاء المحفزظه من القران</string>
+    <string name="Excellence">التميز</string>
+    <string name="delete">مسح البيانات</string>
 
     <!--  End Roles Screen Strings -->
 

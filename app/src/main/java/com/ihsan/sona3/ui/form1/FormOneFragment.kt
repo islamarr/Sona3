@@ -77,10 +77,7 @@ class FormOneFragment : BaseFragment<FragmentFormOneBinding>(), AdapterView.OnIt
                 if (it.resultCode == RESULT_OK && it.data != null
                 ) {
                     val bundle = it.data!!.extras
-                    try {
-
-
-                        val bitmap = bundle!!.get("data") as Bitmap
+                    try { val bitmap = bundle!!.get("data") as Bitmap
                         setImage(bitmap, null)
                     } catch (ex: Exception) {
 
@@ -128,10 +125,8 @@ class FormOneFragment : BaseFragment<FragmentFormOneBinding>(), AdapterView.OnIt
         hideProgressDialog()
         val cities = ArrayList<String>()
         for (city in governs) cities.add(city.name)
-        val adapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, cities)
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, cities)
         binding.citySpinner.adapter = adapter
-
     }
 
     override fun onRetrievedCenters(centers: List<Governs>) {

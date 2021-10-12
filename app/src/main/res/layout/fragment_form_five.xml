@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Last modified 9/22/21 7:21 PM
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Last modified 10/12/21, 2:10 AM
   -->
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -9,51 +8,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_50dp"
-        android:background="@color/purple_500"
-        android:gravity="center"
-        android:text="استماره البحث"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView21"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50dp"
-        android:layout_marginTop="@dimen/_50dp"
         android:background="@color/red"
         android:gravity="center"
-        android:text="بيانات افراد الاسره"
+        android:text="@string/family_property"
         android:textColor="@color/white"
         android:textSize="@dimen/_20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="405dp" />
+
+    <TextView
+        android:id="@+id/tv_all_family_property"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="@dimen/_150dp"
+        android:text="@string/all_family_property"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <com.alespero.expandablecardview.ExpandableCardView-->
-<!--        android:id="@+id/profile"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="50dp"-->
-<!--        app:animationDuration="400"-->
-<!--        app:expandOnClick="true"-->
-<!--        app:inner_view="@layout/card_family_data"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView21"-->
-<!--        app:startExpanded="false"-->
-<!--        app:title="افراد العائله" />-->
+
+    <EditText
+        android:id="@+id/Et_all_family_property"
+        android:layout_width="320dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/border"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_all_family_property" />
 
     <Button
         android:id="@+id/next"
         android:layout_width="120dp"
         android:layout_height="@dimen/_50dp"
         android:layout_marginStart="36dp"
-        android:backgroundTint="@color/teal_200"
         android:text="التالي"
         android:textSize="18sp"
         android:layout_marginTop="20dp"
@@ -65,7 +62,6 @@
         android:layout_width="120dp"
         android:layout_height="@dimen/_50dp"
         android:layout_marginEnd="36dp"
-        android:backgroundTint="@color/teal_200"
         android:text="السابق"
         android:textSize="18sp"
         android:layout_marginTop="20dp"

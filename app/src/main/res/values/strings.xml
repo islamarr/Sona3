@@ -22,6 +22,7 @@
     <string name="image">image</string>
     <string name="enter_your_phone_number">أدخل رقم هاتفك المحمول</string>
     <string name="phone_number">رقم المحمول</string>
+    <string name="phone_number2">رقم المحمول 2</string>
     <string name="send_verification_code">ارسل كود التفعيل</string>
     <string name="enter_verification_code">ادخل رقم الكود الذي تم ارساله الى</string>
     <string name="go_on">متابعة</string>
@@ -61,13 +62,17 @@
     <string name="show_verify_forms">استعراض واعتماد الابحاث \n التي تم مراجعتها</string>
     <string name="please_wait">انتظر من فضلك</string>
     <string name="education">التعليم</string>
-    <string name="job">نوع العمل</string>
+    <string name="workType">نوع العمل</string>
+    <string name="workIn">يعمل في</string>
     <string name="smoker">مدخن</string>
     <string name="yes">نعم</string>
     <string name="no">لا</string>
     <string name="quran">عدد الاجزاء المحفزظه من القران</string>
     <string name="Excellence">التميز</string>
     <string name="delete">مسح البيانات</string>
+
+    <string name="responsable">العائل </string>
+    <string name="addSomeone">اضافه فرد</string>
 
     <!--  End Roles Screen Strings -->
 
@@ -101,7 +106,14 @@
     <string name="value">القيمة</string>
     <string name="delete_data">مسح البيانات</string>
     <string name="add_new_income">أضف مدخولات أخرى</string>
-
+    <string name="family_expenses">نفقات الاسرة</string>
+    <string name="type_of_expenses">نوع الانفاق</string>
+    <string name="total_of_expenses">اجمالي النفقات</string>
+    <string name="family_member_data">بيانات افراد الاسرة</string>
+    <string name="family_property">ممتلكات الاسرة</string>
+    <string name="all_family_property">ما تملكه الاسرة</string>
+    <string name="family_story">قصه الاسرة</string>
+    <string name="write_family_story">اكتب قصه الاسرة</string>
 
     <!-- dummy data -->
     <string-array name="dummy_list">

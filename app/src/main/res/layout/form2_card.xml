@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Last modified 9/22/21 5:58 PM
+  -->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card2Container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_10dp"
+    android:layout_marginBottom="@dimen/_10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_card"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/_20dp"
+                android:text="@string/responsable"
+                android:textColor="@color/app_text_color"
+                android:textSize="@dimen/_24sp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/app_text_color"
+            android:visibility="gone" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/form2_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:text="@string/name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TIL_Name"
+                android:layout_width="280dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="@dimen/_20dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvName" >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/EtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <TextView
+                android:id="@+id/tvId"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/national_id"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvName" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TIL_Id"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvId"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvId">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/EtId"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/tvPhoneNum"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:text="@string/phone_number"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvId" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TIL_PhoneNum"
+                android:layout_width="220dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="@dimen/_20dp"
+                android:textColor="@color/black"
+                android:inputType="number"
+                android:textSize="@dimen/_20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvPhoneNum"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvPhoneNum" >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/EtPhoneNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/tvPhoneNum2"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:text="@string/phone_number2"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPhoneNum" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TIL_PhoneNum2"
+                android:layout_width="220dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvPhoneNum2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvPhoneNum2" >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/EtPhoneNum2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/tvprofile"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/profile"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPhoneNum2" />
+
+                <Spinner
+                    android:id="@+id/sp_profile"
+                    android:layout_width="@dimen/_150dp"
+                    android:layout_height="35dp"
+                    android:entries="@array/dummy_list"
+                    android:layout_marginStart="@dimen/_50dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvprofile"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvprofile"
+                    />
+
+            <TextView
+                android:id="@+id/tv_education"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/education"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvprofile" />
+
+
+            <Spinner
+                android:id="@+id/sp_education"
+                android:layout_width="@dimen/_150dp"
+                android:layout_height="35dp"
+                android:entries="@array/dummy_list"
+                android:layout_marginStart="@dimen/_50dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_education"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_education"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_work_type"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/workType"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_education" />
+
+            <Spinner
+                android:id="@+id/sp_job"
+                android:layout_width="@dimen/_150dp"
+                android:layout_height="35dp"
+                android:entries="@array/dummy_list"
+                android:layout_marginStart="@dimen/_50dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_work_type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_work_type"
+                />
+
+            <TextView
+                android:id="@+id/tv_workIn"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:text="@string/workIn"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_work_type" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TIL_workIn"
+                android:layout_width="280dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_workIn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_workIn">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Et_workIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <TextView
+                android:id="@+id/tv_smoker"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/smoker"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_workIn" />
+
+            <RadioGroup
+                android:id="@+id/radiogroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="110dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_smoker"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_smoker">
+
+                <RadioButton
+                    android:id="@+id/radio_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginEnd="@dimen/_30dp"
+                    android:onClick="OnClickRadio"
+                    android:text="@string/yes" />
+
+                <RadioButton
+                    android:id="@+id/radio_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:checked="true"
+                    android:onClick="OnClickRadio"
+                    android:text="@string/no" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_quran"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/quran"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_smoker" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TIL_quran"
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="160dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_quran"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_quran">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Et_quran"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_excellent"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/Excellence"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_quran" />
+
+            <EditText
+                android:id="@+id/Et_excellent"
+                android:layout_width="280dp"
+                android:layout_height="35dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_excellent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.16"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_excellent"
+                app:layout_constraintVertical_bias="0.0" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TIL_excellent"
+                android:layout_width="280dp"
+                android:layout_height="35dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_excellent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.16"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_excellent">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ET_excellent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/btn_deleteData"
+                android:layout_width="@dimen/_150dp"
+                android:layout_height="@dimen/_50dp"
+                android:layout_marginStart="@dimen/_30dp"
+                android:layout_marginTop="20dp"
+                android:drawableEnd="@drawable/ic_delete"
+                android:text="@string/delete"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Et_excellent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

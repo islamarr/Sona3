@@ -20,11 +20,14 @@ import com.ihsan.sona3.databinding.FragmentFormThreeBinding
 
 
 class FormThreeFragment : BaseFragment<FragmentFormThreeBinding>() {
+
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentFormThreeBinding
         get() = FragmentFormThreeBinding::inflate
+
     private lateinit var navController: NavController
     private val itemList = ArrayList<Form3Model>()
     private lateinit var adapter: FormThreeAdapter
+
     override fun setupOnViewCreated(view: View) {
         navController = Navigation.findNavController(view)
 
@@ -39,9 +42,7 @@ class FormThreeFragment : BaseFragment<FragmentFormThreeBinding>() {
     private fun addItem() {
         binding.addNewCard.setOnClickListener {
             itemList.add(Form3Model("test", 1, 10.0))
-
             adapter.notifyItemChanged(itemList.size - 1)
-
         }
     }
 

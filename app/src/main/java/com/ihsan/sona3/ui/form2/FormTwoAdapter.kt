@@ -28,7 +28,7 @@ class FormTwoAdapter(private val list: ArrayList<Form2Data>):
     override fun onBindViewHolder(holder: FormTwoAdapter.ViewHolder, position: Int) {
         animateCard(holder)
         holder.delete.setOnClickListener {
-            holder.name.setText("")
+            holder.name?.setText("")
             holder.Id.setText("")
             holder.phoneNum1.setText("")
             holder.phoneNum2.setText("")
@@ -36,19 +36,24 @@ class FormTwoAdapter(private val list: ArrayList<Form2Data>):
             holder.workIn.setText("")
             holder.NotSmoker.isChecked = false
             holder.smoker.isChecked = false
-            list.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeRemoved(position, list.size)
+//            list.removeAt(position)
+//            notifyItemRemoved(position)
+//            notifyItemRangeRemoved(position, list.size)
+            holder.ConsContainer.layoutTransition = LayoutTransition()
+            holder.ConsContainer.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+            holder.ConsContainer.visibility = View.GONE
+            holder.div.visibility = View.GONE
+        }
+        val form2Data:Form2Data= list[position]
+        if(position != 0){
+            holder.cardlable.setText("اضافه فرد ")
         }
 
-        validation.validateUsername(holder.name)
-        validation.validateID(holder.Id)
-        validation.validatePhoneNumber(holder.phoneNum1)
 
     }
 
     private fun animateCard(holder: FormTwoAdapter.ViewHolder) {
-        holder.CardContainers.setOnClickListener {
+        holder.cardContainer.setOnClickListener {
             enabled = !enabled
             if (enabled) {
                 holder.ConsContainer.layoutTransition = LayoutTransition()
@@ -65,10 +70,11 @@ class FormTwoAdapter(private val list: ArrayList<Form2Data>):
     override fun getItemCount(): Int =list.size
 
     inner class ViewHolder(binding: Form2CardBinding) : RecyclerView.ViewHolder(binding.root) {
-        val CardContainers=binding.card2Container
-        val ConsContainer=binding.card2Container
+       val cardContainer=binding.card2Container
+        val cardlable=binding.cardLabel
+        val ConsContainer=binding.form2Container
         val div=binding.divider
-        val name = binding.EtName
+        val name = binding.TILName.editText
         val Id = binding.EtId
         val phoneNum1 = binding.EtPhoneNum
         val phoneNum2 = binding.EtPhoneNum2

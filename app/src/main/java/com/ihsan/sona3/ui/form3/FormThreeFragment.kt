@@ -36,7 +36,13 @@ class FormThreeFragment : BaseFragment<FragmentFormThreeBinding>() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
         addItem()
-        binding.btnNext.setOnClickListener { getData() }
+        binding.btnNext.setOnClickListener { getData()
+            navController.navigate(R.id.action_formThreeFragment_to_formFourFragment)
+        }
+        binding.btnPrevious.setOnClickListener {
+            navController.navigate(R.id.action_formThreeFragment_to_formTwoFragment)
+
+        }
     }
 
     private fun addItem() {
@@ -58,7 +64,6 @@ class FormThreeFragment : BaseFragment<FragmentFormThreeBinding>() {
                 println(spinner.selectedItem.toString())
                 if (cbPhysical.isChecked) {
                     println(cbPhysical.text.toString())
-
                 } else if (cbInKind.isChecked) println(cbInKind.text.toString())
                 println(value.text.toString())
             } catch (ex: NullPointerException) {

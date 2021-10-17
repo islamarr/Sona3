@@ -114,7 +114,7 @@
     <string name="all_family_property">ما تملكه الاسرة</string>
     <string name="family_story">قصه الاسرة</string>
     <string name="write_family_story">اكتب قصه الاسرة</string>
-
+    <string name="add_new_person">أضف فرد</string>
     <!-- dummy data -->
     <string-array name="dummy_list">
         <item>item1</item>

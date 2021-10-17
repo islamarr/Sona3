@@ -52,7 +52,7 @@ class FormOneFragment : BaseFragment<FragmentFormOneBinding>(), AdapterView.OnIt
         sona3Pref = Sona3Preferences()
         presenter.getGoverns(getToken())
 
-        binding.btnNext.setOnClickListener { navController.navigate(R.id.action_formOneFragment_to_formThreeFragment) }
+        binding.btnNext.setOnClickListener { navController.navigate(R.id.action_formOneFragment_to_formTwoFragment) }
 
     }
 

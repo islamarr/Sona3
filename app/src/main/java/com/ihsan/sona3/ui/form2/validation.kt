@@ -47,16 +47,17 @@ class validation {
             true
         }
     }
-//        fun validatenumoFQuran(NumQuran: EditText): Boolean {
-//            val workInInput: Int = NumQuran.getText().trim()
-//            return if (workInInput.isEmpty()){
-//                NumQuran.error = "Field can't be empty"
-//                false
-//            }else {
-//                NumQuran.error = null
-//                true
-//            }
-//        }
+        fun validatenumoFQuran(NumQuran: EditText): Boolean {
+            val workInInput: Int = Integer.parseInt(NumQuran.getText().toString().trim())
+            return if (workInInput.toString().isEmpty() && workInInput >= 0 && workInInput <= 30){
+                NumQuran.error = "Field can't be empty or number must be bettwen 0:30 "
+                false
+            }
+            else {
+                NumQuran.error = null
+                true
+            }
+        }
         fun validateworkIn(workIn: EditText): Boolean {
             val workInInput: String = workIn.getText().toString().trim()
             return if (workInInput.isEmpty()) {

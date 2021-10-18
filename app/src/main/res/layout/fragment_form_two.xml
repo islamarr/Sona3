@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/form2_card" />
+        tools:listitem="@layout/one_item_form2" />
 
     <Button
         android:id="@+id/next"

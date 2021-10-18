@@ -77,7 +77,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="ادخل الاسم رباعي "
+                    android:hint="@string/hint_name"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,10 +104,10 @@
                 app:layout_constraintTop_toTopOf="@+id/tvId">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/EtId"
+                    android:id="@+id/nationalId"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="ادخل 14 رقم"
+                    android:hint="@string/hint_national_id"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -138,6 +138,7 @@
                     android:id="@+id/EtPhoneNum"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:maxLength="11"
                     android:hint="ادخل 11 رقم"
                     android:inputType="number"
                     android:textColor="@color/black" />

@@ -45,7 +45,8 @@
             android:id="@+id/dataContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone">
+            android:visibility="visible"
+            >
 
             <TextView
                 android:id="@+id/textView21"
@@ -71,7 +72,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/textView21"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck" />
+                tools:ignore="SpeakableTextPresentCheck"
+                />
 
             <TextView
                 android:id="@+id/textView23"

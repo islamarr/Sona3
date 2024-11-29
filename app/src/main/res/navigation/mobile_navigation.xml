@@ -130,12 +130,60 @@
         android:name="com.ihsan.sona3.ui.form1.FormOneFragment"
         android:label="FormOneFragment" >
         <action
-            android:id="@+id/action_formOneFragment_to_formThreeFragment"
-            app:destination="@id/formThreeFragment" />
+            android:id="@+id/action_formOneFragment_to_formTwoFragment"
+            app:destination="@id/formTwoFragment" />
     </fragment>
     <fragment
         android:id="@+id/formThreeFragment"
         android:name="com.ihsan.sona3.ui.form3.FormThreeFragment"
         android:label="fragment_form_three"
-        tools:layout="@layout/fragment_form_three" />
+        tools:layout="@layout/fragment_form_three" >
+        <action
+            android:id="@+id/action_formThreeFragment_to_formFourFragment"
+            app:destination="@id/formFourFragment" />
+        <action
+            android:id="@+id/action_formThreeFragment_to_formTwoFragment"
+            app:destination="@id/formTwoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/formTwoFragment"
+        android:name="com.ihsan.sona3.ui.form2.FormTwoFragment"
+        android:label="FormTwoFragment" >
+        <action
+            android:id="@+id/action_formTwoFragment_to_formThreeFragment"
+            app:destination="@id/formThreeFragment" />
+        <action
+            android:id="@+id/action_formTwoFragment_to_formOneFragment"
+            app:destination="@id/formOneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/formFourFragment"
+        android:name="com.ihsan.sona3.ui.form4.FormFourFragment"
+        android:label="FormFourFragment" >
+        <action
+            android:id="@+id/action_formFourFragment_to_formFiveFragment"
+            app:destination="@id/formFiveFragment" />
+        <action
+            android:id="@+id/action_formFourFragment_to_formThreeFragment"
+            app:destination="@id/formThreeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/formFiveFragment"
+        android:name="com.ihsan.sona3.ui.form5.FormFiveFragment"
+        android:label="FormFiveFragment" >
+        <action
+            android:id="@+id/action_formFiveFragment_to_formFourFragment"
+            app:destination="@id/formFourFragment" />
+        <action
+            android:id="@+id/action_formFiveFragment_to_formSevenFragment"
+            app:destination="@id/formSevenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/formSevenFragment"
+        android:name="com.ihsan.sona3.ui.form7.FormSevenFragment"
+        android:label="FormSevenFragment" >
+        <action
+            android:id="@+id/action_formSevenFragment_to_formFiveFragment"
+            app:destination="@id/formFiveFragment" />
+    </fragment>
 </navigation>

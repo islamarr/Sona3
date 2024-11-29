@@ -1,4 +1,8 @@
 /*
+ * Last modified 10/8/21 8:16 PM
+ */
+
+/*
  * Last modified 9/17/21 9:10 PM
  */
 
@@ -20,7 +24,6 @@ class FamiliesListAdapter :
         var needs = binding.tvNeeds
         var address = binding.tvAddress
         var date = binding.tvDate
-
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

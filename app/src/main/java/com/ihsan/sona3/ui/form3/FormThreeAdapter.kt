@@ -14,9 +14,9 @@ import com.ihsan.sona3.databinding.Form3CardBinding
 
 class FormThreeAdapter(
     private val list: ArrayList<Form3Model>,
-
     ) :
     RecyclerView.Adapter<FormThreeAdapter.ViewHolder>() {
+
 
     inner class ViewHolder(binding: Form3CardBinding) : RecyclerView.ViewHolder(binding.root) {
         val incomeType = binding.incomeTypeSpinner
@@ -52,8 +52,8 @@ class FormThreeAdapter(
     }
 
     private var enabled = false
-    private fun animateCard(holder: ViewHolder) {
 
+    private fun animateCard(holder: ViewHolder) {
         holder.cardView.setOnClickListener {
             enabled = !enabled
             if (enabled) {
@@ -66,10 +66,7 @@ class FormThreeAdapter(
                 holder.dataContainer.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
                 holder.dataContainer.visibility = View.GONE
                 holder.divider.visibility = View.GONE
-
-            }
-        }
-    }
+            } } }
 
 
     override fun getItemCount(): Int = list.size

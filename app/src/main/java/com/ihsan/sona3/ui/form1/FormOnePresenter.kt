@@ -20,7 +20,6 @@ class FormOnePresenter(private val view: FormOneContract.View) : FormOneContract
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-
                 view.onRetrievedGoverns(it)
             }, {
                 view.onFailure(it.message!!)

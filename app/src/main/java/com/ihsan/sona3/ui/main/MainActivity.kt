@@ -1,9 +1,11 @@
 package com.ihsan.sona3.ui.main
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -63,7 +65,6 @@ class MainActivity : AppCompatActivity(), MainContract.View,
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
         binding.navView.setNavigationItemSelectedListener(this)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -153,6 +154,8 @@ class MainActivity : AppCompatActivity(), MainContract.View,
         dialog.show()
     }
 
+
+
     private fun dialogLogIn() {
         val builderX = AlertDialog.Builder(this)
             .setMessage("الرجاء تسجيل الدخول اولا ")
@@ -166,6 +169,7 @@ class MainActivity : AppCompatActivity(), MainContract.View,
         val dialog = builderX.create()
         dialog.show()
     }
+
 
     override fun onLogOutSuccess() {
         this.toast("تم تسجيل الخروج بنجاح")
